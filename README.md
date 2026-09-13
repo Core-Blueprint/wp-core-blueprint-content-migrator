@@ -2,7 +2,7 @@
 
 Core Blueprint Content Migrator is a safety-first, standalone WordPress utility for migrating registered post types and taxonomies on the same site. Core Blueprint Base is optional and adds suite registration and Governance logging when available.
 
-## v0.1.0-rc1 scope
+## v1.0.0-rc1 scope
 
 ### Post migrations
 

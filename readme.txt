@@ -3,7 +3,7 @@ Contributors: coreblueprint
 Tags: migration, post type, taxonomy, terms, content
 Requires at least: 7.0
 Requires PHP: 8.4
-Stable tag: 0.1.0-rc1
+Stable tag: 1.0.0-rc1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,5 +21,5 @@ Core Blueprint Base is optional. When available, the plugin can register with th
 
 == Changelog ==
 
-= 0.1.0-rc1 =
+= 1.0.0-rc1 =
 * First public release candidate with Post and Taxonomy migration modes.
