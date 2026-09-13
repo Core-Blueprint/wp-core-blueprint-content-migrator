@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0-rc1
+## 1.0.0-rc1
 
 - Renamed the utility to Core Blueprint Content Migrator.
 - Made the migration engine fully standalone; Core Blueprint Base is optional.
