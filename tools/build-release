@@ -1,20 +1,66 @@
 #!/usr/bin/env bash
 set -euo pipefail
+
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PLUGIN_SLUG="core-blueprint-content-migrator"
+DOMAIN="$PLUGIN_SLUG"
 ENTRY_FILE="$ROOT_DIR/core-blueprint-content-migrator.php"
 VERSION="$(php -r '$s=file_get_contents($argv[1]); preg_match("/Version:\\s+([^\\r\\n]+)/", $s, $m); echo trim($m[1] ?? "");' "$ENTRY_FILE")"
-[[ -n "$VERSION" ]] || { echo "Unable to determine plugin version." >&2; exit 1; }
-command -v rsync >/dev/null 2>&1 || { echo "rsync is required." >&2; exit 1; }
-command -v zip >/dev/null 2>&1 || { echo "zip is required." >&2; exit 1; }
-command -v php >/dev/null 2>&1 || { echo "php is required." >&2; exit 1; }
+EXPECTED_VERSION="1.0.0-rc1"
+LOCALES=(nl_NL de_DE fr_FR es_ES it_IT pt_PT)
+
+[[ "$VERSION" == "$EXPECTED_VERSION" ]] || { echo "Expected version $EXPECTED_VERSION, found ${VERSION:-unknown}." >&2; exit 1; }
+for command_name in php python3 wp msgmerge msgattrib msgfmt git rsync zip unzip sha256sum; do
+  command -v "$command_name" >/dev/null 2>&1 || { echo "$command_name is required." >&2; exit 1; }
+done
+
+"$ROOT_DIR/tools/i18n/check"
+find "$ROOT_DIR" -type f -name '*.php' ! -path "$ROOT_DIR/build/*" -print0 | xargs -0 -r -n1 php -l >/dev/null
+php "$ROOT_DIR/tools/conformance.php"
+
 BUILD_DIR="$ROOT_DIR/build"
 STAGE_DIR="$BUILD_DIR/$PLUGIN_SLUG"
 ZIP_PATH="$BUILD_DIR/${PLUGIN_SLUG}-${VERSION}.zip"
+SHA_PATH="$ZIP_PATH.sha256"
 rm -rf "$BUILD_DIR"
-mkdir -p "$STAGE_DIR"
-rsync -a --exclude='.git/' --exclude='.github/' --exclude='build/' --exclude='*.zip' "$ROOT_DIR/" "$STAGE_DIR/"
-find "$STAGE_DIR" -type f -name '*.php' -print0 | xargs -0 -n1 php -l >/dev/null
-php "$STAGE_DIR/tools/conformance.php" >/dev/null
+mkdir -p "$STAGE_DIR/languages"
+
+for path in core-blueprint-content-migrator.php uninstall.php readme.txt README.md CHANGELOG.md LICENSE; do
+  [[ -f "$ROOT_DIR/$path" ]] || { echo "Missing release file: $path" >&2; exit 1; }
+  cp "$ROOT_DIR/$path" "$STAGE_DIR/$path"
+done
+rsync -a "$ROOT_DIR/src/" "$STAGE_DIR/src/"
+
+POT="$ROOT_DIR/languages/$DOMAIN.pot"
+[[ -f "$POT" ]] || { echo "Missing verified POT: languages/$DOMAIN.pot" >&2; exit 1; }
+cp "$POT" "$STAGE_DIR/languages/"
+for locale in "${LOCALES[@]}"; do
+  PO="$ROOT_DIR/languages/$DOMAIN-$locale.po"
+  MO="$STAGE_DIR/languages/$DOMAIN-$locale.mo"
+  [[ -f "$PO" ]] || { echo "Missing reviewed PO: languages/$DOMAIN-$locale.po" >&2; exit 1; }
+  cp "$PO" "$STAGE_DIR/languages/"
+  msgfmt --check-format --check-header -o "$MO" "$PO"
+done
+
+find "$STAGE_DIR" -type f -name '*.php' -print0 | xargs -0 -r -n1 php -l >/dev/null
 ( cd "$BUILD_DIR" && zip -qr "$(basename "$ZIP_PATH")" "$PLUGIN_SLUG" )
-echo "$ZIP_PATH"
+unzip -tqq "$ZIP_PATH"
+ZIP_LIST="$(unzip -Z1 "$ZIP_PATH")"
+[[ -n "$ZIP_LIST" ]] || { echo "Release ZIP is empty." >&2; exit 1; }
+if printf '%s\n' "$ZIP_LIST" | grep -Ev "^$PLUGIN_SLUG/" >/dev/null; then
+  echo "Release ZIP contains entries outside canonical root $PLUGIN_SLUG/." >&2
+  exit 1
+fi
+for forbidden in '.git/' '.github/' 'docs/' 'tools/' 'build/' 'tests/'; do
+  if printf '%s\n' "$ZIP_LIST" | grep -F "/$forbidden" >/dev/null; then
+    echo "Release ZIP contains forbidden development path: $forbidden" >&2
+    exit 1
+  fi
+done
+for locale in "${LOCALES[@]}"; do
+  required="$PLUGIN_SLUG/languages/$DOMAIN-$locale.mo"
+  printf '%s\n' "$ZIP_LIST" | grep -Fx "$required" >/dev/null || { echo "Release ZIP missing $required" >&2; exit 1; }
+done
+
+sha256sum "$ZIP_PATH" > "$SHA_PATH"
+printf '%s\n%s\n' "$ZIP_PATH" "$SHA_PATH"
