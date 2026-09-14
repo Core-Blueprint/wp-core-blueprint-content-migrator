@@ -1,10 +1,17 @@
 # Core Blueprint Content Migrator release tooling
 
-Content Migrator is intentionally standalone and Core Blueprint Base-optional. Do not add `Requires Plugins: core-blueprint`, an activation dependency gate, or a hard Base runtime dependency.
+Content Migrator is intentionally standalone and Core Blueprint Base-optional. Do not add `Requires Plugins: core-blueprint`, an activation dependency gate or a hard Base runtime dependency.
 
-## Localization
+## Canonical localization
 
-English is the source language. The required reviewed locales are `nl_NL`, `de_DE`, `fr_FR`, `es_ES`, `it_IT` and `pt_PT`.
+English source is authoritative. The required reviewed locales are:
+
+- `nl_NL`
+- `de_DE`
+- `fr_FR`
+- `es_ES`
+- `it_IT`
+- `pt_PT`
 
 Canonical operator entrypoints:
 
@@ -13,24 +20,58 @@ tools/i18n/update
 tools/i18n/check
 ```
 
-The implementation is the First-Party Starter i18n tooling v1.1.0. POT and PO files are reviewable source artifacts. MO files are release-generated for this standalone public plugin and are not committed as translation authority.
+They use First-Party Starter i18n tooling v1.1.0. POT and PO files are reviewable source artifacts. `commit_mo:false` keeps MO files out of source authority; the releasebuilder compiles them fresh inside isolated staging.
 
-Do not use live machine translation or fill missing translations with English to satisfy the gate.
+Do not use live machine translation, placeholder catalogs or English copies to satisfy localization gates.
 
 ## Current content hold
 
-Until `languages/core-blueprint-content-migrator.pot` and all six reviewed PO catalogs exist, `tools/i18n/check` and `tools/build-release` must fail closed. This is intentional.
+Until `languages/core-blueprint-content-migrator.pot` and all six reviewed PO catalogs exist, both canonical i18n validation and the release build must fail closed. This is intentional and is not a tooling defect.
 
-## Release build
+## Customer release build
 
-Run:
+Run from the repository root:
 
 ```bash
 bash tools/build-release
 ```
 
-The builder requires PHP 8.4+, Python 3, WP-CLI i18n, GNU gettext, Git, rsync, zip/unzip and sha256sum. It runs the canonical localization check, PHP lint and `tools/conformance.php` before staging customer-facing files.
+The builder validates:
 
-The release ZIP uses the canonical root `core-blueprint-content-migrator/`, excludes developer-only directories and contains verified POT/PO sources plus freshly compiled MO catalogs for the exact six required locales.
+- plugin/readme release identity for `1.0.0-rc1`, WordPress 7.0+ and PHP 8.4+;
+- the deliberate absence of a native `Requires Plugins` dependency;
+- matching text-domain and runtime version identity;
+- a clean release-source tree outside `build/`;
+- canonical `tools/i18n/check` against current source;
+- source PHP syntax and standalone product conformance;
+- canonical POT plus complete reviewed PO coverage for all six locales;
+- fresh staged MO compilation with gettext format/header validation;
+- staged PHP syntax;
+- deterministic ZIP contents under exactly `core-blueprint-content-migrator/`;
+- absence of development-only paths;
+- packaged plugin/readme identity after archive acceptance.
 
-A failed localization, conformance, syntax, package-boundary or checksum gate is a release blocker. Do not bypass it or patch the generated ZIP manually.
+Only after all acceptance gates pass does the builder write the SHA-256 checksum.
+
+Output:
+
+```text
+build/core-blueprint-content-migrator-1.0.0-rc1.zip
+build/core-blueprint-content-migrator-1.0.0-rc1.zip.sha256
+```
+
+## Customer runtime boundary
+
+The package allowlist is:
+
+- `core-blueprint-content-migrator.php`
+- `uninstall.php`
+- `readme.txt`
+- `LICENSE`
+- `src/`
+- canonical POT and reviewed PO files in `languages/`
+- freshly compiled MO files in `languages/`
+
+Repository README/changelog material, tests, tools, CI metadata and other development-only content are not customer runtime files.
+
+A failed localization, conformance, syntax, package-boundary or checksum gate is a release blocker. Do not bypass the gate or patch the generated ZIP manually.
