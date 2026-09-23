@@ -93,6 +93,7 @@ jobs:
           mkdir -p /tmp/wordpress/wp-content/plugins/core-blueprint-content-migrator
           rsync -a             --exclude='.git/'             --exclude='build/'             "$GITHUB_WORKSPACE/"             /tmp/wordpress/wp-content/plugins/core-blueprint-content-migrator/
           wp plugin activate core-blueprint --path=/tmp/wordpress
+          wp cb operator recover 1 --path=/tmp/wordpress
           wp plugin activate core-blueprint-content-migrator --path=/tmp/wordpress
 
       - name: Run migration runtime regression
