@@ -1,0 +1,525 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Core Blueprint Content Migrator 1.0.0-rc1\n"
+"POT-Creation-Date: 2026-09-23 18:00+0000\n"
+"PO-Revision-Date: 2026-09-23 18:00+0000\n"
+"Last-Translator: Core Blueprint\n"
+"Language-Team: nl_NL\n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Core Blueprint i18n tooling 1.1.0\n"
+
+msgid "%1$s · %2$d/%3$d processed"
+msgstr "%1$s · %2$d/%3$d verwerkt"
+
+msgid "%d issues were recorded. Do not finalize before verification passes."
+msgstr "%d problemen zijn geregistreerd. Rond de migratie niet af voordat de verificatie slaagt."
+
+msgid "%d source posts found. Copies are created first; the source is not moved or deleted during testing."
+msgstr "%d bronberichten gevonden. Eerst worden kopieën gemaakt; de bron wordt tijdens het testen niet verplaatst of verwijderd."
+
+msgid "%d source terms found."
+msgstr "%d brontermen gevonden."
+
+msgid "A mapped target meta key is reserved or not writable."
+msgstr "Een toegewezen doelmetasleutel is gereserveerd of niet schrijfbaar."
+
+msgid "A mapped target term meta key is reserved or not writable."
+msgstr "Een toegewezen doelmetasleutel voor termen is gereserveerd of niet schrijfbaar."
+
+msgid "A mapped taxonomy is no longer available for the selected target post type."
+msgstr "Een toegewezen taxonomie is niet langer beschikbaar voor het geselecteerde doelberichttype."
+
+msgid "A migration can only be finalized after a successful verification."
+msgstr "Een migratie kan alleen worden afgerond na een geslaagde verificatie."
+
+msgid "A target term could not be marked for safe rollback and was removed."
+msgstr "Een doelterm kon niet worden gemarkeerd voor veilig terugdraaien en is verwijderd."
+
+msgid "Active migration"
+msgstr "Actieve migratie"
+
+msgid "Analysis complete. Review the plan below."
+msgstr "Analyse voltooid. Controleer het plan hieronder."
+
+msgid "Analyze post migration"
+msgstr "Berichtmigratie analyseren"
+
+msgid "Analyze taxonomy migration"
+msgstr "Taxonomiemigratie analyseren"
+
+msgid "Another migration became active before this job could be started."
+msgstr "Er werd een andere migratie actief voordat deze taak kon worden gestart."
+
+msgid "Another migration is already active."
+msgstr "Er is al een andere migratie actief."
+
+msgid "Batch complete."
+msgstr "Batch voltooid."
+
+msgid "Batch size"
+msgstr "Batchgrootte"
+
+msgid "Choose only mappings you understand. Missing target terms may be created and are included in rollback. Machine-owned target taxonomies are excluded."
+msgstr "Kies alleen toewijzingen die je begrijpt. Ontbrekende doeltermen kunnen worden aangemaakt en worden meegenomen bij het terugdraaien. Door machines beheerde doeltaxonomieën zijn uitgesloten."
+
+msgid "Confirm that you want to move the source posts to WordPress Trash."
+msgstr "Bevestig dat je de bronberichten naar de WordPress-prullenbak wilt verplaatsen."
+
+msgid "Confirm that you want to permanently delete the targets created by this migration."
+msgstr "Bevestig dat je de doelen die door deze migratie zijn aangemaakt permanent wilt verwijderen."
+
+msgid "Confirm that you want to take ownership of this migration."
+msgstr "Bevestig dat je het eigenaarschap van deze migratie wilt overnemen."
+
+msgid "Conflict rule: an existing target term with the same slug is reused and never overwritten. Only newly created terms receive mapped term meta and rollback markers."
+msgstr "Conflictregel: een bestaande doelterm met dezelfde slug wordt hergebruikt en nooit overschreven. Alleen nieuw aangemaakte termen krijgen toegewezen termmeta en rollbackmarkeringen."
+
+msgid "Content Migrator"
+msgstr "Content Migrator"
+
+msgid "Content migration action failed"
+msgstr "Actie voor contentmigratie mislukt"
+
+msgid "Content migration analysis completed"
+msgstr "Analyse van contentmigratie voltooid"
+
+msgid "Content migration batch copied"
+msgstr "Batch van contentmigratie gekopieerd"
+
+msgid "Content migration created"
+msgstr "Contentmigratie aangemaakt"
+
+msgid "Content migration finalization failed"
+msgstr "Afronden van contentmigratie mislukt"
+
+msgid "Content migration finalized"
+msgstr "Contentmigratie afgerond"
+
+msgid "Content migration ownership taken over"
+msgstr "Eigenaarschap van contentmigratie overgenomen"
+
+msgid "Content migration plan cleared"
+msgstr "Plan voor contentmigratie gewist"
+
+msgid "Content migration rollback failed"
+msgstr "Terugdraaien van contentmigratie mislukt"
+
+msgid "Content migration rolled back"
+msgstr "Contentmigratie teruggedraaid"
+
+msgid "Content migration source moved to Trash"
+msgstr "Bron van contentmigratie naar de prullenbak verplaatst"
+
+msgid "Content migration verified"
+msgstr "Contentmigratie geverifieerd"
+
+msgid "Copies terms and hierarchy. Existing target terms with the same slug are reused without overwriting their data. Relationships can be remapped when both taxonomies support the same post types."
+msgstr "Kopieert termen en hiërarchie. Bestaande doeltermen met dezelfde slug worden hergebruikt zonder hun gegevens te overschrijven. Relaties kunnen opnieuw worden toegewezen wanneer beide taxonomieën dezelfde berichttypen ondersteunen."
+
+msgid "Copy WordPress content safely, verify it, then roll back or finalize. Analysis is read-only and source content stays intact until you explicitly choose otherwise."
+msgstr "Kopieer WordPress-content veilig, verifieer deze en draai daarna terug of rond af. De analyse is alleen-lezen en broncontent blijft intact totdat je expliciet anders kiest."
+
+msgid "Copy options"
+msgstr "Kopieeropties"
+
+msgid "Core Blueprint Content Migrator"
+msgstr "Core Blueprint Content Migrator"
+
+msgid "Core Blueprint Content Migrator requires Core Blueprint %1$s or newer with compatible Core API %2$s."
+msgstr "Core Blueprint Content Migrator vereist Core Blueprint %1$s of nieuwer met compatibele Core API %2$s."
+
+msgid "Could not remove migrated relationships from object %d."
+msgstr "Gemigreerde relaties konden niet uit object %d worden verwijderd."
+
+msgid "Create safe migration job"
+msgstr "Veilige migratietaak aanmaken"
+
+msgid "Created target term %d differs in name or description."
+msgstr "Aangemaakte doelterm %d wijkt af in naam of beschrijving."
+
+msgid "Created target term %d has an invalid source marker."
+msgstr "Aangemaakte doelterm %d heeft een ongeldige bronmarkering."
+
+msgid "Created target term %d has an unexpected parent."
+msgstr "Aangemaakte doelterm %d heeft een onverwachte bovenliggende term."
+
+msgid "Created target term %d no longer has the expected rollback marker."
+msgstr "Aangemaakte doelterm %d heeft niet langer de verwachte rollbackmarkering."
+
+msgid "Created terms in taxonomy %s could not be removed because the taxonomy is unavailable or no longer manageable."
+msgstr "Aangemaakte termen in taxonomie %s konden niet worden verwijderd omdat de taxonomie niet beschikbaar of niet langer beheerbaar is."
+
+msgid "Finalization did not complete. The migration remains active and its rollback markers are still preserved."
+msgstr "Het afronden is niet voltooid. De migratie blijft actief en de rollbackmarkeringen blijven behouden."
+
+msgid "Finalization needs attention. The migration remains active."
+msgstr "Het afronden vereist aandacht. De migratie blijft actief."
+
+msgid "Finalize"
+msgstr "Afronden"
+
+msgid "Finalize & keep source"
+msgstr "Afronden en bron behouden"
+
+msgid "Finalize & keep source taxonomy"
+msgstr "Afronden en brontaxonomie behouden"
+
+msgid "Finalize & move source to Trash"
+msgstr "Afronden en bron naar prullenbak verplaatsen"
+
+msgid "Finish copying all batches before verification."
+msgstr "Voltooi het kopiëren van alle batches vóór de verificatie."
+
+msgid "For a first test, keep the source. Moving source posts to Trash is available only after verification passes."
+msgstr "Behoud voor een eerste test de bron. Bronberichten naar de prullenbak verplaatsen is alleen beschikbaar nadat de verificatie is geslaagd."
+
+msgid "I understand that I am taking responsibility for this active migration."
+msgstr "Ik begrijp dat ik de verantwoordelijkheid voor deze actieve migratie overneem."
+
+msgid "I understand that rollback permanently deletes targets owned by this migration job."
+msgstr "Ik begrijp dat terugdraaien doelen die eigendom zijn van deze migratietaak permanent verwijdert."
+
+msgid "I understand that the verified source posts will be moved to WordPress Trash."
+msgstr "Ik begrijp dat de geverifieerde bronberichten naar de WordPress-prullenbak worden verplaatst."
+
+msgid "Invalid target %1$s meta key: %2$s"
+msgstr "Ongeldige doelmetasleutel voor %1$s: %2$s"
+
+msgid "Items per request. Use a lower value on slower shared hosting."
+msgstr "Items per verzoek. Gebruik een lagere waarde op tragere shared hosting."
+
+msgid "Leave a target key empty to skip it. Registered target keys are shown as suggestions, but another valid key may be entered explicitly."
+msgstr "Laat een doelsleutel leeg om deze over te slaan. Geregistreerde doelsleutels worden als suggesties getoond, maar je kunt ook expliciet een andere geldige sleutel invoeren."
+
+msgid "Mapped post meta could not be written to the target post."
+msgstr "Toegewezen berichtmeta kon niet naar het doelbericht worden geschreven."
+
+msgid "Mapped term meta could not be written to the target term."
+msgstr "Toegewezen termmeta kon niet naar de doelterm worden geschreven."
+
+msgid "Migrated relationships on object %d were not removed because you no longer have permission."
+msgstr "Gemigreerde relaties op object %d zijn niet verwijderd omdat je niet langer toestemming hebt."
+
+msgid "Migration action failed."
+msgstr "Migratieactie mislukt."
+
+msgid "Migration analysis expired. Analyze the source and target again."
+msgstr "De migratieanalyse is verlopen. Analyseer de bron en het doel opnieuw."
+
+msgid "Migration finalized."
+msgstr "Migratie afgerond."
+
+msgid "Migration job ID is missing."
+msgstr "Migratietaak-ID ontbreekt."
+
+msgid "Migration job created. The source has not been changed."
+msgstr "Migratietaak aangemaakt. De bron is niet gewijzigd."
+
+msgid "Migration ownership transferred to your account."
+msgstr "Eigenaarschap van de migratie is overgedragen aan je account."
+
+msgid "Migration plan cleared."
+msgstr "Migratieplan gewist."
+
+msgid "Migration rolled back."
+msgstr "Migratie teruggedraaid."
+
+msgid "Migration state updated."
+msgstr "Migratiestatus bijgewerkt."
+
+msgid "Missing target terms cannot be created with the current permissions."
+msgstr "Ontbrekende doeltermen kunnen met de huidige rechten niet worden aangemaakt."
+
+msgid "New migration"
+msgstr "Nieuwe migratie"
+
+msgid "No active migration"
+msgstr "Geen actieve migratie"
+
+msgid "No active migration was found."
+msgstr "Er is geen actieve migratie gevonden."
+
+msgid "No safely remappable shared post relationships were found. Terms can still be migrated."
+msgstr "Er zijn geen veilig opnieuw toe te wijzen gedeelde berichtrelaties gevonden. Termen kunnen nog wel worden gemigreerd."
+
+msgid "No source meta keys found."
+msgstr "Geen bronmetasleutels gevonden."
+
+msgid "No source taxonomies found."
+msgstr "Geen brontaxonomieën gevonden."
+
+msgid "Object %d is missing one or more migrated target relationships."
+msgstr "Object %d mist één of meer gemigreerde doelrelaties."
+
+msgid "Post meta mapping"
+msgstr "Berichtmeta toewijzen"
+
+msgid "Posts / post types"
+msgstr "Berichten / berichttypen"
+
+msgid "Relationship verification failed for object %d."
+msgstr "Verificatie van relaties voor object %d is mislukt."
+
+msgid "Relationships"
+msgstr "Relaties"
+
+msgid "Remap relationships for %d affected posts."
+msgstr "Relaties voor %d betrokken berichten opnieuw toewijzen."
+
+msgid "Reuse the same featured-image attachment when supported by the target."
+msgstr "Dezelfde uitgelichte-afbeeldingsbijlage hergebruiken wanneer het doel dit ondersteunt."
+
+msgid "Review migration plan"
+msgstr "Migratieplan controleren"
+
+msgid "Roll back"
+msgstr "Terugdraaien"
+
+msgid "Roll back migration"
+msgstr "Migratie terugdraaien"
+
+msgid "Rollback could not safely remove every tracked item. Review the stored migration state before changing content manually."
+msgstr "Niet elk gevolgd item kon veilig worden teruggedraaid. Controleer de opgeslagen migratiestatus voordat je content handmatig wijzigt."
+
+msgid "Rollback needs attention."
+msgstr "Terugdraaien vereist aandacht."
+
+msgid "Rollback permanently removes only job-owned target posts and safe-to-remove target terms and relationships. Source content remains untouched."
+msgstr "Terugdraaien verwijdert alleen doelberichten die eigendom zijn van de taak en doeltermen en relaties die veilig kunnen worden verwijderd. Broncontent blijft intact."
+
+msgid "Run next batch"
+msgstr "Volgende batch uitvoeren"
+
+msgid "Select…"
+msgstr "Selecteren…"
+
+msgid "Skip"
+msgstr "Overslaan"
+
+msgid "Source"
+msgstr "Bron"
+
+msgid "Source %1$d or target %2$d is missing."
+msgstr "Bron %1$d of doel %2$d ontbreekt."
+
+msgid "Source %d cannot be moved to Trash because you no longer have permission."
+msgstr "Bron %d kan niet naar de prullenbak worden verplaatst omdat je niet langer toestemming hebt."
+
+msgid "Source %d could not be moved to Trash."
+msgstr "Bron %d kon niet naar de prullenbak worden verplaatst."
+
+msgid "Source %d is missing or changed type and cannot be moved to Trash safely."
+msgstr "Bron %d ontbreekt of is van type gewijzigd en kan niet veilig naar de prullenbak worden verplaatst."
+
+msgid "Source and target post types must be different."
+msgstr "Bron- en doelberichttype moeten verschillend zijn."
+
+msgid "Source and target taxonomies must be different."
+msgstr "Bron- en doeltaxonomie moeten verschillend zijn."
+
+msgid "Source key"
+msgstr "Bronsleutel"
+
+msgid "Source or target post type is not registered."
+msgstr "Bron- of doelberichttype is niet geregistreerd."
+
+msgid "Source or target taxonomy is not registered."
+msgstr "Bron- of doeltaxonomie is niet geregistreerd."
+
+msgid "Source post is unavailable or changed type."
+msgstr "Bronbericht is niet beschikbaar of is van type gewijzigd."
+
+msgid "Source term %1$d or target term %2$d no longer exists."
+msgstr "Bronterm %1$d of doelterm %2$d bestaat niet meer."
+
+msgid "Source term is unavailable."
+msgstr "Bronterm is niet beschikbaar."
+
+msgid "Start over"
+msgstr "Opnieuw beginnen"
+
+msgid "Status: %1$s · processed %2$d/%3$d"
+msgstr "Status: %1$s · %2$d/%3$d verwerkt"
+
+msgid "Take over migration"
+msgstr "Migratie overnemen"
+
+msgid "Target"
+msgstr "Doel"
+
+msgid "Target %1$d differs for %2$s → %3$s."
+msgstr "Doel %1$d wijkt af voor %2$s → %3$s."
+
+msgid "Target %1$d differs for meta %2$s."
+msgstr "Doel %1$d wijkt af voor meta %2$s."
+
+msgid "Target %1$d differs in %2$s."
+msgstr "Doel %1$d wijkt af in %2$s."
+
+msgid "Target %d could not be deleted."
+msgstr "Doel %d kon niet worden verwijderd."
+
+msgid "Target %d has an invalid type or rollback marker."
+msgstr "Doel %d heeft een ongeldig type of een ongeldige rollbackmarkering."
+
+msgid "Target %d is missing. Verify the migration again before finalizing."
+msgstr "Doel %d ontbreekt. Verifieer de migratie opnieuw voordat je deze afrondt."
+
+msgid "Target %d no longer has the expected migration markers."
+msgstr "Doel %d heeft niet langer de verwachte migratiemarkeringen."
+
+msgid "Target %d taxonomy verification failed."
+msgstr "Taxonomieverificatie voor doel %d is mislukt."
+
+msgid "Target %d was not deleted because its rollback marker changed."
+msgstr "Doel %d is niet verwijderd omdat de rollbackmarkering is gewijzigd."
+
+msgid "Target %d was not deleted because you no longer have permission."
+msgstr "Doel %d is niet verwijderd omdat je niet langer toestemming hebt."
+
+msgid "Target key"
+msgstr "Doelsleutel"
+
+msgid "Target term %1$d differs for mapped term meta %2$s."
+msgstr "Doelterm %1$d wijkt af voor toegewezen termmeta %2$s."
+
+msgid "Target term %d could not be deleted."
+msgstr "Doelterm %d kon niet worden verwijderd."
+
+msgid "Target term %d has a different slug."
+msgstr "Doelterm %d heeft een andere slug."
+
+msgid "Target term %d is missing. Verify the migration again before finalizing."
+msgstr "Doelterm %d ontbreekt. Verifieer de migratie opnieuw voordat je deze afrondt."
+
+msgid "Target term %d no longer has the expected migration marker."
+msgstr "Doelterm %d heeft niet langer de verwachte migratiemarkering."
+
+msgid "Target term %d was not deleted because it is now used by content outside the rollback."
+msgstr "Doelterm %d is niet verwijderd omdat deze nu wordt gebruikt door content buiten de rollback."
+
+msgid "Target term %d was not deleted because it now has child terms outside the rollback."
+msgstr "Doelterm %d is niet verwijderd omdat deze nu onderliggende termen buiten de rollback heeft."
+
+msgid "Target term %d was not deleted because its child terms could not be verified."
+msgstr "Doelterm %d is niet verwijderd omdat de onderliggende termen niet konden worden geverifieerd."
+
+msgid "Target term %d was not deleted because its relationships could not be verified."
+msgstr "Doelterm %d is niet verwijderd omdat de relaties niet konden worden geverifieerd."
+
+msgid "Target term %d was not deleted because its rollback marker changed."
+msgstr "Doelterm %d is niet verwijderd omdat de rollbackmarkering is gewijzigd."
+
+msgid "Target term %d was not deleted because you no longer have permission."
+msgstr "Doelterm %d is niet verwijderd omdat je niet langer toestemming hebt."
+
+msgid "Taxonomies"
+msgstr "Taxonomieën"
+
+msgid "Taxonomy mapping"
+msgstr "Taxonomie toewijzen"
+
+msgid "Term meta mapping"
+msgstr "Termmeta toewijzen"
+
+msgid "The active migration changed before this job could be saved."
+msgstr "De actieve migratie is gewijzigd voordat deze taak kon worden opgeslagen."
+
+msgid "The active migration changed. Refresh this page before running another action."
+msgstr "De actieve migratie is gewijzigd. Vernieuw deze pagina voordat je nog een actie uitvoert."
+
+msgid "The featured image could not be assigned to the target post."
+msgstr "De uitgelichte afbeelding kon niet aan het doelbericht worden toegewezen."
+
+msgid "The migration job could not be stored."
+msgstr "De migratietaak kon niet worden opgeslagen."
+
+msgid "The selected source post type has no migratable posts."
+msgstr "Het geselecteerde bronberichttype bevat geen migreerbare berichten."
+
+msgid "The selected source taxonomy has no terms to migrate."
+msgstr "De geselecteerde brontaxonomie bevat geen te migreren termen."
+
+msgid "The source is still untouched. Continue until copying is complete."
+msgstr "De bron is nog steeds intact. Ga door totdat het kopiëren is voltooid."
+
+msgid "The target post could not be marked for safe rollback. Automatic cleanup was attempted."
+msgstr "Het doelbericht kon niet worden gemarkeerd voor veilig terugdraaien. Automatisch opruimen is geprobeerd."
+
+msgid "The target taxonomy is flat, so source parent/child relationships cannot be preserved."
+msgstr "De doeltaxonomie is vlak, waardoor bovenliggende en onderliggende relaties van de bron niet kunnen worden behouden."
+
+msgid "The target term could not be marked for safe rollback. Automatic cleanup was attempted."
+msgstr "De doelterm kon niet worden gemarkeerd voor veilig terugdraaien. Automatisch opruimen is geprobeerd."
+
+msgid "This migration is not ready to copy another batch."
+msgstr "Deze migratie is niet klaar om nog een batch te kopiëren."
+
+msgid "This migration is owned by another administrator. Take over the migration before changing it."
+msgstr "Deze migratie is eigendom van een andere beheerder. Neem de migratie over voordat je deze wijzigt."
+
+msgid "This migration is owned by another administrator. Take ownership explicitly before continuing, verifying, finalizing or rolling it back."
+msgstr "Deze migratie is eigendom van een andere beheerder. Neem expliciet het eigenaarschap over voordat je doorgaat, verifieert, afrondt of terugdraait."
+
+msgid "Use this when content already exists in one post type and should be copied into another post type, including selected taxonomies and meta."
+msgstr "Gebruik dit wanneer content al in één berichttype bestaat en naar een ander berichttype moet worden gekopieerd, inclusief geselecteerde taxonomieën en meta."
+
+msgid "Verification found differences."
+msgstr "Bij de verificatie zijn verschillen gevonden."
+
+msgid "Verification passed."
+msgstr "Verificatie geslaagd."
+
+msgid "Verify migrated content"
+msgstr "Gemigreerde content verifiëren"
+
+msgid "WordPress terms have no Trash. RC1 therefore always keeps the source taxonomy when finalizing."
+msgstr "WordPress-termen hebben geen prullenbak. RC1 behoudt daarom altijd de brontaxonomie bij het afronden."
+
+msgid "You cannot create migrated target content for another author."
+msgstr "Je kunt geen gemigreerde doelcontent voor een andere auteur aanmaken."
+
+msgid "You cannot create or manage terms in the selected target taxonomy."
+msgstr "Je kunt geen termen aanmaken of beheren in de geselecteerde doeltaxonomie."
+
+msgid "You cannot manage terms in the selected source taxonomy."
+msgstr "Je kunt geen termen beheren in de geselecteerde brontaxonomie."
+
+msgid "You cannot preserve the publication status of this source post in the target post type."
+msgstr "Je kunt de publicatiestatus van dit bronbericht niet behouden in het doelberichttype."
+
+msgid "You do not have permission to use Content Migrator."
+msgstr "Je hebt geen toestemming om Content Migrator te gebruiken."
+
+msgid "You do not have sufficient capabilities for the selected post types."
+msgstr "Je hebt onvoldoende rechten voor de geselecteerde berichttypen."
+
+msgid "You no longer have permission to assign terms in a mapped target taxonomy."
+msgstr "Je hebt niet langer toestemming om termen toe te wijzen in een toegewezen doeltaxonomie."
+
+msgid "You no longer have permission to change one or more target taxonomy relationships."
+msgstr "Je hebt niet langer toestemming om één of meer relaties in de doeltaxonomie te wijzigen."
+
+msgid "You no longer have permission to create the selected target post type."
+msgstr "Je hebt niet langer toestemming om het geselecteerde doelberichttype aan te maken."
+
+msgid "You no longer have permission to manage the source taxonomy."
+msgstr "Je hebt niet langer toestemming om de brontaxonomie te beheren."
+
+msgid "You no longer have permission to manage the target taxonomy."
+msgstr "Je hebt niet langer toestemming om de doeltaxonomie te beheren."
+
+msgid "You no longer have permission to read and migrate this source post."
+msgstr "Je hebt niet langer toestemming om dit bronbericht te lezen en te migreren."
+
+msgid "You no longer have permission to repair the target parent relationship."
+msgstr "Je hebt niet langer toestemming om de bovenliggende relatie van het doel te herstellen."
+
+msgid "The copy phase recorded %d issue. Roll back and retry before finalizing."
+msgid_plural "The copy phase recorded %d issues. Roll back and retry before finalizing."
+msgstr[0] "Tijdens de kopieerfase is %d probleem geregistreerd. Draai terug en probeer opnieuw voordat je afrondt."
+msgstr[1] "Tijdens de kopieerfase zijn %d problemen geregistreerd. Draai terug en probeer opnieuw voordat je afrondt."
