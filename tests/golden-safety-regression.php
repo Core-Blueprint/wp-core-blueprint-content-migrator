@@ -48,6 +48,8 @@ function cb_cm_golden_safety_failures( string $root ): array {
 		'owner_user_id' => 'Migration ownership enforcement is missing.',
 		'Events::TAKEN_OVER' => 'Migration ownership takeover audit event is missing.',
 		'Events::ACTION_FAILED' => 'Failed migration actions are not audited.',
+		"'finalization_failed'" => 'Failed finalization is not preserved as an active migration state.',
+		'Events::FINALIZE_FAILED' => 'Failed finalization is not audited distinctly.',
 	] as $needle => $message ) {
 		$require( $controller, $needle, $message );
 	}
@@ -58,9 +60,10 @@ function cb_cm_golden_safety_failures( string $root ): array {
 
 	$post = $read( 'src/Migration/PostRunner.php' );
 	$tracked = strpos( $post, "\$job['target_map'][ (string) \$source_id ] = \$target_id;" );
+	$post_marker = strpos( $post, 'update_post_meta( $target_id, self::JOB_META' );
 	$meta = strpos( $post, 'self::copy_meta( $source_id, $target_id' );
-	if ( false === $tracked || false === $meta || $tracked >= $meta ) {
-		$failures[] = 'Post targets are not tracked before failure-prone copy operations.';
+	if ( false === $tracked || false === $post_marker || false === $meta || $tracked >= $post_marker || $tracked >= $meta ) {
+		$failures[] = 'Post targets are not tracked immediately after insertion and before failure-prone writes.';
 	}
 	foreach ( [
 		"current_user_can( 'edit_post', \$source_id )" => 'Source post object capability recheck is missing.',
@@ -78,9 +81,10 @@ function cb_cm_golden_safety_failures( string $root ): array {
 
 	$taxonomy = $read( 'src/Migration/TaxonomyRunner.php' );
 	$tracked_term = strpos( $taxonomy, "\$job['created_target_ids'][] = \$target_id;" );
+	$term_marker = strpos( $taxonomy, 'update_term_meta( $target_id, self::JOB_META' );
 	$term_meta = strpos( $taxonomy, 'self::copy_term_meta( $source_id, $target_id' );
-	if ( false === $tracked_term || false === $term_meta || $tracked_term >= $term_meta ) {
-		$failures[] = 'Created taxonomy targets are not tracked before term-meta copying.';
+	if ( false === $tracked_term || false === $term_marker || false === $term_meta || $tracked_term >= $term_marker || $tracked_term >= $term_meta ) {
+		$failures[] = 'Created taxonomy targets are not tracked immediately after insertion and before failure-prone writes.';
 	}
 	foreach ( [
 		"current_user_can( 'edit_post', \$object_id )" => 'Relationship object capability recheck is missing.',
