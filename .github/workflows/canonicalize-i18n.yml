@@ -29,7 +29,15 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y gettext
 
       - name: Canonicalize catalogs
-        run: tools/i18n/update
+        run: |
+          set +e
+          tools/i18n/update
+          status=$?
+          if [ "$status" -ne 0 ]; then
+            echo "==> Fresh POT msgids"
+            grep '^msgid' languages/core-blueprint-content-migrator.pot || true
+          fi
+          exit "$status"
 
       - name: Validate generated diff
         run: git diff --check
