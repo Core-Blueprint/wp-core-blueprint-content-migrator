@@ -54,7 +54,7 @@ final class Suite {
 		$state = 'ok';
 		if ( 'rollback_failed' === $status ) {
 			$state = 'err';
-		} elseif ( 'verification_failed' === $status || $errors > 0 ) {
+		} elseif ( in_array( $status, [ 'verification_failed', 'finalization_failed' ], true ) || $errors > 0 ) {
 			$state = 'warn';
 		}
 
