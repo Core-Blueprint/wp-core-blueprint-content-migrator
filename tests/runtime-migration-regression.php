@@ -169,7 +169,7 @@ $partial_source_id = is_wp_error( $partial_source_id ) ? 0 : (int) $partial_sour
 if ( $partial_source_id > 0 ) {
 	update_post_meta( $partial_source_id, 'cbcm_blocked_meta', 'must-fail' );
 }
-$deny_meta = static fn( bool $allowed ): bool => false;
+$deny_meta = static fn( mixed $allowed ): bool => false;
 add_filter( 'auth_post_meta_cbcm_blocked_meta', $deny_meta, 10, 1 );
 
 $partial_job = [
