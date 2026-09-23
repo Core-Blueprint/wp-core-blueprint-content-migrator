@@ -174,8 +174,13 @@ final class Page {
 			<p><?php esc_html_e( 'The source is still untouched. Continue until copying is complete.', 'core-blueprint-content-migrator' ); ?></p><?php self::action_form( 'run_batch', __( 'Run next batch', 'core-blueprint-content-migrator' ), 'primary', $job ); ?>
 		<?php elseif ( in_array( $status, [ 'copied', 'verification_failed' ], true ) ) : ?>
 			<?php self::verification( $job ); self::action_form( 'verify', __( 'Verify migrated content', 'core-blueprint-content-migrator' ), 'primary', $job ); ?>
-		<?php elseif ( 'verified' === $status ) : ?>
-			<?php self::verification( $job ); ?><h3><?php esc_html_e( 'Finalize', 'core-blueprint-content-migrator' ); ?></h3>
+		<?php elseif ( in_array( $status, [ 'verified', 'finalization_failed' ], true ) ) : ?>
+			<?php self::verification( $job ); ?>
+			<?php if ( 'finalization_failed' === $status ) : ?>
+				<div class="notice notice-warning inline"><p><strong><?php esc_html_e( 'Finalization did not complete. The migration remains active and its rollback markers are still preserved.', 'core-blueprint-content-migrator' ); ?></strong></p></div>
+				<?php if ( is_array( $job['finalization'] ?? null ) && ! empty( $job['finalization']['issues'] ) ) : ?><ul><?php foreach ( array_slice( (array) $job['finalization']['issues'], 0, 20 ) as $issue ) : ?><li><?php echo esc_html( (string) $issue ); ?></li><?php endforeach; ?></ul><?php endif; ?>
+			<?php endif; ?>
+			<h3><?php esc_html_e( 'Finalize', 'core-blueprint-content-migrator' ); ?></h3>
 			<?php if ( 'taxonomy' === $mode ) : ?><p><?php esc_html_e( 'WordPress terms have no Trash. RC1 therefore always keeps the source taxonomy when finalizing.', 'core-blueprint-content-migrator' ); ?></p><?php self::finalize_form( $job, false, __( 'Finalize & keep source taxonomy', 'core-blueprint-content-migrator' ) ); ?>
 			<?php else : ?><p><?php esc_html_e( 'For a first test, keep the source. Moving source posts to Trash is available only after verification passes.', 'core-blueprint-content-migrator' ); ?></p><?php self::finalize_form( $job, false, __( 'Finalize & keep source', 'core-blueprint-content-migrator' ) ); self::finalize_form( $job, true, __( 'Finalize & move source to Trash', 'core-blueprint-content-migrator' ) ); ?><?php endif; ?>
 		<?php elseif ( 'rollback_failed' === $status ) : ?><div class="notice notice-error inline"><p><?php esc_html_e( 'Rollback could not safely remove every tracked item. Review the stored migration state before changing content manually.', 'core-blueprint-content-migrator' ); ?></p></div><?php endif; ?>
@@ -252,7 +257,7 @@ final class Page {
 			'rolled_back' => __( 'Migration rolled back.', 'core-blueprint-content-migrator' ),
 			'rollback_failed' => __( 'Rollback needs attention.', 'core-blueprint-content-migrator' ),
 			'finalized' => __( 'Migration finalized.', 'core-blueprint-content-migrator' ),
-			'finalized_warnings' => __( 'Migration finalized with warnings.', 'core-blueprint-content-migrator' ),
+			'finalization_failed' => __( 'Finalization needs attention. The migration remains active.', 'core-blueprint-content-migrator' ),
 			'plan_cleared' => __( 'Migration plan cleared.', 'core-blueprint-content-migrator' ),
 			'error' => __( 'Migration action failed.', 'core-blueprint-content-migrator' ),
 		];
