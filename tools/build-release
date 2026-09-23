@@ -1,20 +1,177 @@
 #!/usr/bin/env bash
 set -euo pipefail
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-PLUGIN_SLUG="core-blueprint-content-migrator"
-ENTRY_FILE="$ROOT_DIR/core-blueprint-content-migrator.php"
-VERSION="$(php -r '$s=file_get_contents($argv[1]); preg_match("/Version:\\s+([^\\r\\n]+)/", $s, $m); echo trim($m[1] ?? "");' "$ENTRY_FILE")"
-[[ -n "$VERSION" ]] || { echo "Unable to determine plugin version." >&2; exit 1; }
-command -v rsync >/dev/null 2>&1 || { echo "rsync is required." >&2; exit 1; }
-command -v zip >/dev/null 2>&1 || { echo "zip is required." >&2; exit 1; }
-command -v php >/dev/null 2>&1 || { echo "php is required." >&2; exit 1; }
-BUILD_DIR="$ROOT_DIR/build"
-STAGE_DIR="$BUILD_DIR/$PLUGIN_SLUG"
-ZIP_PATH="$BUILD_DIR/${PLUGIN_SLUG}-${VERSION}.zip"
-rm -rf "$BUILD_DIR"
-mkdir -p "$STAGE_DIR"
-rsync -a --exclude='.git/' --exclude='.github/' --exclude='build/' --exclude='*.zip' "$ROOT_DIR/" "$STAGE_DIR/"
-find "$STAGE_DIR" -type f -name '*.php' -print0 | xargs -0 -n1 php -l >/dev/null
-php "$STAGE_DIR/tools/conformance.php" >/dev/null
-( cd "$BUILD_DIR" && zip -qr "$(basename "$ZIP_PATH")" "$PLUGIN_SLUG" )
-echo "$ZIP_PATH"
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+SLUG="core-blueprint-content-migrator"
+ENTRY="$ROOT/core-blueprint-content-migrator.php"
+README="$ROOT/readme.txt"
+BUILD="$ROOT/build"
+STAGE="$(mktemp -d)"
+PACKAGE_ROOT="$STAGE/$SLUG"
+LOCALES=(nl_NL de_DE fr_FR es_ES it_IT pt_PT)
+trap 'rm -rf "$STAGE"' EXIT
+cd "$ROOT"
+
+fail() {
+  printf 'Content Migrator release build failed: %s\n' "$*" >&2
+  exit 1
+}
+
+header_value() {
+  local file="$1" label="$2"
+  php -r '
+    $lines = @file($argv[1], FILE_IGNORE_NEW_LINES);
+    if (!is_array($lines)) { exit(2); }
+    $label = preg_quote($argv[2], "/");
+    foreach ($lines as $line) {
+      if (preg_match("/^\\s*\\*?\\s*{$label}:\\s*(.*?)\\s*$/", $line, $m)) {
+        echo $m[1];
+        exit(0);
+      }
+    }
+  ' "$file" "$label"
+}
+
+define_value() {
+  local file="$1" name="$2"
+  php -r '
+    $source = @file_get_contents($argv[1]);
+    if (!is_string($source)) { exit(2); }
+    $name = preg_quote($argv[2], "/");
+    if (preg_match("/define\\(\\s*[\\x27\\x22]{$name}[\\x27\\x22]\\s*,\\s*[\\x27\\x22]([^\\x27\\x22]+)[\\x27\\x22]\\s*\\)/", $source, $m)) {
+      echo $m[1];
+    }
+  ' "$file" "$name"
+}
+
+[[ -f "$ENTRY" ]] || fail "plugin entrypoint is missing"
+[[ -f "$README" ]] || fail "readme.txt is missing"
+VERSION="$(header_value "$ENTRY" 'Version')"
+REQUIRES_WP="$(header_value "$ENTRY" 'Requires at least')"
+REQUIRES_PHP="$(header_value "$ENTRY" 'Requires PHP')"
+REQUIRES_PLUGINS="$(header_value "$ENTRY" 'Requires Plugins')"
+TEXT_DOMAIN="$(header_value "$ENTRY" 'Text Domain')"
+DOMAIN_PATH="$(header_value "$ENTRY" 'Domain Path')"
+CONSTANT_VERSION="$(define_value "$ENTRY" 'CB_CONTENT_MIGRATOR_VERSION')"
+STABLE_TAG="$(header_value "$README" 'Stable tag')"
+README_WP="$(header_value "$README" 'Requires at least')"
+README_PHP="$(header_value "$README" 'Requires PHP')"
+
+[[ "$VERSION" == '1.0.0-rc1' ]] || fail "release version must remain 1.0.0-rc1"
+[[ "$CONSTANT_VERSION" == "$VERSION" ]] || fail "Version header and CB_CONTENT_MIGRATOR_VERSION differ"
+[[ "$STABLE_TAG" == "$VERSION" ]] || fail "readme Stable tag and Version header differ"
+[[ "$REQUIRES_WP" == '7.0' && "$README_WP" == '7.0' ]] || fail "Requires at least must be 7.0 in plugin and readme"
+[[ "$REQUIRES_PHP" == '8.4' && "$README_PHP" == '8.4' ]] || fail "Requires PHP must be 8.4 in plugin and readme"
+[[ "$REQUIRES_PLUGINS" == 'core-blueprint' ]] || fail "Requires Plugins must declare core-blueprint"
+[[ "$TEXT_DOMAIN" == "$SLUG" ]] || fail "Text Domain must be $SLUG"
+[[ "$DOMAIN_PATH" == '/languages' ]] || fail "Domain Path must be /languages"
+
+for command in php python3 wp msgfmt git zip unzip sha256sum find sort touch; do
+  command -v "$command" >/dev/null 2>&1 || fail "missing required command: $command"
+done
+php -r 'exit(version_compare(PHP_VERSION, "8.4", ">=") ? 0 : 1);' \
+  || fail "PHP 8.4 or newer is required to build Content Migrator"
+
+if ! git diff --quiet -- . ':!build' || ! git diff --cached --quiet -- . ':!build'; then
+  fail "working tree contains uncommitted release-source changes"
+fi
+
+echo "==> Validating canonical translation catalogs"
+"$ROOT/tools/i18n/check"
+
+echo "==> Linting source PHP"
+while IFS= read -r -d '' file; do
+  php -l "$file" >/dev/null || fail "PHP lint failed: $file"
+done < <(find "$ROOT" \
+  -path "$ROOT/.git" -prune -o \
+  -path "$ROOT/build" -prune -o \
+  -path "$ROOT/vendor" -prune -o \
+  -path "$ROOT/node_modules" -prune -o \
+  -type f -name '*.php' -print0)
+
+echo "==> Running Golden safety and product conformance"
+php "$ROOT/tools/conformance.php"
+
+mkdir -p "$BUILD" "$PACKAGE_ROOT/languages"
+ZIP="$BUILD/$SLUG-$VERSION.zip"
+CHECKSUM="$ZIP.sha256"
+rm -f "$ZIP" "$CHECKSUM"
+
+for path in core-blueprint-content-migrator.php uninstall.php readme.txt LICENSE; do
+  [[ -f "$ROOT/$path" ]] || fail "required release file is missing: $path"
+  cp "$ROOT/$path" "$PACKAGE_ROOT/"
+done
+[[ -d "$ROOT/src" ]] || fail "required release directory is missing: src"
+cp -R "$ROOT/src" "$PACKAGE_ROOT/"
+
+POT_SOURCE="$ROOT/languages/$SLUG.pot"
+[[ -s "$POT_SOURCE" ]] || fail "canonical POT is missing: languages/$SLUG.pot"
+cp "$POT_SOURCE" "$PACKAGE_ROOT/languages/"
+for locale in "${LOCALES[@]}"; do
+  po_source="$ROOT/languages/$SLUG-${locale}.po"
+  po="$PACKAGE_ROOT/languages/$SLUG-${locale}.po"
+  mo="$PACKAGE_ROOT/languages/$SLUG-${locale}.mo"
+  [[ -s "$po_source" ]] || fail "reviewed PO is missing for $locale"
+  cp "$po_source" "$po"
+  msgfmt --check-format --check-header -o "$mo" "$po"
+  [[ -s "$mo" ]] || fail "compiled MO is missing for $locale"
+done
+
+while IFS= read -r -d '' file; do
+  php -l "$file" >/dev/null || fail "staged PHP lint failed: $file"
+done < <(find "$PACKAGE_ROOT" -type f -name '*.php' -print0)
+
+find "$PACKAGE_ROOT" -type f \( -name '.DS_Store' -o -name '*.map' -o -name '*.pyc' \) -delete
+find "$PACKAGE_ROOT" -type d -name '__pycache__' -prune -exec rm -rf {} +
+find "$PACKAGE_ROOT" -exec touch -t 198001010000 {} +
+(
+  cd "$STAGE"
+  zip -X -q "$ZIP" "$SLUG/"
+  find "$SLUG" -type f -print | LC_ALL=C sort | zip -X -q "$ZIP" -@
+)
+
+[[ -s "$ZIP" ]] || fail "release ZIP was not created"
+unzip -tqq "$ZIP" || fail "release ZIP integrity check failed"
+ZIP_ENTRIES="$(unzip -Z1 "$ZIP")"
+[[ -n "$ZIP_ENTRIES" ]] || fail "release ZIP is empty"
+FIRST_ENTRY="${ZIP_ENTRIES%%$'\n'*}"
+[[ "$FIRST_ENTRY" == "$SLUG/" ]] || fail "release ZIP root is not $SLUG/"
+
+while IFS= read -r entry; do
+  [[ "$entry" == "$SLUG/"* ]] || fail "unexpected archive root entry: $entry"
+done <<<"$ZIP_ENTRIES"
+
+if grep -Eq '(^|/)(\.git|\.github|tests|tools|docs|dist|build|node_modules|vendor)(/|$)' <<<"$ZIP_ENTRIES"; then
+  fail "development-only files leaked into the release ZIP"
+fi
+
+for required in \
+  "$SLUG/core-blueprint-content-migrator.php" \
+  "$SLUG/uninstall.php" \
+  "$SLUG/readme.txt" \
+  "$SLUG/LICENSE" \
+  "$SLUG/languages/$SLUG.pot"; do
+  grep -Fxq "$required" <<<"$ZIP_ENTRIES" || fail "required release file missing from ZIP: $required"
+done
+for locale in "${LOCALES[@]}"; do
+  for ext in po mo; do
+    required="$SLUG/languages/$SLUG-${locale}.${ext}"
+    grep -Fxq "$required" <<<"$ZIP_ENTRIES" || fail "required catalog missing from ZIP: $required"
+  done
+done
+
+PACKAGED_ENTRY="$PACKAGE_ROOT/core-blueprint-content-migrator.php"
+PACKAGED_README="$PACKAGE_ROOT/readme.txt"
+[[ "$(header_value "$PACKAGED_ENTRY" 'Version')" == "$VERSION" ]] || fail "packaged Version header does not match source"
+[[ "$(define_value "$PACKAGED_ENTRY" 'CB_CONTENT_MIGRATOR_VERSION')" == "$VERSION" ]] || fail "packaged version constant does not match source"
+[[ "$(header_value "$PACKAGED_ENTRY" 'Requires Plugins')" == 'core-blueprint' ]] || fail "packaged Requires Plugins identity is invalid"
+[[ "$(header_value "$PACKAGED_ENTRY" 'Text Domain')" == "$SLUG" ]] || fail "packaged Text Domain identity is invalid"
+[[ "$(header_value "$PACKAGED_README" 'Stable tag')" == "$VERSION" ]] || fail "packaged Stable tag does not match source"
+
+(
+  cd "$BUILD"
+  sha256sum "$(basename "$ZIP")" > "$(basename "$CHECKSUM")"
+)
+[[ -s "$CHECKSUM" ]] || fail "release checksum was not created"
+SHA256="$(awk '{print $1}' "$CHECKSUM")"
+printf 'Core Blueprint Content Migrator release build: PASS\nPackage: %s\nCanonical root: %s/\nSHA-256: %s\n' "$ZIP" "$SLUG" "$SHA256"

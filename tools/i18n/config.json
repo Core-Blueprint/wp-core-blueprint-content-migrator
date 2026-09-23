@@ -1,0 +1,11 @@
+{
+  "product": "Core Blueprint Content Migrator",
+  "domain": "core-blueprint-content-migrator",
+  "main_file": "core-blueprint-content-migrator.php",
+  "version_constant": "CB_CONTENT_MIGRATOR_VERSION",
+  "exclude": ["build", "dist", "vendor", "node_modules", "tests", "tools", "docs", ".git", ".github"],
+  "skip_js": true,
+  "commit_mo": false,
+  "commit_l10n_php": false,
+  "source_paths": ["core-blueprint-content-migrator.php", "src"]
+}
