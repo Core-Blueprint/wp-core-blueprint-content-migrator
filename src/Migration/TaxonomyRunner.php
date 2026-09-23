@@ -68,11 +68,29 @@ final class TaxonomyRunner {
 		if ( isset( $job['term_map'][ $key ] ) ) {
 			return (int) $job['term_map'][ $key ];
 		}
+
 		$source_tax = sanitize_key( (string) ( $job['source_taxonomy'] ?? '' ) );
 		$target_tax = sanitize_key( (string) ( $job['target_taxonomy'] ?? '' ) );
+		$source_taxonomy = get_taxonomy( $source_tax );
+		$target_taxonomy = get_taxonomy( $target_tax );
+		if (
+			! $source_taxonomy instanceof \WP_Taxonomy
+			|| 'do_not_allow' === (string) $source_taxonomy->cap->manage_terms
+			|| ! current_user_can( $source_taxonomy->cap->manage_terms )
+		) {
+			throw new \RuntimeException( __( 'You no longer have permission to manage the source taxonomy.', 'core-blueprint-content-migrator' ) );
+		}
+		if (
+			! $target_taxonomy instanceof \WP_Taxonomy
+			|| 'do_not_allow' === (string) $target_taxonomy->cap->manage_terms
+			|| ! current_user_can( $target_taxonomy->cap->manage_terms )
+		) {
+			throw new \RuntimeException( __( 'You no longer have permission to manage the target taxonomy.', 'core-blueprint-content-migrator' ) );
+		}
+
 		$source = get_term( $source_id, $source_tax );
 		if ( ! $source instanceof \WP_Term ) {
-			throw new \RuntimeException( 'Source term is unavailable.' );
+			throw new \RuntimeException( __( 'Source term is unavailable.', 'core-blueprint-content-migrator' ) );
 		}
 
 		$existing = get_term_by( 'slug', $source->slug, $target_tax );
@@ -82,16 +100,19 @@ final class TaxonomyRunner {
 		}
 
 		$parent = 0;
-		$target_object = get_taxonomy( $target_tax );
-		if ( $source->parent > 0 && $target_object instanceof \WP_Taxonomy && $target_object->hierarchical ) {
+		if ( $source->parent > 0 && $target_taxonomy->hierarchical ) {
 			$parent = self::ensure_term( (int) $source->parent, $job );
 		}
 
-		$inserted = wp_insert_term( $source->name, $target_tax, [
-			'slug'        => $source->slug,
-			'description' => $source->description,
-			'parent'      => $parent,
-		] );
+		$inserted = wp_insert_term(
+			$source->name,
+			$target_tax,
+			[
+				'slug'        => $source->slug,
+				'description' => $source->description,
+				'parent'      => $parent,
+			]
+		);
 		if ( is_wp_error( $inserted ) ) {
 			if ( 'term_exists' === $inserted->get_error_code() ) {
 				$target_id = (int) $inserted->get_error_data();
@@ -100,11 +121,26 @@ final class TaxonomyRunner {
 			}
 			throw new \RuntimeException( $inserted->get_error_message() );
 		}
+
 		$target_id = (int) $inserted['term_id'];
+
+		// Track immediately after insertion. If marker writes fail and cleanup also
+		// fails, the target remains visible for verification and manual recovery.
 		$job['term_map'][ $key ] = $target_id;
 		$job['created_target_ids'][] = $target_id;
-		update_term_meta( $target_id, self::JOB_META, sanitize_key( (string) $job['id'] ) );
-		update_term_meta( $target_id, self::SOURCE_META, $source_id );
+		$job['created_target_ids'] = array_values( array_unique( array_map( 'intval', $job['created_target_ids'] ) ) );
+
+		$job_marker = update_term_meta( $target_id, self::JOB_META, sanitize_key( (string) $job['id'] ) );
+		$source_marker = update_term_meta( $target_id, self::SOURCE_META, $source_id );
+		if ( false === $job_marker || false === $source_marker ) {
+			$deleted = wp_delete_term( $target_id, $target_tax );
+			if ( ! is_wp_error( $deleted ) && false !== $deleted && null !== $deleted ) {
+				unset( $job['term_map'][ $key ] );
+				$job['created_target_ids'] = array_values( array_diff( $job['created_target_ids'], [ $target_id ] ) );
+			}
+			throw new \RuntimeException( __( 'The target term could not be marked for safe rollback. Automatic cleanup was attempted.', 'core-blueprint-content-migrator' ) );
+		}
+
 		self::copy_term_meta( $source_id, $target_id, $target_tax, (array) ( $job['term_meta_map'] ?? [] ) );
 		return $target_id;
 	}
@@ -117,8 +153,11 @@ final class TaxonomyRunner {
 			if ( '' === $source_key || '' === $target_key ) {
 				continue;
 			}
-			if ( str_starts_with( $target_key, '_cb_content_migrator_' ) ) {
-				throw new \RuntimeException( 'Reserved Content Migrator term meta keys cannot be overwritten.' );
+			if (
+				str_starts_with( $target_key, '_cb_content_migrator_' )
+				|| ! current_user_can( 'edit_term_meta', $target_id, $target_key )
+			) {
+				throw new \RuntimeException( __( 'A mapped target term meta key is reserved or not writable.', 'core-blueprint-content-migrator' ) );
 			}
 			$values = get_term_meta( $source_id, $source_key, false );
 			if ( empty( $values ) ) {
@@ -126,7 +165,10 @@ final class TaxonomyRunner {
 			}
 			delete_term_meta( $target_id, $target_key );
 			foreach ( $values as $value ) {
-				add_term_meta( $target_id, $target_key, sanitize_meta( $target_key, $value, 'term', $target_taxonomy ) );
+				$added = add_term_meta( $target_id, $target_key, sanitize_meta( $target_key, $value, 'term', $target_taxonomy ) );
+				if ( false === $added ) {
+					throw new \RuntimeException( __( 'Mapped term meta could not be written to the target term.', 'core-blueprint-content-migrator' ) );
+				}
 			}
 		}
 	}
@@ -135,6 +177,16 @@ final class TaxonomyRunner {
 	private static function copy_relationships_for_object( int $object_id, array &$job ): void {
 		$source_tax = sanitize_key( (string) $job['source_taxonomy'] );
 		$target_tax = sanitize_key( (string) $job['target_taxonomy'] );
+		$target_taxonomy = get_taxonomy( $target_tax );
+		if (
+			! $target_taxonomy instanceof \WP_Taxonomy
+			|| 'do_not_allow' === (string) $target_taxonomy->cap->assign_terms
+			|| ! current_user_can( $target_taxonomy->cap->assign_terms )
+			|| ! current_user_can( 'edit_post', $object_id )
+		) {
+			throw new \RuntimeException( __( 'You no longer have permission to change one or more target taxonomy relationships.', 'core-blueprint-content-migrator' ) );
+		}
+
 		$source_term_ids = wp_get_object_terms( $object_id, $source_tax, [ 'fields' => 'ids' ] );
 		if ( is_wp_error( $source_term_ids ) ) {
 			throw new \RuntimeException( $source_term_ids->get_error_message() );
@@ -150,6 +202,7 @@ final class TaxonomyRunner {
 		if ( empty( $target_ids ) ) {
 			return;
 		}
+
 		$current = wp_get_object_terms( $object_id, $target_tax, [ 'fields' => 'ids' ] );
 		if ( is_wp_error( $current ) ) {
 			throw new \RuntimeException( $current->get_error_message() );
@@ -159,20 +212,39 @@ final class TaxonomyRunner {
 		if ( empty( $added ) ) {
 			return;
 		}
+
 		$result = wp_set_object_terms( $object_id, $target_ids, $target_tax, true );
 		if ( is_wp_error( $result ) ) {
 			throw new \RuntimeException( $result->get_error_message() );
 		}
-		$job['added_relationships'][ (string) $object_id ] = array_values( array_unique( array_merge(
-			array_map( 'intval', (array) ( $job['added_relationships'][ (string) $object_id ] ?? [] ) ),
-			$added
-		) ) );
+		$job['added_relationships'][ (string) $object_id ] = array_values(
+			array_unique(
+				array_merge(
+					array_map( 'intval', (array) ( $job['added_relationships'][ (string) $object_id ] ?? [] ) ),
+					$added
+				)
+			)
+		);
 	}
 
 	/** @param array<string,mixed> $job @return array{passed:bool,checked:int,issues:array<int,string>} */
 	public static function verify( array $job ): array {
 		$issues = [];
 		$checked = 0;
+		$error_count = count( (array) ( $job['errors'] ?? [] ) );
+		if ( $error_count > 0 ) {
+			$issues[] = sprintf(
+				/* translators: %d: number of copy errors. */
+				_n(
+					'The copy phase recorded %d issue. Roll back and retry before finalizing.',
+					'The copy phase recorded %d issues. Roll back and retry before finalizing.',
+					$error_count,
+					'core-blueprint-content-migrator'
+				),
+				$error_count
+			);
+		}
+
 		$source_tax = sanitize_key( (string) $job['source_taxonomy'] );
 		$target_tax = sanitize_key( (string) $job['target_taxonomy'] );
 		foreach ( (array) ( $job['term_map'] ?? [] ) as $source_id => $target_id ) {
@@ -180,21 +252,55 @@ final class TaxonomyRunner {
 			$target = get_term( (int) $target_id, $target_tax );
 			$checked++;
 			if ( ! $source instanceof \WP_Term || ! $target instanceof \WP_Term ) {
-				$issues[] = sprintf( 'Source term %d or target term %d no longer exists.', (int) $source_id, (int) $target_id );
+				$issues[] = sprintf(
+					/* translators: 1: source term ID, 2: target term ID. */
+					__( 'Source term %1$d or target term %2$d no longer exists.', 'core-blueprint-content-migrator' ),
+					(int) $source_id,
+					(int) $target_id
+				);
 				continue;
 			}
 			if ( $source->slug !== $target->slug ) {
-				$issues[] = sprintf( 'Target term %d has a different slug.', (int) $target_id );
+				$issues[] = sprintf(
+					/* translators: %d: target term ID. */
+					__( 'Target term %d has a different slug.', 'core-blueprint-content-migrator' ),
+					(int) $target_id
+				);
 			}
+
+			$created_target_ids = array_map( 'intval', (array) ( $job['created_target_ids'] ?? [] ) );
+			$expected_created = in_array( (int) $target_id, $created_target_ids, true );
 			$created_by_job = sanitize_key( (string) get_term_meta( (int) $target_id, self::JOB_META, true ) ) === sanitize_key( (string) $job['id'] );
-			if ( $created_by_job ) {
+			if ( $expected_created && ! $created_by_job ) {
+				$issues[] = sprintf(
+					/* translators: %d: target term ID. */
+					__( 'Created target term %d no longer has the expected rollback marker.', 'core-blueprint-content-migrator' ),
+					(int) $target_id
+				);
+			}
+			if ( $expected_created && $created_by_job ) {
+				if ( (int) get_term_meta( (int) $target_id, self::SOURCE_META, true ) !== (int) $source_id ) {
+					$issues[] = sprintf(
+						/* translators: %d: target term ID. */
+						__( 'Created target term %d has an invalid source marker.', 'core-blueprint-content-migrator' ),
+						(int) $target_id
+					);
+				}
 				if ( $source->name !== $target->name || $source->description !== $target->description ) {
-					$issues[] = sprintf( 'Created target term %d differs in name or description.', (int) $target_id );
+					$issues[] = sprintf(
+						/* translators: %d: target term ID. */
+						__( 'Created target term %d differs in name or description.', 'core-blueprint-content-migrator' ),
+						(int) $target_id
+					);
 				}
 				if ( ! empty( $job['target_hierarchical'] ) && $source->parent > 0 ) {
 					$expected_parent = (int) ( $job['term_map'][ (string) $source->parent ] ?? 0 );
 					if ( $expected_parent !== (int) $target->parent ) {
-						$issues[] = sprintf( 'Created target term %d has an unexpected parent.', (int) $target_id );
+						$issues[] = sprintf(
+							/* translators: %d: target term ID. */
+							__( 'Created target term %d has an unexpected parent.', 'core-blueprint-content-migrator' ),
+							(int) $target_id
+						);
 					}
 				}
 				self::verify_term_meta( $source, $target, $target_tax, (array) ( $job['term_meta_map'] ?? [] ), $issues );
@@ -209,7 +315,11 @@ final class TaxonomyRunner {
 				$source_ids = wp_get_object_terms( $object_id, $source_tax, [ 'fields' => 'ids' ] );
 				$target_ids = wp_get_object_terms( $object_id, $target_tax, [ 'fields' => 'ids' ] );
 				if ( is_wp_error( $source_ids ) || is_wp_error( $target_ids ) ) {
-					$issues[] = sprintf( 'Relationship verification failed for object %d.', $object_id );
+					$issues[] = sprintf(
+						/* translators: %d: object ID. */
+						__( 'Relationship verification failed for object %d.', 'core-blueprint-content-migrator' ),
+						$object_id
+					);
 					continue;
 				}
 				$expected = [];
@@ -220,7 +330,11 @@ final class TaxonomyRunner {
 					}
 				}
 				if ( ! empty( array_diff( array_unique( $expected ), array_map( 'intval', $target_ids ) ) ) ) {
-					$issues[] = sprintf( 'Object %d is missing one or more migrated target relationships.', $object_id );
+					$issues[] = sprintf(
+						/* translators: %d: object ID. */
+						__( 'Object %d is missing one or more migrated target relationships.', 'core-blueprint-content-migrator' ),
+						$object_id
+					);
 				}
 				if ( count( $issues ) >= 100 ) {
 					break;
@@ -248,7 +362,12 @@ final class TaxonomyRunner {
 			);
 			$actual = get_term_meta( $target->term_id, $target_key, false );
 			if ( $expected !== $actual ) {
-				$issues[] = sprintf( 'Target term %d differs for mapped term meta %s.', $target->term_id, $target_key );
+				$issues[] = sprintf(
+					/* translators: 1: target term ID, 2: meta key. */
+					__( 'Target term %1$d differs for mapped term meta %2$s.', 'core-blueprint-content-migrator' ),
+					$target->term_id,
+					$target_key
+				);
 			}
 		}
 	}
@@ -258,14 +377,34 @@ final class TaxonomyRunner {
 		$issues = [];
 		$relationships_removed = 0;
 		$target_tax = sanitize_key( (string) $job['target_taxonomy'] );
+		$target_taxonomy = get_taxonomy( $target_tax );
+		$can_assign = $target_taxonomy instanceof \WP_Taxonomy
+			&& 'do_not_allow' !== (string) $target_taxonomy->cap->assign_terms
+			&& current_user_can( $target_taxonomy->cap->assign_terms );
+		$can_manage = $target_taxonomy instanceof \WP_Taxonomy
+			&& 'do_not_allow' !== (string) $target_taxonomy->cap->manage_terms
+			&& current_user_can( $target_taxonomy->cap->manage_terms );
+
 		foreach ( (array) ( $job['added_relationships'] ?? [] ) as $object_id => $target_ids ) {
 			$ids = array_values( array_unique( array_map( 'intval', (array) $target_ids ) ) );
 			if ( empty( $ids ) ) {
 				continue;
 			}
+			if ( ! $can_assign || ! current_user_can( 'edit_post', (int) $object_id ) ) {
+				$issues[] = sprintf(
+					/* translators: %d: object ID. */
+					__( 'Migrated relationships on object %d were not removed because you no longer have permission.', 'core-blueprint-content-migrator' ),
+					(int) $object_id
+				);
+				continue;
+			}
 			$result = wp_remove_object_terms( (int) $object_id, $ids, $target_tax );
-			if ( is_wp_error( $result ) ) {
-				$issues[] = sprintf( 'Could not remove migrated relationships from object %d.', (int) $object_id );
+			if ( is_wp_error( $result ) || false === $result ) {
+				$issues[] = sprintf(
+					/* translators: %d: object ID. */
+					__( 'Could not remove migrated relationships from object %d.', 'core-blueprint-content-migrator' ),
+					(int) $object_id
+				);
 			} else {
 				$relationships_removed += count( $ids );
 			}
@@ -279,23 +418,70 @@ final class TaxonomyRunner {
 			if ( ! $term instanceof \WP_Term ) {
 				continue;
 			}
+			if ( ! $can_manage ) {
+				$issues[] = sprintf(
+					/* translators: %d: target term ID. */
+					__( 'Target term %d was not deleted because you no longer have permission.', 'core-blueprint-content-migrator' ),
+					$target_id
+				);
+				continue;
+			}
 			if ( sanitize_key( (string) get_term_meta( $target_id, self::JOB_META, true ) ) !== sanitize_key( (string) $job['id'] ) ) {
-				$issues[] = sprintf( 'Target term %d was not deleted because its rollback marker changed.', $target_id );
+				$issues[] = sprintf(
+					/* translators: %d: target term ID. */
+					__( 'Target term %d was not deleted because its rollback marker changed.', 'core-blueprint-content-migrator' ),
+					$target_id
+				);
+				continue;
+			}
+			$blocker = TermRollbackGuard::blocker( $target_id, $target_tax );
+			if ( '' !== $blocker ) {
+				$issues[] = $blocker;
 				continue;
 			}
 			$result = wp_delete_term( $target_id, $target_tax );
 			if ( is_wp_error( $result ) || false === $result || null === $result ) {
-				$issues[] = sprintf( 'Target term %d could not be deleted.', $target_id );
+				$issues[] = sprintf(
+					/* translators: %d: target term ID. */
+					__( 'Target term %d could not be deleted.', 'core-blueprint-content-migrator' ),
+					$target_id
+				);
 				continue;
 			}
 			$deleted++;
 		}
+
 		return [ 'deleted' => $deleted, 'relationships_removed' => $relationships_removed, 'issues' => $issues ];
 	}
 
 	/** @param array<string,mixed> $job @return array{trashed:int,issues:array<int,string>} */
 	public static function finalize( array $job, bool $trash_source = false ): array {
 		unset( $trash_source );
+		$issues = [];
+		$job_id = sanitize_key( (string) ( $job['id'] ?? '' ) );
+		$target_tax = sanitize_key( (string) ( $job['target_taxonomy'] ?? '' ) );
+
+		foreach ( array_map( 'intval', (array) ( $job['created_target_ids'] ?? [] ) ) as $target_id ) {
+			if ( ! get_term( $target_id, $target_tax ) ) {
+				$issues[] = sprintf(
+					/* translators: %d: target term ID. */
+					__( 'Target term %d is missing. Verify the migration again before finalizing.', 'core-blueprint-content-migrator' ),
+					$target_id
+				);
+				continue;
+			}
+			if ( sanitize_key( (string) get_term_meta( $target_id, self::JOB_META, true ) ) !== $job_id ) {
+				$issues[] = sprintf(
+					/* translators: %d: target term ID. */
+					__( 'Target term %d no longer has the expected migration marker.', 'core-blueprint-content-migrator' ),
+					$target_id
+				);
+			}
+		}
+		if ( ! empty( $issues ) ) {
+			return [ 'trashed' => 0, 'issues' => $issues ];
+		}
+
 		foreach ( array_map( 'intval', (array) ( $job['created_target_ids'] ?? [] ) ) as $target_id ) {
 			delete_term_meta( $target_id, self::JOB_META );
 			delete_term_meta( $target_id, self::SOURCE_META );
@@ -321,7 +507,8 @@ final class TaxonomyRunner {
 	/** @param array<string,mixed> $job */
 	private static function sync_progress( array &$job ): void {
 		$job['cursor'] = (int) ( $job['term_cursor'] ?? 0 ) + (int) ( $job['relationship_cursor'] ?? 0 );
-		$job['total'] = count( (array) ( $job['source_ids'] ?? [] ) ) + ( ! empty( $job['copy_relationships'] ) ? count( (array) ( $job['relationship_ids'] ?? [] ) ) : 0 );
+		$job['total'] = count( (array) ( $job['source_ids'] ?? [] ) )
+			+ ( ! empty( $job['copy_relationships'] ) ? count( (array) ( $job['relationship_ids'] ?? [] ) ) : 0 );
 	}
 
 	private static function sanitize_meta_key( string $key ): string {
@@ -334,6 +521,10 @@ final class TaxonomyRunner {
 		if ( count( (array) $job['errors'] ) >= 100 ) {
 			return;
 		}
-		$job['errors'][] = [ 'source_id' => $source_id, 'stage' => sanitize_key( $stage ), 'message' => sanitize_text_field( $message ) ];
+		$job['errors'][] = [
+			'source_id' => $source_id,
+			'stage'     => sanitize_key( $stage ),
+			'message'   => sanitize_text_field( $message ),
+		];
 	}
 }
