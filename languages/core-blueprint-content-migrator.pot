@@ -1,0 +1,520 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Core Blueprint Content Migrator 1.0.0-rc1\n"
+"POT-Creation-Date: 2026-09-23 18:00+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Core Blueprint i18n tooling 1.1.0\n"
+
+msgid "%1$s · %2$d/%3$d processed"
+msgstr ""
+
+msgid "%d issues were recorded. Do not finalize before verification passes."
+msgstr ""
+
+msgid "%d source posts found. Copies are created first; the source is not moved or deleted during testing."
+msgstr ""
+
+msgid "%d source terms found."
+msgstr ""
+
+msgid "A mapped target meta key is reserved or not writable."
+msgstr ""
+
+msgid "A mapped target term meta key is reserved or not writable."
+msgstr ""
+
+msgid "A mapped taxonomy is no longer available for the selected target post type."
+msgstr ""
+
+msgid "A migration can only be finalized after a successful verification."
+msgstr ""
+
+msgid "A target term could not be marked for safe rollback and was removed."
+msgstr ""
+
+msgid "Active migration"
+msgstr ""
+
+msgid "Analysis complete. Review the plan below."
+msgstr ""
+
+msgid "Analyze post migration"
+msgstr ""
+
+msgid "Analyze taxonomy migration"
+msgstr ""
+
+msgid "Another migration became active before this job could be started."
+msgstr ""
+
+msgid "Another migration is already active."
+msgstr ""
+
+msgid "Batch complete."
+msgstr ""
+
+msgid "Batch size"
+msgstr ""
+
+msgid "Choose only mappings you understand. Missing target terms may be created and are included in rollback. Machine-owned target taxonomies are excluded."
+msgstr ""
+
+msgid "Confirm that you want to move the source posts to WordPress Trash."
+msgstr ""
+
+msgid "Confirm that you want to permanently delete the targets created by this migration."
+msgstr ""
+
+msgid "Confirm that you want to take ownership of this migration."
+msgstr ""
+
+msgid "Conflict rule: an existing target term with the same slug is reused and never overwritten. Only newly created terms receive mapped term meta and rollback markers."
+msgstr ""
+
+msgid "Content Migrator"
+msgstr ""
+
+msgid "Content migration action failed"
+msgstr ""
+
+msgid "Content migration analysis completed"
+msgstr ""
+
+msgid "Content migration batch copied"
+msgstr ""
+
+msgid "Content migration created"
+msgstr ""
+
+msgid "Content migration finalization failed"
+msgstr ""
+
+msgid "Content migration finalized"
+msgstr ""
+
+msgid "Content migration ownership taken over"
+msgstr ""
+
+msgid "Content migration plan cleared"
+msgstr ""
+
+msgid "Content migration rollback failed"
+msgstr ""
+
+msgid "Content migration rolled back"
+msgstr ""
+
+msgid "Content migration source moved to Trash"
+msgstr ""
+
+msgid "Content migration verified"
+msgstr ""
+
+msgid "Copies terms and hierarchy. Existing target terms with the same slug are reused without overwriting their data. Relationships can be remapped when both taxonomies support the same post types."
+msgstr ""
+
+msgid "Copy WordPress content safely, verify it, then roll back or finalize. Analysis is read-only and source content stays intact until you explicitly choose otherwise."
+msgstr ""
+
+msgid "Copy options"
+msgstr ""
+
+msgid "Core Blueprint Content Migrator"
+msgstr ""
+
+msgid "Core Blueprint Content Migrator requires Core Blueprint %1$s or newer with compatible Core API %2$s."
+msgstr ""
+
+msgid "Could not remove migrated relationships from object %d."
+msgstr ""
+
+msgid "Create safe migration job"
+msgstr ""
+
+msgid "Created target term %d differs in name or description."
+msgstr ""
+
+msgid "Created target term %d has an invalid source marker."
+msgstr ""
+
+msgid "Created target term %d has an unexpected parent."
+msgstr ""
+
+msgid "Created target term %d no longer has the expected rollback marker."
+msgstr ""
+
+msgid "Created terms in taxonomy %s could not be removed because the taxonomy is unavailable or no longer manageable."
+msgstr ""
+
+msgid "Finalization did not complete. The migration remains active and its rollback markers are still preserved."
+msgstr ""
+
+msgid "Finalization needs attention. The migration remains active."
+msgstr ""
+
+msgid "Finalize"
+msgstr ""
+
+msgid "Finalize & keep source"
+msgstr ""
+
+msgid "Finalize & keep source taxonomy"
+msgstr ""
+
+msgid "Finalize & move source to Trash"
+msgstr ""
+
+msgid "Finish copying all batches before verification."
+msgstr ""
+
+msgid "For a first test, keep the source. Moving source posts to Trash is available only after verification passes."
+msgstr ""
+
+msgid "I understand that I am taking responsibility for this active migration."
+msgstr ""
+
+msgid "I understand that rollback permanently deletes targets owned by this migration job."
+msgstr ""
+
+msgid "I understand that the verified source posts will be moved to WordPress Trash."
+msgstr ""
+
+msgid "Invalid target %1$s meta key: %2$s"
+msgstr ""
+
+msgid "Items per request. Use a lower value on slower shared hosting."
+msgstr ""
+
+msgid "Leave a target key empty to skip it. Registered target keys are shown as suggestions, but another valid key may be entered explicitly."
+msgstr ""
+
+msgid "Mapped post meta could not be written to the target post."
+msgstr ""
+
+msgid "Mapped term meta could not be written to the target term."
+msgstr ""
+
+msgid "Migrated relationships on object %d were not removed because you no longer have permission."
+msgstr ""
+
+msgid "Migration action failed."
+msgstr ""
+
+msgid "Migration analysis expired. Analyze the source and target again."
+msgstr ""
+
+msgid "Migration finalized."
+msgstr ""
+
+msgid "Migration job ID is missing."
+msgstr ""
+
+msgid "Migration job created. The source has not been changed."
+msgstr ""
+
+msgid "Migration ownership transferred to your account."
+msgstr ""
+
+msgid "Migration plan cleared."
+msgstr ""
+
+msgid "Migration rolled back."
+msgstr ""
+
+msgid "Migration state updated."
+msgstr ""
+
+msgid "Missing target terms cannot be created with the current permissions."
+msgstr ""
+
+msgid "New migration"
+msgstr ""
+
+msgid "No active migration"
+msgstr ""
+
+msgid "No active migration was found."
+msgstr ""
+
+msgid "No safely remappable shared post relationships were found. Terms can still be migrated."
+msgstr ""
+
+msgid "No source meta keys found."
+msgstr ""
+
+msgid "No source taxonomies found."
+msgstr ""
+
+msgid "Object %d is missing one or more migrated target relationships."
+msgstr ""
+
+msgid "Post meta mapping"
+msgstr ""
+
+msgid "Posts / post types"
+msgstr ""
+
+msgid "Relationship verification failed for object %d."
+msgstr ""
+
+msgid "Relationships"
+msgstr ""
+
+msgid "Remap relationships for %d affected posts."
+msgstr ""
+
+msgid "Reuse the same featured-image attachment when supported by the target."
+msgstr ""
+
+msgid "Review migration plan"
+msgstr ""
+
+msgid "Roll back"
+msgstr ""
+
+msgid "Roll back migration"
+msgstr ""
+
+msgid "Rollback could not safely remove every tracked item. Review the stored migration state before changing content manually."
+msgstr ""
+
+msgid "Rollback needs attention."
+msgstr ""
+
+msgid "Rollback permanently removes only job-owned target posts and safe-to-remove target terms and relationships. Source content remains untouched."
+msgstr ""
+
+msgid "Run next batch"
+msgstr ""
+
+msgid "Select…"
+msgstr ""
+
+msgid "Skip"
+msgstr ""
+
+msgid "Source"
+msgstr ""
+
+msgid "Source %1$d or target %2$d is missing."
+msgstr ""
+
+msgid "Source %d cannot be moved to Trash because you no longer have permission."
+msgstr ""
+
+msgid "Source %d could not be moved to Trash."
+msgstr ""
+
+msgid "Source %d is missing or changed type and cannot be moved to Trash safely."
+msgstr ""
+
+msgid "Source and target post types must be different."
+msgstr ""
+
+msgid "Source and target taxonomies must be different."
+msgstr ""
+
+msgid "Source key"
+msgstr ""
+
+msgid "Source or target post type is not registered."
+msgstr ""
+
+msgid "Source or target taxonomy is not registered."
+msgstr ""
+
+msgid "Source post is unavailable or changed type."
+msgstr ""
+
+msgid "Source term %1$d or target term %2$d no longer exists."
+msgstr ""
+
+msgid "Source term is unavailable."
+msgstr ""
+
+msgid "Start over"
+msgstr ""
+
+msgid "Status: %1$s · processed %2$d/%3$d"
+msgstr ""
+
+msgid "Take over migration"
+msgstr ""
+
+msgid "Target"
+msgstr ""
+
+msgid "Target %1$d differs for %2$s → %3$s."
+msgstr ""
+
+msgid "Target %1$d differs for meta %2$s."
+msgstr ""
+
+msgid "Target %1$d differs in %2$s."
+msgstr ""
+
+msgid "Target %d could not be deleted."
+msgstr ""
+
+msgid "Target %d has an invalid type or rollback marker."
+msgstr ""
+
+msgid "Target %d is missing. Verify the migration again before finalizing."
+msgstr ""
+
+msgid "Target %d no longer has the expected migration markers."
+msgstr ""
+
+msgid "Target %d taxonomy verification failed."
+msgstr ""
+
+msgid "Target %d was not deleted because its rollback marker changed."
+msgstr ""
+
+msgid "Target %d was not deleted because you no longer have permission."
+msgstr ""
+
+msgid "Target key"
+msgstr ""
+
+msgid "Target term %1$d differs for mapped term meta %2$s."
+msgstr ""
+
+msgid "Target term %d could not be deleted."
+msgstr ""
+
+msgid "Target term %d has a different slug."
+msgstr ""
+
+msgid "Target term %d is missing. Verify the migration again before finalizing."
+msgstr ""
+
+msgid "Target term %d no longer has the expected migration marker."
+msgstr ""
+
+msgid "Target term %d was not deleted because it is now used by content outside the rollback."
+msgstr ""
+
+msgid "Target term %d was not deleted because it now has child terms outside the rollback."
+msgstr ""
+
+msgid "Target term %d was not deleted because its child terms could not be verified."
+msgstr ""
+
+msgid "Target term %d was not deleted because its relationships could not be verified."
+msgstr ""
+
+msgid "Target term %d was not deleted because its rollback marker changed."
+msgstr ""
+
+msgid "Target term %d was not deleted because you no longer have permission."
+msgstr ""
+
+msgid "Taxonomies"
+msgstr ""
+
+msgid "Taxonomy mapping"
+msgstr ""
+
+msgid "Term meta mapping"
+msgstr ""
+
+msgid "The active migration changed before this job could be saved."
+msgstr ""
+
+msgid "The active migration changed. Refresh this page before running another action."
+msgstr ""
+
+msgid "The featured image could not be assigned to the target post."
+msgstr ""
+
+msgid "The migration job could not be stored."
+msgstr ""
+
+msgid "The selected source post type has no migratable posts."
+msgstr ""
+
+msgid "The selected source taxonomy has no terms to migrate."
+msgstr ""
+
+msgid "The source is still untouched. Continue until copying is complete."
+msgstr ""
+
+msgid "The target post could not be marked for safe rollback. Automatic cleanup was attempted."
+msgstr ""
+
+msgid "The target taxonomy is flat, so source parent/child relationships cannot be preserved."
+msgstr ""
+
+msgid "The target term could not be marked for safe rollback. Automatic cleanup was attempted."
+msgstr ""
+
+msgid "This migration is not ready to copy another batch."
+msgstr ""
+
+msgid "This migration is owned by another administrator. Take over the migration before changing it."
+msgstr ""
+
+msgid "This migration is owned by another administrator. Take ownership explicitly before continuing, verifying, finalizing or rolling it back."
+msgstr ""
+
+msgid "Use this when content already exists in one post type and should be copied into another post type, including selected taxonomies and meta."
+msgstr ""
+
+msgid "Verification found differences."
+msgstr ""
+
+msgid "Verification passed."
+msgstr ""
+
+msgid "Verify migrated content"
+msgstr ""
+
+msgid "WordPress terms have no Trash. RC1 therefore always keeps the source taxonomy when finalizing."
+msgstr ""
+
+msgid "You cannot create migrated target content for another author."
+msgstr ""
+
+msgid "You cannot create or manage terms in the selected target taxonomy."
+msgstr ""
+
+msgid "You cannot manage terms in the selected source taxonomy."
+msgstr ""
+
+msgid "You cannot preserve the publication status of this source post in the target post type."
+msgstr ""
+
+msgid "You do not have permission to use Content Migrator."
+msgstr ""
+
+msgid "You do not have sufficient capabilities for the selected post types."
+msgstr ""
+
+msgid "You no longer have permission to assign terms in a mapped target taxonomy."
+msgstr ""
+
+msgid "You no longer have permission to change one or more target taxonomy relationships."
+msgstr ""
+
+msgid "You no longer have permission to create the selected target post type."
+msgstr ""
+
+msgid "You no longer have permission to manage the source taxonomy."
+msgstr ""
+
+msgid "You no longer have permission to manage the target taxonomy."
+msgstr ""
+
+msgid "You no longer have permission to read and migrate this source post."
+msgstr ""
+
+msgid "You no longer have permission to repair the target parent relationship."
+msgstr ""
+
+msgid "The copy phase recorded %d issue. Roll back and retry before finalizing."
+msgid_plural "The copy phase recorded %d issues. Roll back and retry before finalizing."
+msgstr[0] ""
+msgstr[1] ""
