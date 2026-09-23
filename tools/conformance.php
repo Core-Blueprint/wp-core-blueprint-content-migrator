@@ -12,6 +12,7 @@ $expected = [
 	'src/Migration/PostRunner.php',
 	'src/Migration/TaxonomyAnalyzer.php',
 	'src/Migration/TaxonomyRunner.php',
+	'src/Migration/TermRollbackGuard.php',
 	'src/Migration/PlanStore.php',
 	'src/Migration/JobStore.php',
 	'src/Governance/Events.php',
@@ -25,14 +26,19 @@ foreach ( $expected as $path ) {
 
 $iterator = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $root, FilesystemIterator::SKIP_DOTS ) );
 foreach ( $iterator as $file ) {
-	if ( ! $file instanceof SplFileInfo || ! $file->isFile() || 'php' !== strtolower( $file->getExtension() ) || str_contains( $file->getPathname(), '/build/' ) || $file->getPathname() === __FILE__ ) {
+	if (
+		! $file instanceof SplFileInfo
+		|| ! $file->isFile()
+		|| 'php' !== strtolower( $file->getExtension() )
+		|| str_contains( $file->getPathname(), '/build/' )
+		|| $file->getPathname() === __FILE__
+	) {
 		continue;
 	}
 	$content = (string) file_get_contents( $file->getPathname() );
 	$forbidden = [
 		'cb-core-css-'                  => 'private Base asset handles are forbidden',
-		'CB\\Core\\Admin\\PageRegistry' => 'standalone utility must not require Core Admin PageRegistry',
-		'Requires Plugins:'             => 'standalone utility must not declare a Base dependency',
+		'CB\\Core\\Admin\\PageRegistry' => 'extensions must not require the private Base Admin PageRegistry',
 		'jquery'                        => 'Content Migrator has no jQuery runtime',
 		'cb_post_migrator'              => 'old Post Migrator identifiers must not remain',
 		'CB\\PostMigrator'              => 'old Post Migrator namespace must not remain',
@@ -45,11 +51,19 @@ foreach ( $iterator as $file ) {
 }
 
 $bootstrap = (string) file_get_contents( $root . '/core-blueprint-content-migrator.php' );
-if ( str_contains( $bootstrap, 'register_activation_hook' ) || str_contains( $bootstrap, 'deactivate_plugins' ) ) {
-	$failures[] = 'Content Migrator must activate standalone without a Core Blueprint Base dependency gate.';
+foreach ( [
+	'Requires Plugins:  core-blueprint' => 'Native Core Blueprint Base dependency is missing.',
+	"CB_CONTENT_MIGRATOR_REQUIRED_API', '1.1'" => 'Core API 1.1 requirement is missing.',
+	"CB_CONTENT_MIGRATOR_REQUIRED_BASE', '1.0.0-rc1'" => 'Minimum Base version requirement is missing.',
+	'cb_content_migrator_base_ready()' => 'Runtime Base compatibility gate is missing.',
+	'\\CB\\ContentMigrator\\Plugin::boot()' => 'Plugin bootstrap is missing.',
+] as $needle => $message ) {
+	if ( ! str_contains( $bootstrap, $needle ) ) {
+		$failures[] = $message;
+	}
 }
-if ( ! str_contains( $bootstrap, '\\CB\\ContentMigrator\\Plugin::boot()' ) ) {
-	$failures[] = 'Standalone plugin bootstrap is missing.';
+if ( str_contains( $bootstrap, 'deactivate_plugins' ) ) {
+	$failures[] = 'Content Migrator must rely on the native dependency contract and must not self-deactivate Base or itself.';
 }
 
 $post_runner = (string) file_get_contents( $root . '/src/Migration/PostRunner.php' );
@@ -73,13 +87,24 @@ if ( str_contains( $taxonomy_runner, 'wp_delete_term( $source' ) ) {
 }
 
 $events = (string) file_get_contents( $root . '/src/Governance/Events.php' );
-if ( ! str_contains( $events, 'class_exists' ) || ! str_contains( $events, 'Audit::record' ) ) {
-	$failures[] = 'Governance must be optional and best-effort when Base is absent.';
+if ( ! str_contains( $events, 'EventRegistry::register' ) || ! str_contains( $events, 'Audit::record' ) ) {
+	$failures[] = 'Governance registration and audit writes are required Base contracts.';
+}
+if ( str_contains( $events, 'class_exists' ) ) {
+	$failures[] = 'Governance must not silently fall back when required Base contracts are missing.';
 }
 
 $page = (string) file_get_contents( $root . '/src/Admin/Page.php' );
-if ( ! str_contains( $page, 'add_management_page' ) || ! str_contains( $page, 'Tools' ) && ! str_contains( $page, 'Content Migrator' ) ) {
-	$failures[] = 'Standalone WordPress-native Tools page is missing.';
+if ( ! str_contains( $page, 'add_management_page' ) || ! str_contains( $page, 'Content Migrator' ) ) {
+	$failures[] = 'WordPress-native Content Migrator Tools page is missing.';
+}
+
+$safety_test = $root . '/tests/golden-safety-regression.php';
+if ( ! is_file( $safety_test ) ) {
+	$failures[] = 'Golden safety regression test is missing.';
+} else {
+	require_once $safety_test;
+	$failures = array_merge( $failures, cb_cm_golden_safety_failures( $root ) );
 }
 
 if ( $failures ) {
