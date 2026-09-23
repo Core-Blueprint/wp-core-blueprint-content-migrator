@@ -12,20 +12,18 @@ final class Suite {
 	public const ID = 'core-blueprint-content-migrator';
 
 	public static function init(): void {
-		if ( ! function_exists( 'cb_content_migrator_base_ready' ) || ! cb_content_migrator_base_ready() ) {
-			return;
-		}
 		add_action( 'cb_core_register_extensions', [ __CLASS__, 'register_extension' ] );
 		add_filter( 'cb_core_module_status_definitions', [ __CLASS__, 'register_status_definition' ] );
 	}
 
 	public static function register_extension(): void {
 		\CB\Core\ExtensionRegistry::register( [
-			'id'           => self::ID,
-			'plugin_file'  => CB_CONTENT_MIGRATOR_BASENAME,
-			'requires_api' => CB_CONTENT_MIGRATOR_REQUIRED_API,
-			'menu_url'     => admin_url( 'tools.php?page=' . Page::SLUG ),
-			'status_id'    => self::ID,
+			'id'            => self::ID,
+			'plugin_file'   => CB_CONTENT_MIGRATOR_BASENAME,
+			'requires_api'  => CB_CONTENT_MIGRATOR_REQUIRED_API,
+			'requires_base' => CB_CONTENT_MIGRATOR_REQUIRED_BASE,
+			'menu_url'      => admin_url( 'tools.php?page=' . Page::SLUG ),
+			'status_id'     => self::ID,
 		] );
 	}
 
@@ -42,16 +40,32 @@ final class Suite {
 	/** @return array{state:string,detail:string,url:string} */
 	public static function status(): array {
 		$job = JobStore::load_active();
-		$detail = __( 'No active migration', 'core-blueprint-content-migrator' );
-		if ( is_array( $job ) ) {
-			$detail = sprintf(
-				/* translators: 1: migration mode, 2: processed items, 3: total items. */
-				__( '%1$s migration active · %2$d/%3$d processed', 'core-blueprint-content-migrator' ),
-				ucfirst( sanitize_key( (string) ( $job['mode'] ?? 'content' ) ) ),
-				(int) ( $job['cursor'] ?? 0 ),
-				(int) ( $job['total'] ?? 0 )
-			);
+		$url = admin_url( 'tools.php?page=' . Page::SLUG );
+		if ( ! is_array( $job ) ) {
+			return [
+				'state'  => 'ok',
+				'detail' => __( 'No active migration', 'core-blueprint-content-migrator' ),
+				'url'    => $url,
+			];
 		}
-		return [ 'state' => 'ok', 'detail' => $detail, 'url' => admin_url( 'tools.php?page=' . Page::SLUG ) ];
+
+		$status = sanitize_key( (string) ( $job['status'] ?? 'unknown' ) );
+		$errors = count( (array) ( $job['errors'] ?? [] ) );
+		$state = 'ok';
+		if ( 'rollback_failed' === $status ) {
+			$state = 'err';
+		} elseif ( 'verification_failed' === $status || $errors > 0 ) {
+			$state = 'warn';
+		}
+
+		$detail = sprintf(
+			/* translators: 1: migration status, 2: processed items, 3: total items. */
+			__( '%1$s · %2$d/%3$d processed', 'core-blueprint-content-migrator' ),
+			$status,
+			(int) ( $job['cursor'] ?? 0 ),
+			(int) ( $job['total'] ?? 0 )
+		);
+
+		return [ 'state' => $state, 'detail' => $detail, 'url' => $url ];
 	}
 }
