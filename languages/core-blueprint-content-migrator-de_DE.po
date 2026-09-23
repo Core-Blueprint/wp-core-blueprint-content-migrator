@@ -1,0 +1,525 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Core Blueprint Content Migrator 1.0.0-rc1\n"
+"POT-Creation-Date: 2026-09-23 18:00+0000\n"
+"PO-Revision-Date: 2026-09-23 18:00+0000\n"
+"Last-Translator: Core Blueprint\n"
+"Language-Team: de_DE\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Core Blueprint i18n tooling 1.1.0\n"
+
+msgid "%1$s · %2$d/%3$d processed"
+msgstr "%1$s · %2$d/%3$d verarbeitet"
+
+msgid "%d issues were recorded. Do not finalize before verification passes."
+msgstr "%d Probleme wurden protokolliert. Schließen Sie die Migration nicht ab, bevor die Überprüfung erfolgreich ist."
+
+msgid "%d source posts found. Copies are created first; the source is not moved or deleted during testing."
+msgstr "%d Quellbeiträge gefunden. Zuerst werden Kopien erstellt; die Quelle wird während des Tests weder verschoben noch gelöscht."
+
+msgid "%d source terms found."
+msgstr "%d Quellbegriffe gefunden."
+
+msgid "A mapped target meta key is reserved or not writable."
+msgstr "Ein zugeordneter Ziel-Metaschlüssel ist reserviert oder nicht beschreibbar."
+
+msgid "A mapped target term meta key is reserved or not writable."
+msgstr "Ein zugeordneter Ziel-Metaschlüssel für Begriffe ist reserviert oder nicht beschreibbar."
+
+msgid "A mapped taxonomy is no longer available for the selected target post type."
+msgstr "Eine zugeordnete Taxonomie ist für den ausgewählten Ziel-Beitragstyp nicht mehr verfügbar."
+
+msgid "A migration can only be finalized after a successful verification."
+msgstr "Eine Migration kann nur nach einer erfolgreichen Überprüfung abgeschlossen werden."
+
+msgid "A target term could not be marked for safe rollback and was removed."
+msgstr "Ein Zielbegriff konnte nicht für ein sicheres Rollback markiert werden und wurde entfernt."
+
+msgid "Active migration"
+msgstr "Aktive Migration"
+
+msgid "Analysis complete. Review the plan below."
+msgstr "Analyse abgeschlossen. Prüfen Sie den Plan unten."
+
+msgid "Analyze post migration"
+msgstr "Beitragsmigration analysieren"
+
+msgid "Analyze taxonomy migration"
+msgstr "Taxonomiemigration analysieren"
+
+msgid "Another migration became active before this job could be started."
+msgstr "Eine andere Migration wurde aktiv, bevor dieser Auftrag gestartet werden konnte."
+
+msgid "Another migration is already active."
+msgstr "Eine andere Migration ist bereits aktiv."
+
+msgid "Batch complete."
+msgstr "Batch abgeschlossen."
+
+msgid "Batch size"
+msgstr "Batchgröße"
+
+msgid "Choose only mappings you understand. Missing target terms may be created and are included in rollback. Machine-owned target taxonomies are excluded."
+msgstr "Wählen Sie nur Zuordnungen, die Sie verstehen. Fehlende Zielbegriffe können erstellt werden und werden beim Rollback berücksichtigt. Maschinenverwaltete Ziel-Taxonomien sind ausgeschlossen."
+
+msgid "Confirm that you want to move the source posts to WordPress Trash."
+msgstr "Bestätigen Sie, dass Sie die Quellbeiträge in den WordPress-Papierkorb verschieben möchten."
+
+msgid "Confirm that you want to permanently delete the targets created by this migration."
+msgstr "Bestätigen Sie, dass Sie die von dieser Migration erstellten Ziele dauerhaft löschen möchten."
+
+msgid "Confirm that you want to take ownership of this migration."
+msgstr "Bestätigen Sie, dass Sie die Verantwortung für diese Migration übernehmen möchten."
+
+msgid "Conflict rule: an existing target term with the same slug is reused and never overwritten. Only newly created terms receive mapped term meta and rollback markers."
+msgstr "Konfliktregel: Ein vorhandener Zielbegriff mit demselben Slug wird wiederverwendet und niemals überschrieben. Nur neu erstellte Begriffe erhalten zugeordnete Term-Metadaten und Rollback-Markierungen."
+
+msgid "Content Migrator"
+msgstr "Content Migrator"
+
+msgid "Content migration action failed"
+msgstr "Aktion der Content-Migration fehlgeschlagen"
+
+msgid "Content migration analysis completed"
+msgstr "Analyse der Content-Migration abgeschlossen"
+
+msgid "Content migration batch copied"
+msgstr "Batch der Content-Migration kopiert"
+
+msgid "Content migration created"
+msgstr "Content-Migration erstellt"
+
+msgid "Content migration finalization failed"
+msgstr "Abschluss der Content-Migration fehlgeschlagen"
+
+msgid "Content migration finalized"
+msgstr "Content-Migration abgeschlossen"
+
+msgid "Content migration ownership taken over"
+msgstr "Verantwortung für Content-Migration übernommen"
+
+msgid "Content migration plan cleared"
+msgstr "Plan der Content-Migration gelöscht"
+
+msgid "Content migration rollback failed"
+msgstr "Rollback der Content-Migration fehlgeschlagen"
+
+msgid "Content migration rolled back"
+msgstr "Content-Migration zurückgerollt"
+
+msgid "Content migration source moved to Trash"
+msgstr "Quelle der Content-Migration in den Papierkorb verschoben"
+
+msgid "Content migration verified"
+msgstr "Content-Migration überprüft"
+
+msgid "Copies terms and hierarchy. Existing target terms with the same slug are reused without overwriting their data. Relationships can be remapped when both taxonomies support the same post types."
+msgstr "Kopiert Begriffe und Hierarchie. Vorhandene Zielbegriffe mit demselben Slug werden wiederverwendet, ohne ihre Daten zu überschreiben. Beziehungen können neu zugeordnet werden, wenn beide Taxonomien dieselben Beitragstypen unterstützen."
+
+msgid "Copy WordPress content safely, verify it, then roll back or finalize. Analysis is read-only and source content stays intact until you explicitly choose otherwise."
+msgstr "Kopieren Sie WordPress-Inhalte sicher, überprüfen Sie sie und führen Sie anschließend ein Rollback durch oder schließen Sie die Migration ab. Die Analyse ist schreibgeschützt und Quellinhalte bleiben unverändert, bis Sie ausdrücklich etwas anderes wählen."
+
+msgid "Copy options"
+msgstr "Kopieroptionen"
+
+msgid "Core Blueprint Content Migrator"
+msgstr "Core Blueprint Content Migrator"
+
+msgid "Core Blueprint Content Migrator requires Core Blueprint %1$s or newer with compatible Core API %2$s."
+msgstr "Core Blueprint Content Migrator erfordert Core Blueprint %1$s oder neuer mit kompatibler Core API %2$s."
+
+msgid "Could not remove migrated relationships from object %d."
+msgstr "Migrierte Beziehungen konnten nicht aus Objekt %d entfernt werden."
+
+msgid "Create safe migration job"
+msgstr "Sicheren Migrationsauftrag erstellen"
+
+msgid "Created target term %d differs in name or description."
+msgstr "Erstellter Zielbegriff %d unterscheidet sich in Name oder Beschreibung."
+
+msgid "Created target term %d has an invalid source marker."
+msgstr "Erstellter Zielbegriff %d hat eine ungültige Quellmarkierung."
+
+msgid "Created target term %d has an unexpected parent."
+msgstr "Erstellter Zielbegriff %d hat einen unerwarteten übergeordneten Begriff."
+
+msgid "Created target term %d no longer has the expected rollback marker."
+msgstr "Erstellter Zielbegriff %d hat nicht mehr die erwartete Rollback-Markierung."
+
+msgid "Created terms in taxonomy %s could not be removed because the taxonomy is unavailable or no longer manageable."
+msgstr "Erstellte Begriffe in Taxonomie %s konnten nicht entfernt werden, weil die Taxonomie nicht verfügbar oder nicht mehr verwaltbar ist."
+
+msgid "Finalization did not complete. The migration remains active and its rollback markers are still preserved."
+msgstr "Der Abschluss wurde nicht beendet. Die Migration bleibt aktiv und ihre Rollback-Markierungen bleiben erhalten."
+
+msgid "Finalization needs attention. The migration remains active."
+msgstr "Der Abschluss erfordert Aufmerksamkeit. Die Migration bleibt aktiv."
+
+msgid "Finalize"
+msgstr "Abschließen"
+
+msgid "Finalize & keep source"
+msgstr "Abschließen und Quelle behalten"
+
+msgid "Finalize & keep source taxonomy"
+msgstr "Abschließen und Quell-Taxonomie behalten"
+
+msgid "Finalize & move source to Trash"
+msgstr "Abschließen und Quelle in den Papierkorb verschieben"
+
+msgid "Finish copying all batches before verification."
+msgstr "Schließen Sie das Kopieren aller Batches vor der Überprüfung ab."
+
+msgid "For a first test, keep the source. Moving source posts to Trash is available only after verification passes."
+msgstr "Behalten Sie für einen ersten Test die Quelle. Das Verschieben von Quellbeiträgen in den Papierkorb ist erst nach erfolgreicher Überprüfung verfügbar."
+
+msgid "I understand that I am taking responsibility for this active migration."
+msgstr "Ich verstehe, dass ich die Verantwortung für diese aktive Migration übernehme."
+
+msgid "I understand that rollback permanently deletes targets owned by this migration job."
+msgstr "Ich verstehe, dass ein Rollback die Ziele dieses Migrationsauftrags dauerhaft löscht."
+
+msgid "I understand that the verified source posts will be moved to WordPress Trash."
+msgstr "Ich verstehe, dass die überprüften Quellbeiträge in den WordPress-Papierkorb verschoben werden."
+
+msgid "Invalid target %1$s meta key: %2$s"
+msgstr "Ungültiger Ziel-Metaschlüssel für %1$s: %2$s"
+
+msgid "Items per request. Use a lower value on slower shared hosting."
+msgstr "Elemente pro Anfrage. Verwenden Sie auf langsameren Shared-Hosting-Systemen einen niedrigeren Wert."
+
+msgid "Leave a target key empty to skip it. Registered target keys are shown as suggestions, but another valid key may be entered explicitly."
+msgstr "Lassen Sie einen Zielschlüssel leer, um ihn zu überspringen. Registrierte Zielschlüssel werden als Vorschläge angezeigt, es kann jedoch ausdrücklich ein anderer gültiger Schlüssel eingegeben werden."
+
+msgid "Mapped post meta could not be written to the target post."
+msgstr "Zugeordnete Beitragsmetadaten konnten nicht in den Zielbeitrag geschrieben werden."
+
+msgid "Mapped term meta could not be written to the target term."
+msgstr "Zugeordnete Term-Metadaten konnten nicht in den Zielbegriff geschrieben werden."
+
+msgid "Migrated relationships on object %d were not removed because you no longer have permission."
+msgstr "Migrierte Beziehungen an Objekt %d wurden nicht entfernt, weil Sie nicht mehr über die erforderliche Berechtigung verfügen."
+
+msgid "Migration action failed."
+msgstr "Migrationsaktion fehlgeschlagen."
+
+msgid "Migration analysis expired. Analyze the source and target again."
+msgstr "Die Migrationsanalyse ist abgelaufen. Analysieren Sie Quelle und Ziel erneut."
+
+msgid "Migration finalized."
+msgstr "Migration abgeschlossen."
+
+msgid "Migration job ID is missing."
+msgstr "Migrationsauftrag-ID fehlt."
+
+msgid "Migration job created. The source has not been changed."
+msgstr "Migrationsauftrag erstellt. Die Quelle wurde nicht geändert."
+
+msgid "Migration ownership transferred to your account."
+msgstr "Die Verantwortung für die Migration wurde auf Ihr Konto übertragen."
+
+msgid "Migration plan cleared."
+msgstr "Migrationsplan gelöscht."
+
+msgid "Migration rolled back."
+msgstr "Migration zurückgerollt."
+
+msgid "Migration state updated."
+msgstr "Migrationsstatus aktualisiert."
+
+msgid "Missing target terms cannot be created with the current permissions."
+msgstr "Fehlende Zielbegriffe können mit den aktuellen Berechtigungen nicht erstellt werden."
+
+msgid "New migration"
+msgstr "Neue Migration"
+
+msgid "No active migration"
+msgstr "Keine aktive Migration"
+
+msgid "No active migration was found."
+msgstr "Es wurde keine aktive Migration gefunden."
+
+msgid "No safely remappable shared post relationships were found. Terms can still be migrated."
+msgstr "Es wurden keine sicher neu zuordenbaren gemeinsamen Beitragsbeziehungen gefunden. Begriffe können dennoch migriert werden."
+
+msgid "No source meta keys found."
+msgstr "Keine Quell-Metaschlüssel gefunden."
+
+msgid "No source taxonomies found."
+msgstr "Keine Quell-Taxonomien gefunden."
+
+msgid "Object %d is missing one or more migrated target relationships."
+msgstr "Objekt %d fehlen eine oder mehrere migrierte Zielbeziehungen."
+
+msgid "Post meta mapping"
+msgstr "Beitragsmetadaten zuordnen"
+
+msgid "Posts / post types"
+msgstr "Beiträge / Beitragstypen"
+
+msgid "Relationship verification failed for object %d."
+msgstr "Überprüfung der Beziehungen für Objekt %d fehlgeschlagen."
+
+msgid "Relationships"
+msgstr "Beziehungen"
+
+msgid "Remap relationships for %d affected posts."
+msgstr "Beziehungen für %d betroffene Beiträge neu zuordnen."
+
+msgid "Reuse the same featured-image attachment when supported by the target."
+msgstr "Dieselbe Beitragsbild-Anlage wiederverwenden, wenn das Ziel dies unterstützt."
+
+msgid "Review migration plan"
+msgstr "Migrationsplan prüfen"
+
+msgid "Roll back"
+msgstr "Rollback"
+
+msgid "Roll back migration"
+msgstr "Migration zurückrollen"
+
+msgid "Rollback could not safely remove every tracked item. Review the stored migration state before changing content manually."
+msgstr "Nicht jedes verfolgte Element konnte sicher zurückgerollt werden. Prüfen Sie den gespeicherten Migrationsstatus, bevor Sie Inhalte manuell ändern."
+
+msgid "Rollback needs attention."
+msgstr "Rollback erfordert Aufmerksamkeit."
+
+msgid "Rollback permanently removes only job-owned target posts and safe-to-remove target terms and relationships. Source content remains untouched."
+msgstr "Ein Rollback entfernt dauerhaft nur Zielbeiträge des Auftrags sowie Zielbegriffe und Beziehungen, die sicher entfernt werden können. Quellinhalte bleiben unverändert."
+
+msgid "Run next batch"
+msgstr "Nächsten Batch ausführen"
+
+msgid "Select…"
+msgstr "Auswählen…"
+
+msgid "Skip"
+msgstr "Überspringen"
+
+msgid "Source"
+msgstr "Quelle"
+
+msgid "Source %1$d or target %2$d is missing."
+msgstr "Quelle %1$d oder Ziel %2$d fehlt."
+
+msgid "Source %d cannot be moved to Trash because you no longer have permission."
+msgstr "Quelle %d kann nicht in den Papierkorb verschoben werden, weil Sie nicht mehr über die erforderliche Berechtigung verfügen."
+
+msgid "Source %d could not be moved to Trash."
+msgstr "Quelle %d konnte nicht in den Papierkorb verschoben werden."
+
+msgid "Source %d is missing or changed type and cannot be moved to Trash safely."
+msgstr "Quelle %d fehlt oder hat den Typ geändert und kann nicht sicher in den Papierkorb verschoben werden."
+
+msgid "Source and target post types must be different."
+msgstr "Quell- und Ziel-Beitragstyp müssen unterschiedlich sein."
+
+msgid "Source and target taxonomies must be different."
+msgstr "Quell- und Ziel-Taxonomie müssen unterschiedlich sein."
+
+msgid "Source key"
+msgstr "Quellschlüssel"
+
+msgid "Source or target post type is not registered."
+msgstr "Quell- oder Ziel-Beitragstyp ist nicht registriert."
+
+msgid "Source or target taxonomy is not registered."
+msgstr "Quell- oder Ziel-Taxonomie ist nicht registriert."
+
+msgid "Source post is unavailable or changed type."
+msgstr "Quellbeitrag ist nicht verfügbar oder hat den Typ geändert."
+
+msgid "Source term %1$d or target term %2$d no longer exists."
+msgstr "Quellbegriff %1$d oder Zielbegriff %2$d existiert nicht mehr."
+
+msgid "Source term is unavailable."
+msgstr "Quellbegriff ist nicht verfügbar."
+
+msgid "Start over"
+msgstr "Neu beginnen"
+
+msgid "Status: %1$s · processed %2$d/%3$d"
+msgstr "Status: %1$s · %2$d/%3$d verarbeitet"
+
+msgid "Take over migration"
+msgstr "Migration übernehmen"
+
+msgid "Target"
+msgstr "Ziel"
+
+msgid "Target %1$d differs for %2$s → %3$s."
+msgstr "Ziel %1$d unterscheidet sich für %2$s → %3$s."
+
+msgid "Target %1$d differs for meta %2$s."
+msgstr "Ziel %1$d unterscheidet sich bei Meta %2$s."
+
+msgid "Target %1$d differs in %2$s."
+msgstr "Ziel %1$d unterscheidet sich in %2$s."
+
+msgid "Target %d could not be deleted."
+msgstr "Ziel %d konnte nicht gelöscht werden."
+
+msgid "Target %d has an invalid type or rollback marker."
+msgstr "Ziel %d hat einen ungültigen Typ oder eine ungültige Rollback-Markierung."
+
+msgid "Target %d is missing. Verify the migration again before finalizing."
+msgstr "Ziel %d fehlt. Überprüfen Sie die Migration erneut, bevor Sie sie abschließen."
+
+msgid "Target %d no longer has the expected migration markers."
+msgstr "Ziel %d hat nicht mehr die erwarteten Migrationsmarkierungen."
+
+msgid "Target %d taxonomy verification failed."
+msgstr "Taxonomieüberprüfung für Ziel %d fehlgeschlagen."
+
+msgid "Target %d was not deleted because its rollback marker changed."
+msgstr "Ziel %d wurde nicht gelöscht, weil sich seine Rollback-Markierung geändert hat."
+
+msgid "Target %d was not deleted because you no longer have permission."
+msgstr "Ziel %d wurde nicht gelöscht, weil Sie nicht mehr über die erforderliche Berechtigung verfügen."
+
+msgid "Target key"
+msgstr "Zielschlüssel"
+
+msgid "Target term %1$d differs for mapped term meta %2$s."
+msgstr "Zielbegriff %1$d unterscheidet sich bei zugeordneten Term-Metadaten %2$s."
+
+msgid "Target term %d could not be deleted."
+msgstr "Zielbegriff %d konnte nicht gelöscht werden."
+
+msgid "Target term %d has a different slug."
+msgstr "Zielbegriff %d hat einen anderen Slug."
+
+msgid "Target term %d is missing. Verify the migration again before finalizing."
+msgstr "Zielbegriff %d fehlt. Überprüfen Sie die Migration erneut, bevor Sie sie abschließen."
+
+msgid "Target term %d no longer has the expected migration marker."
+msgstr "Zielbegriff %d hat nicht mehr die erwartete Migrationsmarkierung."
+
+msgid "Target term %d was not deleted because it is now used by content outside the rollback."
+msgstr "Zielbegriff %d wurde nicht gelöscht, weil er jetzt von Inhalten außerhalb des Rollbacks verwendet wird."
+
+msgid "Target term %d was not deleted because it now has child terms outside the rollback."
+msgstr "Zielbegriff %d wurde nicht gelöscht, weil er jetzt untergeordnete Begriffe außerhalb des Rollbacks hat."
+
+msgid "Target term %d was not deleted because its child terms could not be verified."
+msgstr "Zielbegriff %d wurde nicht gelöscht, weil seine untergeordneten Begriffe nicht überprüft werden konnten."
+
+msgid "Target term %d was not deleted because its relationships could not be verified."
+msgstr "Zielbegriff %d wurde nicht gelöscht, weil seine Beziehungen nicht überprüft werden konnten."
+
+msgid "Target term %d was not deleted because its rollback marker changed."
+msgstr "Zielbegriff %d wurde nicht gelöscht, weil sich seine Rollback-Markierung geändert hat."
+
+msgid "Target term %d was not deleted because you no longer have permission."
+msgstr "Zielbegriff %d wurde nicht gelöscht, weil Sie nicht mehr über die erforderliche Berechtigung verfügen."
+
+msgid "Taxonomies"
+msgstr "Taxonomien"
+
+msgid "Taxonomy mapping"
+msgstr "Taxonomiezuordnung"
+
+msgid "Term meta mapping"
+msgstr "Term-Metadaten zuordnen"
+
+msgid "The active migration changed before this job could be saved."
+msgstr "Die aktive Migration hat sich geändert, bevor dieser Auftrag gespeichert werden konnte."
+
+msgid "The active migration changed. Refresh this page before running another action."
+msgstr "Die aktive Migration hat sich geändert. Aktualisieren Sie diese Seite, bevor Sie eine weitere Aktion ausführen."
+
+msgid "The featured image could not be assigned to the target post."
+msgstr "Das Beitragsbild konnte dem Zielbeitrag nicht zugewiesen werden."
+
+msgid "The migration job could not be stored."
+msgstr "Der Migrationsauftrag konnte nicht gespeichert werden."
+
+msgid "The selected source post type has no migratable posts."
+msgstr "Der ausgewählte Quell-Beitragstyp enthält keine migrierbaren Beiträge."
+
+msgid "The selected source taxonomy has no terms to migrate."
+msgstr "Die ausgewählte Quell-Taxonomie enthält keine zu migrierenden Begriffe."
+
+msgid "The source is still untouched. Continue until copying is complete."
+msgstr "Die Quelle ist weiterhin unverändert. Fahren Sie fort, bis das Kopieren abgeschlossen ist."
+
+msgid "The target post could not be marked for safe rollback. Automatic cleanup was attempted."
+msgstr "Der Zielbeitrag konnte nicht für ein sicheres Rollback markiert werden. Eine automatische Bereinigung wurde versucht."
+
+msgid "The target taxonomy is flat, so source parent/child relationships cannot be preserved."
+msgstr "Die Ziel-Taxonomie ist flach, daher können über- und untergeordnete Beziehungen der Quelle nicht beibehalten werden."
+
+msgid "The target term could not be marked for safe rollback. Automatic cleanup was attempted."
+msgstr "Der Zielbegriff konnte nicht für ein sicheres Rollback markiert werden. Eine automatische Bereinigung wurde versucht."
+
+msgid "This migration is not ready to copy another batch."
+msgstr "Diese Migration ist nicht bereit, einen weiteren Batch zu kopieren."
+
+msgid "This migration is owned by another administrator. Take over the migration before changing it."
+msgstr "Diese Migration gehört einem anderen Administrator. Übernehmen Sie die Migration, bevor Sie sie ändern."
+
+msgid "This migration is owned by another administrator. Take ownership explicitly before continuing, verifying, finalizing or rolling it back."
+msgstr "Diese Migration gehört einem anderen Administrator. Übernehmen Sie ausdrücklich die Verantwortung, bevor Sie fortfahren, überprüfen, abschließen oder zurückrollen."
+
+msgid "Use this when content already exists in one post type and should be copied into another post type, including selected taxonomies and meta."
+msgstr "Verwenden Sie dies, wenn Inhalte bereits in einem Beitragstyp vorhanden sind und in einen anderen Beitragstyp kopiert werden sollen, einschließlich ausgewählter Taxonomien und Metadaten."
+
+msgid "Verification found differences."
+msgstr "Bei der Überprüfung wurden Unterschiede gefunden."
+
+msgid "Verification passed."
+msgstr "Überprüfung erfolgreich."
+
+msgid "Verify migrated content"
+msgstr "Migrierte Inhalte überprüfen"
+
+msgid "WordPress terms have no Trash. RC1 therefore always keeps the source taxonomy when finalizing."
+msgstr "WordPress-Begriffe haben keinen Papierkorb. RC1 behält daher beim Abschluss immer die Quell-Taxonomie."
+
+msgid "You cannot create migrated target content for another author."
+msgstr "Sie können keine migrierten Zielinhalte für einen anderen Autor erstellen."
+
+msgid "You cannot create or manage terms in the selected target taxonomy."
+msgstr "Sie können in der ausgewählten Ziel-Taxonomie keine Begriffe erstellen oder verwalten."
+
+msgid "You cannot manage terms in the selected source taxonomy."
+msgstr "Sie können in der ausgewählten Quell-Taxonomie keine Begriffe verwalten."
+
+msgid "You cannot preserve the publication status of this source post in the target post type."
+msgstr "Sie können den Veröffentlichungsstatus dieses Quellbeitrags im Ziel-Beitragstyp nicht beibehalten."
+
+msgid "You do not have permission to use Content Migrator."
+msgstr "Sie haben keine Berechtigung, Content Migrator zu verwenden."
+
+msgid "You do not have sufficient capabilities for the selected post types."
+msgstr "Sie verfügen nicht über ausreichende Berechtigungen für die ausgewählten Beitragstypen."
+
+msgid "You no longer have permission to assign terms in a mapped target taxonomy."
+msgstr "Sie haben nicht mehr die Berechtigung, Begriffe in einer zugeordneten Ziel-Taxonomie zuzuweisen."
+
+msgid "You no longer have permission to change one or more target taxonomy relationships."
+msgstr "Sie haben nicht mehr die Berechtigung, eine oder mehrere Beziehungen in der Ziel-Taxonomie zu ändern."
+
+msgid "You no longer have permission to create the selected target post type."
+msgstr "Sie haben nicht mehr die Berechtigung, den ausgewählten Ziel-Beitragstyp zu erstellen."
+
+msgid "You no longer have permission to manage the source taxonomy."
+msgstr "Sie haben nicht mehr die Berechtigung, die Quell-Taxonomie zu verwalten."
+
+msgid "You no longer have permission to manage the target taxonomy."
+msgstr "Sie haben nicht mehr die Berechtigung, die Ziel-Taxonomie zu verwalten."
+
+msgid "You no longer have permission to read and migrate this source post."
+msgstr "Sie haben nicht mehr die Berechtigung, diesen Quellbeitrag zu lesen und zu migrieren."
+
+msgid "You no longer have permission to repair the target parent relationship."
+msgstr "Sie haben nicht mehr die Berechtigung, die übergeordnete Beziehung des Ziels zu reparieren."
+
+msgid "The copy phase recorded %d issue. Roll back and retry before finalizing."
+msgid_plural "The copy phase recorded %d issues. Roll back and retry before finalizing."
+msgstr[0] "Während der Kopierphase wurde %d Problem protokolliert. Führen Sie ein Rollback durch und versuchen Sie es erneut, bevor Sie abschließen."
+msgstr[1] "Während der Kopierphase wurden %d Probleme protokolliert. Führen Sie ein Rollback durch und versuchen Sie es erneut, bevor Sie abschließen."
