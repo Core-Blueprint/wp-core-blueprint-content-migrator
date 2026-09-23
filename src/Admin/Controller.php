@@ -195,7 +195,7 @@ final class Controller {
 		self::guard( 'finalize' );
 		try {
 			$job = self::active_job();
-			if ( 'verified' !== (string) $job['status'] ) {
+			if ( ! in_array( (string) $job['status'], [ 'verified', 'finalization_failed' ], true ) ) {
 				throw new \RuntimeException( __( 'A migration can only be finalized after a successful verification.', 'core-blueprint-content-migrator' ) );
 			}
 			$trash_source = 'post' === (string) ( $job['mode'] ?? 'post' ) && isset( $_POST['trash_source'] ) && '1' === (string) wp_unslash( $_POST['trash_source'] );
@@ -205,6 +205,7 @@ final class Controller {
 					__( 'Confirm that you want to move the source posts to WordPress Trash.', 'core-blueprint-content-migrator' )
 				);
 			}
+
 			$result = self::runner( $job )::finalize( $job, $trash_source );
 			if ( $trash_source ) {
 				Events::record(
@@ -216,20 +217,32 @@ final class Controller {
 					]
 				);
 			}
-			Events::record(
-				Events::FINALIZED,
-				empty( $result['issues'] ) ? 'notice' : 'warning',
-				self::event_context( $job ) + [
-					'source_kept' => ! $trash_source,
-					'issues'      => count( (array) $result['issues'] ),
-				]
-			);
+
 			if ( ! empty( $result['issues'] ) ) {
+				$job['status'] = 'finalization_failed';
 				$job['finalization'] = $result;
 				JobStore::save( $job );
-				self::redirect( 'finalized_warnings' );
+				Events::record(
+					Events::FINALIZE_FAILED,
+					'warning',
+					self::event_context( $job ) + [
+						'source_kept' => ! $trash_source,
+						'issues'      => count( (array) $result['issues'] ),
+					]
+				);
+				self::redirect( 'finalization_failed' );
 				return;
 			}
+
+			$job['status'] = 'finalized';
+			Events::record(
+				Events::FINALIZED,
+				'notice',
+				self::event_context( $job ) + [
+					'source_kept' => ! $trash_source,
+					'issues'      => 0,
+				]
+			);
 			JobStore::delete( (string) $job['id'] );
 			self::redirect( 'finalized' );
 		} catch ( \Throwable $e ) {
