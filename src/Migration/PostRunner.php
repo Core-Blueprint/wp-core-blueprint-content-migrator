@@ -88,16 +88,19 @@ final class PostRunner {
 		}
 		$target_id = (int) $target_id;
 
+		// Track immediately after insertion. If ownership markers fail and emergency
+		// cleanup also fails, the target must still remain visible in job state.
+		$job['target_map'][ (string) $source_id ] = $target_id;
+
 		$job_marker = update_post_meta( $target_id, self::JOB_META, sanitize_key( (string) $job['id'] ) );
 		$source_marker = update_post_meta( $target_id, self::SOURCE_META, $source_id );
 		if ( false === $job_marker || false === $source_marker ) {
-			wp_delete_post( $target_id, true );
-			throw new \RuntimeException( __( 'The target post could not be marked for safe rollback and was removed.', 'core-blueprint-content-migrator' ) );
+			$deleted = wp_delete_post( $target_id, true );
+			if ( $deleted instanceof \WP_Post ) {
+				unset( $job['target_map'][ (string) $source_id ] );
+			}
+			throw new \RuntimeException( __( 'The target post could not be marked for safe rollback. Automatic cleanup was attempted.', 'core-blueprint-content-migrator' ) );
 		}
-
-		// Track the target before any later operation can fail. Partial copies must
-		// remain visible to verification and rollback.
-		$job['target_map'][ (string) $source_id ] = $target_id;
 
 		if ( ! empty( $job['copy_featured_image'] ) && post_type_supports( $target_type, 'thumbnail' ) ) {
 			$thumbnail_id = get_post_thumbnail_id( $source_id );
@@ -130,7 +133,10 @@ final class PostRunner {
 			}
 			delete_post_meta( $target_id, $target_key );
 			foreach ( $values as $value ) {
-				add_post_meta( $target_id, $target_key, sanitize_meta( $target_key, $value, 'post', $target_type ) );
+				$added = add_post_meta( $target_id, $target_key, sanitize_meta( $target_key, $value, 'post', $target_type ) );
+				if ( false === $added ) {
+					throw new \RuntimeException( __( 'Mapped post meta could not be written to the target post.', 'core-blueprint-content-migrator' ) );
+				}
 			}
 		}
 	}
@@ -385,7 +391,7 @@ final class PostRunner {
 		$terms_deleted = 0;
 		$issues = [];
 
-		foreach ( (array) ( $job['target_map'] ?? [] ) as $target_id ) {
+		foreach ( (array) ( $job['target_map'] ?? [] ) as $source_id => $target_id ) {
 			$target_id = (int) $target_id;
 			if ( ! get_post( $target_id ) ) {
 				continue;
@@ -527,10 +533,13 @@ final class PostRunner {
 				);
 				continue;
 			}
-			if ( sanitize_key( (string) get_post_meta( $target_id, self::JOB_META, true ) ) !== $job_id ) {
+			if (
+				sanitize_key( (string) get_post_meta( $target_id, self::JOB_META, true ) ) !== $job_id
+				|| (int) get_post_meta( $target_id, self::SOURCE_META, true ) !== (int) $source_id
+			) {
 				$issues[] = sprintf(
 					/* translators: %d: target post ID. */
-					__( 'Target %d no longer has the expected migration marker.', 'core-blueprint-content-migrator' ),
+					__( 'Target %d no longer has the expected migration markers.', 'core-blueprint-content-migrator' ),
 					$target_id
 				);
 			}
