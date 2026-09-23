@@ -28,6 +28,10 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           coverage: none
+          tools: wp-cli
+
+      - name: Install gettext
+        run: sudo apt-get update && sudo apt-get install -y gettext
 
       - name: PHP syntax
         run: find . -type f -name '*.php' -not -path './build/*' -print0 | xargs -0 -n1 php -l
