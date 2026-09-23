@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 use CB\ContentMigrator\Governance\Events;
 use CB\ContentMigrator\Integration\Suite;
