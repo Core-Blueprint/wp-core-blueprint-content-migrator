@@ -12,7 +12,7 @@
  * Domain Path:       /languages
  * Requires at least: 7.0
  * Requires PHP:      8.4
- * Requires Plugins:  core-blueprint
+ * Requires Plugins: core-blueprint
  *
  * @package CB_Content_Migrator
  */
