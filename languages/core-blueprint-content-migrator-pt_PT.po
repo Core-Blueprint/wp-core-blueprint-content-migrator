@@ -523,3 +523,15 @@ msgid "The copy phase recorded %d issue. Roll back and retry before finalizing."
 msgid_plural "The copy phase recorded %d issues. Roll back and retry before finalizing."
 msgstr[0] "Durante a fase de cópia foi registado %d problema. Reverta e tente novamente antes de finalizar."
 msgstr[1] "Durante a fase de cópia foram registados %d problemas. Reverta e tente novamente antes de finalizar."
+
+msgid "https://github.com/Core-Blueprint/wp-core-blueprint-content-migrator"
+msgstr "https://github.com/Core-Blueprint/wp-core-blueprint-content-migrator"
+
+msgid "Safely migrate WordPress posts and taxonomies with explicit mapping, verification and rollback."
+msgstr "Migre artigos e taxonomias do WordPress em segurança com mapeamento explícito, verificação e reversão."
+
+msgid "Core Blueprint"
+msgstr "Core Blueprint"
+
+msgid "https://coreblueprint.io"
+msgstr "https://coreblueprint.io"
