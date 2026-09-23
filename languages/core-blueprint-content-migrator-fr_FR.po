@@ -1,0 +1,525 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Core Blueprint Content Migrator 1.0.0-rc1\n"
+"POT-Creation-Date: 2026-09-23 18:00+0000\n"
+"PO-Revision-Date: 2026-09-23 18:00+0000\n"
+"Last-Translator: Core Blueprint\n"
+"Language-Team: fr_FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Generated-By: Core Blueprint i18n tooling 1.1.0\n"
+
+msgid "%1$s · %2$d/%3$d processed"
+msgstr "%1$s · %2$d/%3$d traités"
+
+msgid "%d issues were recorded. Do not finalize before verification passes."
+msgstr "%d problèmes ont été enregistrés. Ne finalisez pas la migration avant la réussite de la vérification."
+
+msgid "%d source posts found. Copies are created first; the source is not moved or deleted during testing."
+msgstr "%d publications sources trouvées. Les copies sont créées d’abord ; la source n’est ni déplacée ni supprimée pendant les tests."
+
+msgid "%d source terms found."
+msgstr "%d termes sources trouvés."
+
+msgid "A mapped target meta key is reserved or not writable."
+msgstr "Une clé de métadonnée cible mappée est réservée ou non modifiable."
+
+msgid "A mapped target term meta key is reserved or not writable."
+msgstr "Une clé de métadonnée de terme cible mappée est réservée ou non modifiable."
+
+msgid "A mapped taxonomy is no longer available for the selected target post type."
+msgstr "Une taxonomie mappée n’est plus disponible pour le type de publication cible sélectionné."
+
+msgid "A migration can only be finalized after a successful verification."
+msgstr "Une migration ne peut être finalisée qu’après une vérification réussie."
+
+msgid "A target term could not be marked for safe rollback and was removed."
+msgstr "Un terme cible n’a pas pu être marqué pour une restauration sûre et a été supprimé."
+
+msgid "Active migration"
+msgstr "Migration active"
+
+msgid "Analysis complete. Review the plan below."
+msgstr "Analyse terminée. Vérifiez le plan ci-dessous."
+
+msgid "Analyze post migration"
+msgstr "Analyser la migration des publications"
+
+msgid "Analyze taxonomy migration"
+msgstr "Analyser la migration de taxonomie"
+
+msgid "Another migration became active before this job could be started."
+msgstr "Une autre migration est devenue active avant que cette tâche puisse démarrer."
+
+msgid "Another migration is already active."
+msgstr "Une autre migration est déjà active."
+
+msgid "Batch complete."
+msgstr "Lot terminé."
+
+msgid "Batch size"
+msgstr "Taille du lot"
+
+msgid "Choose only mappings you understand. Missing target terms may be created and are included in rollback. Machine-owned target taxonomies are excluded."
+msgstr "Choisissez uniquement des mappages que vous comprenez. Les termes cibles manquants peuvent être créés et sont inclus dans la restauration. Les taxonomies cibles gérées par une machine sont exclues."
+
+msgid "Confirm that you want to move the source posts to WordPress Trash."
+msgstr "Confirmez que vous souhaitez déplacer les publications sources dans la corbeille WordPress."
+
+msgid "Confirm that you want to permanently delete the targets created by this migration."
+msgstr "Confirmez que vous souhaitez supprimer définitivement les cibles créées par cette migration."
+
+msgid "Confirm that you want to take ownership of this migration."
+msgstr "Confirmez que vous souhaitez prendre la responsabilité de cette migration."
+
+msgid "Conflict rule: an existing target term with the same slug is reused and never overwritten. Only newly created terms receive mapped term meta and rollback markers."
+msgstr "Règle de conflit : un terme cible existant avec le même slug est réutilisé et n’est jamais écrasé. Seuls les termes nouvellement créés reçoivent les métadonnées de terme mappées et les marqueurs de restauration."
+
+msgid "Content Migrator"
+msgstr "Content Migrator"
+
+msgid "Content migration action failed"
+msgstr "Échec de l’action de migration de contenu"
+
+msgid "Content migration analysis completed"
+msgstr "Analyse de la migration de contenu terminée"
+
+msgid "Content migration batch copied"
+msgstr "Lot de migration de contenu copié"
+
+msgid "Content migration created"
+msgstr "Migration de contenu créée"
+
+msgid "Content migration finalization failed"
+msgstr "Échec de la finalisation de la migration de contenu"
+
+msgid "Content migration finalized"
+msgstr "Migration de contenu finalisée"
+
+msgid "Content migration ownership taken over"
+msgstr "Responsabilité de la migration de contenu reprise"
+
+msgid "Content migration plan cleared"
+msgstr "Plan de migration de contenu effacé"
+
+msgid "Content migration rollback failed"
+msgstr "Échec de la restauration de la migration de contenu"
+
+msgid "Content migration rolled back"
+msgstr "Migration de contenu restaurée"
+
+msgid "Content migration source moved to Trash"
+msgstr "Source de la migration de contenu déplacée dans la corbeille"
+
+msgid "Content migration verified"
+msgstr "Migration de contenu vérifiée"
+
+msgid "Copies terms and hierarchy. Existing target terms with the same slug are reused without overwriting their data. Relationships can be remapped when both taxonomies support the same post types."
+msgstr "Copie les termes et la hiérarchie. Les termes cibles existants avec le même slug sont réutilisés sans écraser leurs données. Les relations peuvent être remappées lorsque les deux taxonomies prennent en charge les mêmes types de publication."
+
+msgid "Copy WordPress content safely, verify it, then roll back or finalize. Analysis is read-only and source content stays intact until you explicitly choose otherwise."
+msgstr "Copiez le contenu WordPress en toute sécurité, vérifiez-le, puis restaurez ou finalisez la migration. L’analyse est en lecture seule et le contenu source reste intact tant que vous ne choisissez pas explicitement une autre action."
+
+msgid "Copy options"
+msgstr "Options de copie"
+
+msgid "Core Blueprint Content Migrator"
+msgstr "Core Blueprint Content Migrator"
+
+msgid "Core Blueprint Content Migrator requires Core Blueprint %1$s or newer with compatible Core API %2$s."
+msgstr "Core Blueprint Content Migrator nécessite Core Blueprint %1$s ou version ultérieure avec une Core API %2$s compatible."
+
+msgid "Could not remove migrated relationships from object %d."
+msgstr "Impossible de supprimer les relations migrées de l’objet %d."
+
+msgid "Create safe migration job"
+msgstr "Créer une tâche de migration sûre"
+
+msgid "Created target term %d differs in name or description."
+msgstr "Le terme cible créé %d diffère par son nom ou sa description."
+
+msgid "Created target term %d has an invalid source marker."
+msgstr "Le terme cible créé %d possède un marqueur source non valide."
+
+msgid "Created target term %d has an unexpected parent."
+msgstr "Le terme cible créé %d possède un parent inattendu."
+
+msgid "Created target term %d no longer has the expected rollback marker."
+msgstr "Le terme cible créé %d ne possède plus le marqueur de restauration attendu."
+
+msgid "Created terms in taxonomy %s could not be removed because the taxonomy is unavailable or no longer manageable."
+msgstr "Les termes créés dans la taxonomie %s n’ont pas pu être supprimés car la taxonomie est indisponible ou ne peut plus être gérée."
+
+msgid "Finalization did not complete. The migration remains active and its rollback markers are still preserved."
+msgstr "La finalisation n’a pas abouti. La migration reste active et ses marqueurs de restauration sont conservés."
+
+msgid "Finalization needs attention. The migration remains active."
+msgstr "La finalisation nécessite une intervention. La migration reste active."
+
+msgid "Finalize"
+msgstr "Finaliser"
+
+msgid "Finalize & keep source"
+msgstr "Finaliser et conserver la source"
+
+msgid "Finalize & keep source taxonomy"
+msgstr "Finaliser et conserver la taxonomie source"
+
+msgid "Finalize & move source to Trash"
+msgstr "Finaliser et déplacer la source dans la corbeille"
+
+msgid "Finish copying all batches before verification."
+msgstr "Terminez la copie de tous les lots avant la vérification."
+
+msgid "For a first test, keep the source. Moving source posts to Trash is available only after verification passes."
+msgstr "Pour un premier test, conservez la source. Le déplacement des publications sources dans la corbeille n’est disponible qu’après une vérification réussie."
+
+msgid "I understand that I am taking responsibility for this active migration."
+msgstr "Je comprends que je prends la responsabilité de cette migration active."
+
+msgid "I understand that rollback permanently deletes targets owned by this migration job."
+msgstr "Je comprends qu’une restauration supprime définitivement les cibles appartenant à cette tâche de migration."
+
+msgid "I understand that the verified source posts will be moved to WordPress Trash."
+msgstr "Je comprends que les publications sources vérifiées seront déplacées dans la corbeille WordPress."
+
+msgid "Invalid target %1$s meta key: %2$s"
+msgstr "Clé de métadonnée cible non valide pour %1$s : %2$s"
+
+msgid "Items per request. Use a lower value on slower shared hosting."
+msgstr "Éléments par requête. Utilisez une valeur plus faible sur un hébergement mutualisé plus lent."
+
+msgid "Leave a target key empty to skip it. Registered target keys are shown as suggestions, but another valid key may be entered explicitly."
+msgstr "Laissez une clé cible vide pour l’ignorer. Les clés cibles enregistrées sont proposées comme suggestions, mais une autre clé valide peut être saisie explicitement."
+
+msgid "Mapped post meta could not be written to the target post."
+msgstr "Les métadonnées de publication mappées n’ont pas pu être écrites dans la publication cible."
+
+msgid "Mapped term meta could not be written to the target term."
+msgstr "Les métadonnées de terme mappées n’ont pas pu être écrites dans le terme cible."
+
+msgid "Migrated relationships on object %d were not removed because you no longer have permission."
+msgstr "Les relations migrées sur l’objet %d n’ont pas été supprimées car vous ne disposez plus de l’autorisation nécessaire."
+
+msgid "Migration action failed."
+msgstr "Échec de l’action de migration."
+
+msgid "Migration analysis expired. Analyze the source and target again."
+msgstr "L’analyse de migration a expiré. Analysez de nouveau la source et la cible."
+
+msgid "Migration finalized."
+msgstr "Migration finalisée."
+
+msgid "Migration job ID is missing."
+msgstr "L’identifiant de la tâche de migration est manquant."
+
+msgid "Migration job created. The source has not been changed."
+msgstr "Tâche de migration créée. La source n’a pas été modifiée."
+
+msgid "Migration ownership transferred to your account."
+msgstr "La responsabilité de la migration a été transférée à votre compte."
+
+msgid "Migration plan cleared."
+msgstr "Plan de migration effacé."
+
+msgid "Migration rolled back."
+msgstr "Migration restaurée."
+
+msgid "Migration state updated."
+msgstr "État de la migration mis à jour."
+
+msgid "Missing target terms cannot be created with the current permissions."
+msgstr "Les termes cibles manquants ne peuvent pas être créés avec les autorisations actuelles."
+
+msgid "New migration"
+msgstr "Nouvelle migration"
+
+msgid "No active migration"
+msgstr "Aucune migration active"
+
+msgid "No active migration was found."
+msgstr "Aucune migration active n’a été trouvée."
+
+msgid "No safely remappable shared post relationships were found. Terms can still be migrated."
+msgstr "Aucune relation de publication partagée pouvant être remappée en toute sécurité n’a été trouvée. Les termes peuvent tout de même être migrés."
+
+msgid "No source meta keys found."
+msgstr "Aucune clé de métadonnée source trouvée."
+
+msgid "No source taxonomies found."
+msgstr "Aucune taxonomie source trouvée."
+
+msgid "Object %d is missing one or more migrated target relationships."
+msgstr "Il manque à l’objet %d une ou plusieurs relations cibles migrées."
+
+msgid "Post meta mapping"
+msgstr "Mappage des métadonnées de publication"
+
+msgid "Posts / post types"
+msgstr "Publications / types de publication"
+
+msgid "Relationship verification failed for object %d."
+msgstr "Échec de la vérification des relations pour l’objet %d."
+
+msgid "Relationships"
+msgstr "Relations"
+
+msgid "Remap relationships for %d affected posts."
+msgstr "Remapper les relations pour %d publications concernées."
+
+msgid "Reuse the same featured-image attachment when supported by the target."
+msgstr "Réutiliser la même pièce jointe d’image mise en avant lorsque la cible le permet."
+
+msgid "Review migration plan"
+msgstr "Vérifier le plan de migration"
+
+msgid "Roll back"
+msgstr "Restaurer"
+
+msgid "Roll back migration"
+msgstr "Restaurer la migration"
+
+msgid "Rollback could not safely remove every tracked item. Review the stored migration state before changing content manually."
+msgstr "Tous les éléments suivis n’ont pas pu être restaurés en toute sécurité. Vérifiez l’état de migration enregistré avant de modifier manuellement le contenu."
+
+msgid "Rollback needs attention."
+msgstr "La restauration nécessite une intervention."
+
+msgid "Rollback permanently removes only job-owned target posts and safe-to-remove target terms and relationships. Source content remains untouched."
+msgstr "La restauration supprime définitivement uniquement les publications cibles appartenant à la tâche ainsi que les termes cibles et relations pouvant être supprimés en toute sécurité. Le contenu source reste intact."
+
+msgid "Run next batch"
+msgstr "Exécuter le lot suivant"
+
+msgid "Select…"
+msgstr "Sélectionner…"
+
+msgid "Skip"
+msgstr "Ignorer"
+
+msgid "Source"
+msgstr "Source"
+
+msgid "Source %1$d or target %2$d is missing."
+msgstr "La source %1$d ou la cible %2$d est manquante."
+
+msgid "Source %d cannot be moved to Trash because you no longer have permission."
+msgstr "La source %d ne peut pas être déplacée dans la corbeille car vous ne disposez plus de l’autorisation nécessaire."
+
+msgid "Source %d could not be moved to Trash."
+msgstr "La source %d n’a pas pu être déplacée dans la corbeille."
+
+msgid "Source %d is missing or changed type and cannot be moved to Trash safely."
+msgstr "La source %d est manquante ou a changé de type et ne peut pas être déplacée en toute sécurité dans la corbeille."
+
+msgid "Source and target post types must be different."
+msgstr "Les types de publication source et cible doivent être différents."
+
+msgid "Source and target taxonomies must be different."
+msgstr "Les taxonomies source et cible doivent être différentes."
+
+msgid "Source key"
+msgstr "Clé source"
+
+msgid "Source or target post type is not registered."
+msgstr "Le type de publication source ou cible n’est pas enregistré."
+
+msgid "Source or target taxonomy is not registered."
+msgstr "La taxonomie source ou cible n’est pas enregistrée."
+
+msgid "Source post is unavailable or changed type."
+msgstr "La publication source est indisponible ou a changé de type."
+
+msgid "Source term %1$d or target term %2$d no longer exists."
+msgstr "Le terme source %1$d ou le terme cible %2$d n’existe plus."
+
+msgid "Source term is unavailable."
+msgstr "Le terme source est indisponible."
+
+msgid "Start over"
+msgstr "Recommencer"
+
+msgid "Status: %1$s · processed %2$d/%3$d"
+msgstr "État : %1$s · %2$d/%3$d traités"
+
+msgid "Take over migration"
+msgstr "Prendre en charge la migration"
+
+msgid "Target"
+msgstr "Cible"
+
+msgid "Target %1$d differs for %2$s → %3$s."
+msgstr "La cible %1$d diffère pour %2$s → %3$s."
+
+msgid "Target %1$d differs for meta %2$s."
+msgstr "La cible %1$d diffère pour la métadonnée %2$s."
+
+msgid "Target %1$d differs in %2$s."
+msgstr "La cible %1$d diffère dans %2$s."
+
+msgid "Target %d could not be deleted."
+msgstr "La cible %d n’a pas pu être supprimée."
+
+msgid "Target %d has an invalid type or rollback marker."
+msgstr "La cible %d possède un type ou un marqueur de restauration non valide."
+
+msgid "Target %d is missing. Verify the migration again before finalizing."
+msgstr "La cible %d est manquante. Vérifiez de nouveau la migration avant de la finaliser."
+
+msgid "Target %d no longer has the expected migration markers."
+msgstr "La cible %d ne possède plus les marqueurs de migration attendus."
+
+msgid "Target %d taxonomy verification failed."
+msgstr "Échec de la vérification de taxonomie pour la cible %d."
+
+msgid "Target %d was not deleted because its rollback marker changed."
+msgstr "La cible %d n’a pas été supprimée car son marqueur de restauration a changé."
+
+msgid "Target %d was not deleted because you no longer have permission."
+msgstr "La cible %d n’a pas été supprimée car vous ne disposez plus de l’autorisation nécessaire."
+
+msgid "Target key"
+msgstr "Clé cible"
+
+msgid "Target term %1$d differs for mapped term meta %2$s."
+msgstr "Le terme cible %1$d diffère pour les métadonnées de terme mappées %2$s."
+
+msgid "Target term %d could not be deleted."
+msgstr "Le terme cible %d n’a pas pu être supprimé."
+
+msgid "Target term %d has a different slug."
+msgstr "Le terme cible %d possède un slug différent."
+
+msgid "Target term %d is missing. Verify the migration again before finalizing."
+msgstr "Le terme cible %d est manquant. Vérifiez de nouveau la migration avant de la finaliser."
+
+msgid "Target term %d no longer has the expected migration marker."
+msgstr "Le terme cible %d ne possède plus le marqueur de migration attendu."
+
+msgid "Target term %d was not deleted because it is now used by content outside the rollback."
+msgstr "Le terme cible %d n’a pas été supprimé car il est désormais utilisé par du contenu en dehors de la restauration."
+
+msgid "Target term %d was not deleted because it now has child terms outside the rollback."
+msgstr "Le terme cible %d n’a pas été supprimé car il possède désormais des termes enfants en dehors de la restauration."
+
+msgid "Target term %d was not deleted because its child terms could not be verified."
+msgstr "Le terme cible %d n’a pas été supprimé car ses termes enfants n’ont pas pu être vérifiés."
+
+msgid "Target term %d was not deleted because its relationships could not be verified."
+msgstr "Le terme cible %d n’a pas été supprimé car ses relations n’ont pas pu être vérifiées."
+
+msgid "Target term %d was not deleted because its rollback marker changed."
+msgstr "Le terme cible %d n’a pas été supprimé car son marqueur de restauration a changé."
+
+msgid "Target term %d was not deleted because you no longer have permission."
+msgstr "Le terme cible %d n’a pas été supprimé car vous ne disposez plus de l’autorisation nécessaire."
+
+msgid "Taxonomies"
+msgstr "Taxonomies"
+
+msgid "Taxonomy mapping"
+msgstr "Mappage des taxonomies"
+
+msgid "Term meta mapping"
+msgstr "Mappage des métadonnées de terme"
+
+msgid "The active migration changed before this job could be saved."
+msgstr "La migration active a changé avant que cette tâche puisse être enregistrée."
+
+msgid "The active migration changed. Refresh this page before running another action."
+msgstr "La migration active a changé. Actualisez cette page avant d’exécuter une autre action."
+
+msgid "The featured image could not be assigned to the target post."
+msgstr "L’image mise en avant n’a pas pu être attribuée à la publication cible."
+
+msgid "The migration job could not be stored."
+msgstr "La tâche de migration n’a pas pu être enregistrée."
+
+msgid "The selected source post type has no migratable posts."
+msgstr "Le type de publication source sélectionné ne contient aucune publication pouvant être migrée."
+
+msgid "The selected source taxonomy has no terms to migrate."
+msgstr "La taxonomie source sélectionnée ne contient aucun terme à migrer."
+
+msgid "The source is still untouched. Continue until copying is complete."
+msgstr "La source est toujours intacte. Continuez jusqu’à la fin de la copie."
+
+msgid "The target post could not be marked for safe rollback. Automatic cleanup was attempted."
+msgstr "La publication cible n’a pas pu être marquée pour une restauration sûre. Un nettoyage automatique a été tenté."
+
+msgid "The target taxonomy is flat, so source parent/child relationships cannot be preserved."
+msgstr "La taxonomie cible est plate, les relations parent/enfant de la source ne peuvent donc pas être conservées."
+
+msgid "The target term could not be marked for safe rollback. Automatic cleanup was attempted."
+msgstr "Le terme cible n’a pas pu être marqué pour une restauration sûre. Un nettoyage automatique a été tenté."
+
+msgid "This migration is not ready to copy another batch."
+msgstr "Cette migration n’est pas prête à copier un autre lot."
+
+msgid "This migration is owned by another administrator. Take over the migration before changing it."
+msgstr "Cette migration appartient à un autre administrateur. Prenez en charge la migration avant de la modifier."
+
+msgid "This migration is owned by another administrator. Take ownership explicitly before continuing, verifying, finalizing or rolling it back."
+msgstr "Cette migration appartient à un autre administrateur. Prenez explicitement la responsabilité avant de poursuivre, vérifier, finaliser ou restaurer."
+
+msgid "Use this when content already exists in one post type and should be copied into another post type, including selected taxonomies and meta."
+msgstr "Utilisez cette option lorsque le contenu existe déjà dans un type de publication et doit être copié vers un autre type de publication, y compris les taxonomies et métadonnées sélectionnées."
+
+msgid "Verification found differences."
+msgstr "La vérification a détecté des différences."
+
+msgid "Verification passed."
+msgstr "Vérification réussie."
+
+msgid "Verify migrated content"
+msgstr "Vérifier le contenu migré"
+
+msgid "WordPress terms have no Trash. RC1 therefore always keeps the source taxonomy when finalizing."
+msgstr "Les termes WordPress n’ont pas de corbeille. RC1 conserve donc toujours la taxonomie source lors de la finalisation."
+
+msgid "You cannot create migrated target content for another author."
+msgstr "Vous ne pouvez pas créer de contenu cible migré pour un autre auteur."
+
+msgid "You cannot create or manage terms in the selected target taxonomy."
+msgstr "Vous ne pouvez pas créer ou gérer des termes dans la taxonomie cible sélectionnée."
+
+msgid "You cannot manage terms in the selected source taxonomy."
+msgstr "Vous ne pouvez pas gérer de termes dans la taxonomie source sélectionnée."
+
+msgid "You cannot preserve the publication status of this source post in the target post type."
+msgstr "Vous ne pouvez pas conserver le statut de publication de cette publication source dans le type de publication cible."
+
+msgid "You do not have permission to use Content Migrator."
+msgstr "Vous n’avez pas l’autorisation d’utiliser Content Migrator."
+
+msgid "You do not have sufficient capabilities for the selected post types."
+msgstr "Vous ne disposez pas des capacités suffisantes pour les types de publication sélectionnés."
+
+msgid "You no longer have permission to assign terms in a mapped target taxonomy."
+msgstr "Vous n’avez plus l’autorisation d’attribuer des termes dans une taxonomie cible mappée."
+
+msgid "You no longer have permission to change one or more target taxonomy relationships."
+msgstr "Vous n’avez plus l’autorisation de modifier une ou plusieurs relations de la taxonomie cible."
+
+msgid "You no longer have permission to create the selected target post type."
+msgstr "Vous n’avez plus l’autorisation de créer le type de publication cible sélectionné."
+
+msgid "You no longer have permission to manage the source taxonomy."
+msgstr "Vous n’avez plus l’autorisation de gérer la taxonomie source."
+
+msgid "You no longer have permission to manage the target taxonomy."
+msgstr "Vous n’avez plus l’autorisation de gérer la taxonomie cible."
+
+msgid "You no longer have permission to read and migrate this source post."
+msgstr "Vous n’avez plus l’autorisation de lire et migrer cette publication source."
+
+msgid "You no longer have permission to repair the target parent relationship."
+msgstr "Vous n’avez plus l’autorisation de réparer la relation parent de la cible."
+
+msgid "The copy phase recorded %d issue. Roll back and retry before finalizing."
+msgid_plural "The copy phase recorded %d issues. Roll back and retry before finalizing."
+msgstr[0] "La phase de copie a enregistré %d problème. Restaurez puis réessayez avant de finaliser."
+msgstr[1] "La phase de copie a enregistré %d problèmes. Restaurez puis réessayez avant de finaliser."
