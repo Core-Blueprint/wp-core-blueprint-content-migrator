@@ -1,6 +1,6 @@
 # Core Blueprint Content Migrator
 
-Core Blueprint Content Migrator is a safety-first, standalone WordPress utility for migrating registered post types and taxonomies on the same site. Core Blueprint Base is optional and adds suite registration and Governance logging when available.
+Core Blueprint Content Migrator is a safety-first Core Blueprint extension for migrating registered post types and taxonomies on the same WordPress site. Core Blueprint Base is required and provides the extension registry, compatibility contract and Governance audit log used by the migration workflow.
 
 ## v1.0.0-rc1 scope
 
@@ -16,7 +16,7 @@ Core Blueprint Content Migrator is a safety-first, standalone WordPress utility 
 - Verify copied core fields, mapped taxonomies and mapped meta.
 - Roll back only target posts and taxonomy terms created by the active migration job; existing target terms are never deleted.
 - Finalize while keeping the source, or move source posts to WordPress Trash.
-- Optional Core Blueprint ExtensionRegistry and Governance integration when a compatible Base is present.
+- Required Core Blueprint Extension Registry and Governance integration, including audited analysis, job, batch, verification, rollback, finalization, takeover and failure events.
 
 ### Taxonomy migrations
 
@@ -35,7 +35,7 @@ Content Migrator does not guess data mappings. A taxonomy or custom field is ski
 
 The copy phase never deletes or changes source posts. RC1 never permanently deletes source content. The most destructive source action available is moving source posts to normal WordPress Trash after a successful verification.
 
-Rollback uses internal per-job markers and refuses to delete a target whose marker no longer matches the active job.
+Rollback uses internal per-job markers and refuses to delete a target whose marker no longer matches the active job. Newly created terms are also preserved when they have gained external content relationships or child terms after the migration started.
 
 ## Dictionary migration example
 
@@ -64,5 +64,7 @@ To move an existing custom Content Models dictionary into Core Blueprint Diction
 
 - WordPress 7.0+
 - PHP 8.4+
+- Core Blueprint Base 1.0.0-rc1 or newer
+- Compatible Core Blueprint public API 1.1
 
-Core Blueprint Base is **not required**. When a compatible Core API 1.x Base is active, Content Migrator optionally registers with the suite and records Governance events.
+Content Migrator is a first-party Core Blueprint extension. It will not boot its migration runtime unless the required Base version and compatible public API are available.
