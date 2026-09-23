@@ -17,9 +17,11 @@ Post migrations support explicit taxonomy and post-meta mapping. Taxonomy migrat
 
 Every migration uses Analyze → Review → Copy → Verify → Roll back or Finalize. Source content remains intact while the migration is being tested.
 
-Core Blueprint Base is optional. When available, the plugin can register with the Core Blueprint suite and record Governance events.
+Core Blueprint Base 1.0.0-rc1 or newer is required. Content Migrator registers as a first-party extension and records migration lifecycle and failure events in the Base Governance audit log.
 
 == Changelog ==
 
 = 1.0.0-rc1 =
 * First public release candidate with Post and Taxonomy migration modes.
+* Requires Core Blueprint Base and uses its Extension Registry and Governance audit contracts.
+* Adds guarded migration ownership, stale-job protection and conflict-safe rollback behavior.
