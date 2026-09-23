@@ -19,15 +19,15 @@ final class PostAnalyzer {
 		$source_type = sanitize_key( $source_type );
 		$target_type = sanitize_key( $target_type );
 		if ( $source_type === $target_type ) {
-			throw new \InvalidArgumentException( 'Source and target post types must be different.' );
+			throw new \InvalidArgumentException( __( 'Source and target post types must be different.', 'core-blueprint-content-migrator' ) );
 		}
 		$source = get_post_type_object( $source_type );
 		$target = get_post_type_object( $target_type );
 		if ( ! $source instanceof \WP_Post_Type || ! $target instanceof \WP_Post_Type ) {
-			throw new \InvalidArgumentException( 'Source or target post type is not registered.' );
+			throw new \InvalidArgumentException( __( 'Source or target post type is not registered.', 'core-blueprint-content-migrator' ) );
 		}
 		if ( ! current_user_can( $source->cap->edit_posts ) || ! current_user_can( $target->cap->create_posts ) ) {
-			throw new \RuntimeException( 'You do not have sufficient capabilities for the selected post types.' );
+			throw new \RuntimeException( __( 'You do not have sufficient capabilities for the selected post types.', 'core-blueprint-content-migrator' ) );
 		}
 
 		$statuses = array_values( get_post_stati( [ 'internal' => false ], 'names' ) );
@@ -45,7 +45,7 @@ final class PostAnalyzer {
 		] );
 		$source_ids = array_values( array_map( 'intval', $source_ids ) );
 		if ( empty( $source_ids ) ) {
-			throw new \RuntimeException( 'The selected source post type has no migratable posts.' );
+			throw new \RuntimeException( __( 'The selected source post type has no migratable posts.', 'core-blueprint-content-migrator' ) );
 		}
 
 		return [
