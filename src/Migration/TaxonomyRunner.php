@@ -123,17 +123,23 @@ final class TaxonomyRunner {
 		}
 
 		$target_id = (int) $inserted['term_id'];
-		$job_marker = update_term_meta( $target_id, self::JOB_META, sanitize_key( (string) $job['id'] ) );
-		$source_marker = update_term_meta( $target_id, self::SOURCE_META, $source_id );
-		if ( false === $job_marker || false === $source_marker ) {
-			wp_delete_term( $target_id, $target_tax );
-			throw new \RuntimeException( __( 'The target term could not be marked for safe rollback and was removed.', 'core-blueprint-content-migrator' ) );
-		}
 
-		// Track ownership before meta copying can fail.
+		// Track immediately after insertion. If marker writes fail and cleanup also
+		// fails, the target remains visible for verification and manual recovery.
 		$job['term_map'][ $key ] = $target_id;
 		$job['created_target_ids'][] = $target_id;
 		$job['created_target_ids'] = array_values( array_unique( array_map( 'intval', $job['created_target_ids'] ) ) );
+
+		$job_marker = update_term_meta( $target_id, self::JOB_META, sanitize_key( (string) $job['id'] ) );
+		$source_marker = update_term_meta( $target_id, self::SOURCE_META, $source_id );
+		if ( false === $job_marker || false === $source_marker ) {
+			$deleted = wp_delete_term( $target_id, $target_tax );
+			if ( ! is_wp_error( $deleted ) && false !== $deleted && null !== $deleted ) {
+				unset( $job['term_map'][ $key ] );
+				$job['created_target_ids'] = array_values( array_diff( $job['created_target_ids'], [ $target_id ] ) );
+			}
+			throw new \RuntimeException( __( 'The target term could not be marked for safe rollback. Automatic cleanup was attempted.', 'core-blueprint-content-migrator' ) );
+		}
 
 		self::copy_term_meta( $source_id, $target_id, $target_tax, (array) ( $job['term_meta_map'] ?? [] ) );
 		return $target_id;
@@ -159,7 +165,10 @@ final class TaxonomyRunner {
 			}
 			delete_term_meta( $target_id, $target_key );
 			foreach ( $values as $value ) {
-				add_term_meta( $target_id, $target_key, sanitize_meta( $target_key, $value, 'term', $target_taxonomy ) );
+				$added = add_term_meta( $target_id, $target_key, sanitize_meta( $target_key, $value, 'term', $target_taxonomy ) );
+				if ( false === $added ) {
+					throw new \RuntimeException( __( 'Mapped term meta could not be written to the target term.', 'core-blueprint-content-migrator' ) );
+				}
 			}
 		}
 	}
@@ -259,8 +268,17 @@ final class TaxonomyRunner {
 				);
 			}
 
+			$created_target_ids = array_map( 'intval', (array) ( $job['created_target_ids'] ?? [] ) );
+			$expected_created = in_array( (int) $target_id, $created_target_ids, true );
 			$created_by_job = sanitize_key( (string) get_term_meta( (int) $target_id, self::JOB_META, true ) ) === sanitize_key( (string) $job['id'] );
-			if ( $created_by_job ) {
+			if ( $expected_created && ! $created_by_job ) {
+				$issues[] = sprintf(
+					/* translators: %d: target term ID. */
+					__( 'Created target term %d no longer has the expected rollback marker.', 'core-blueprint-content-migrator' ),
+					(int) $target_id
+				);
+			}
+			if ( $expected_created && $created_by_job ) {
 				if ( (int) get_term_meta( (int) $target_id, self::SOURCE_META, true ) !== (int) $source_id ) {
 					$issues[] = sprintf(
 						/* translators: %d: target term ID. */
@@ -381,7 +399,7 @@ final class TaxonomyRunner {
 				continue;
 			}
 			$result = wp_remove_object_terms( (int) $object_id, $ids, $target_tax );
-			if ( is_wp_error( $result ) ) {
+			if ( is_wp_error( $result ) || false === $result ) {
 				$issues[] = sprintf(
 					/* translators: %d: object ID. */
 					__( 'Could not remove migrated relationships from object %d.', 'core-blueprint-content-migrator' ),
