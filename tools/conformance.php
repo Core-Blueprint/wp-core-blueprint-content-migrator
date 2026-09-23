@@ -52,7 +52,7 @@ foreach ( $iterator as $file ) {
 
 $bootstrap = (string) file_get_contents( $root . '/core-blueprint-content-migrator.php' );
 foreach ( [
-	'Requires Plugins:  core-blueprint' => 'Native Core Blueprint Base dependency is missing.',
+	'Requires Plugins: core-blueprint' => 'Native Core Blueprint Base dependency is missing.',
 	"CB_CONTENT_MIGRATOR_REQUIRED_API', '1.1'" => 'Core API 1.1 requirement is missing.',
 	"CB_CONTENT_MIGRATOR_REQUIRED_BASE', '1.0.0-rc1'" => 'Minimum Base version requirement is missing.',
 	'cb_content_migrator_base_ready()' => 'Runtime Base compatibility gate is missing.',
