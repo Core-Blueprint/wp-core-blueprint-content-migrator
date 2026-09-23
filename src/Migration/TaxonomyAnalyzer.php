@@ -28,15 +28,18 @@ final class TaxonomyAnalyzer {
 		$source_taxonomy = sanitize_key( $source_taxonomy );
 		$target_taxonomy = sanitize_key( $target_taxonomy );
 		if ( $source_taxonomy === $target_taxonomy ) {
-			throw new \InvalidArgumentException( 'Source and target taxonomies must be different.' );
+			throw new \InvalidArgumentException( __( 'Source and target taxonomies must be different.', 'core-blueprint-content-migrator' ) );
 		}
 		$source = get_taxonomy( $source_taxonomy );
 		$target = get_taxonomy( $target_taxonomy );
 		if ( ! $source instanceof \WP_Taxonomy || ! $target instanceof \WP_Taxonomy ) {
-			throw new \InvalidArgumentException( 'Source or target taxonomy is not registered.' );
+			throw new \InvalidArgumentException( __( 'Source or target taxonomy is not registered.', 'core-blueprint-content-migrator' ) );
+		}
+		if ( 'do_not_allow' === (string) $source->cap->manage_terms || ! current_user_can( $source->cap->manage_terms ) ) {
+			throw new \RuntimeException( __( 'You cannot manage terms in the selected source taxonomy.', 'core-blueprint-content-migrator' ) );
 		}
 		if ( 'do_not_allow' === (string) $target->cap->manage_terms || ! current_user_can( $target->cap->manage_terms ) ) {
-			throw new \RuntimeException( 'You cannot create or manage terms in the selected target taxonomy.' );
+			throw new \RuntimeException( __( 'You cannot create or manage terms in the selected target taxonomy.', 'core-blueprint-content-migrator' ) );
 		}
 
 		$terms = get_terms( [
@@ -55,7 +58,7 @@ final class TaxonomyAnalyzer {
 			}
 		}
 		if ( empty( $source_ids ) ) {
-			throw new \RuntimeException( 'The selected source taxonomy has no terms to migrate.' );
+			throw new \RuntimeException( __( 'The selected source taxonomy has no terms to migrate.', 'core-blueprint-content-migrator' ) );
 		}
 
 		$source_object_types = array_values( array_filter( array_map( 'sanitize_key', (array) $source->object_type ), 'post_type_exists' ) );
