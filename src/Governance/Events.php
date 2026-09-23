@@ -13,6 +13,7 @@ final class Events {
 	public const ROLLEDBACK      = 'contentmigrator.job.rolledback';
 	public const ROLLBACK_FAILED = 'contentmigrator.rollback.failed';
 	public const FINALIZED       = 'contentmigrator.job.finalized';
+	public const FINALIZE_FAILED = 'contentmigrator.finalize.failed';
 	public const TRASHED         = 'contentmigrator.source.trashed';
 	public const TAKEN_OVER      = 'contentmigrator.job.takenover';
 	public const ACTION_FAILED   = 'contentmigrator.action.failed';
@@ -31,6 +32,7 @@ final class Events {
 			self::ROLLEDBACK      => __( 'Content migration rolled back', 'core-blueprint-content-migrator' ),
 			self::ROLLBACK_FAILED => __( 'Content migration rollback failed', 'core-blueprint-content-migrator' ),
 			self::FINALIZED       => __( 'Content migration finalized', 'core-blueprint-content-migrator' ),
+			self::FINALIZE_FAILED => __( 'Content migration finalization failed', 'core-blueprint-content-migrator' ),
 			self::TRASHED         => __( 'Content migration source moved to Trash', 'core-blueprint-content-migrator' ),
 			self::TAKEN_OVER      => __( 'Content migration ownership taken over', 'core-blueprint-content-migrator' ),
 			self::ACTION_FAILED   => __( 'Content migration action failed', 'core-blueprint-content-migrator' ),
