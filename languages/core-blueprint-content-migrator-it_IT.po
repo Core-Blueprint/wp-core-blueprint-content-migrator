@@ -1,0 +1,1017 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Core Blueprint Content Migrator 1.0.0-rc1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-core-blueprint-"
+"content-migrator\n"
+"POT-Creation-Date: 2026-09-23 17:58+0000\n"
+"PO-Revision-Date: 2026-09-23 17:58+0000\n"
+"Last-Translator: Core Blueprint\n"
+"Language-Team: it_IT\n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Core Blueprint i18n tooling 1.1.0\n"
+
+#. Plugin Name of the plugin
+#: core-blueprint-content-migrator.php src/Admin/Page.php:22
+#: src/Admin/Page.php:38
+msgid "Core Blueprint Content Migrator"
+msgstr "Core Blueprint Content Migrator"
+
+#. Plugin URI of the plugin
+#: core-blueprint-content-migrator.php
+msgid "https://github.com/Core-Blueprint/wp-core-blueprint-content-migrator"
+msgstr "https://github.com/Core-Blueprint/wp-core-blueprint-content-migrator"
+
+#. Description of the plugin
+#: core-blueprint-content-migrator.php
+msgid ""
+"Safely migrate WordPress posts and taxonomies with explicit mapping, "
+"verification and rollback."
+msgstr ""
+"Migra in sicurezza contenuti e tassonomie WordPress con mappatura esplicita, "
+"verifica e rollback."
+
+#. Author of the plugin
+#: core-blueprint-content-migrator.php
+msgid "Core Blueprint"
+msgstr "Core Blueprint"
+
+#. Author URI of the plugin
+#: core-blueprint-content-migrator.php
+msgid "https://coreblueprint.io"
+msgstr "https://coreblueprint.io"
+
+#. translators: 1: minimum Core Blueprint Base version, 2: required Core API version.
+#: core-blueprint-content-migrator.php:77
+#, php-format
+msgid ""
+"Core Blueprint Content Migrator requires Core Blueprint %1$s or newer with "
+"compatible Core API %2$s."
+msgstr ""
+"Core Blueprint Content Migrator richiede Core Blueprint %1$s o versione "
+"successiva con Core API %2$s compatibile."
+
+#: src/Admin/Controller.php:50
+msgid "Migration analysis expired. Analyze the source and target again."
+msgstr ""
+"L’analisi della migrazione è scaduta. Analizza nuovamente sorgente e "
+"destinazione."
+
+#: src/Admin/Controller.php:117
+msgid "This migration is not ready to copy another batch."
+msgstr "Questa migrazione non è pronta per copiare un altro batch."
+
+#: src/Admin/Controller.php:141
+msgid "Finish copying all batches before verification."
+msgstr "Completa la copia di tutti i batch prima della verifica."
+
+#: src/Admin/Controller.php:166
+msgid ""
+"Confirm that you want to permanently delete the targets created by this "
+"migration."
+msgstr ""
+"Conferma di voler eliminare definitivamente le destinazioni create da questa "
+"migrazione."
+
+#: src/Admin/Controller.php:199
+msgid "A migration can only be finalized after a successful verification."
+msgstr "Una migrazione può essere finalizzata solo dopo una verifica riuscita."
+
+#: src/Admin/Controller.php:205
+msgid "Confirm that you want to move the source posts to WordPress Trash."
+msgstr ""
+"Conferma di voler spostare i contenuti sorgente nel cestino di WordPress."
+
+#: src/Admin/Controller.php:266
+msgid "Confirm that you want to take ownership of this migration."
+msgstr "Conferma di voler assumere la responsabilità di questa migrazione."
+
+#: src/Admin/Controller.php:270 src/Admin/Controller.php:298
+msgid "No active migration was found."
+msgstr "Non è stata trovata alcuna migrazione attiva."
+
+#: src/Admin/Controller.php:289
+msgid "You do not have permission to use Content Migrator."
+msgstr "Non hai l’autorizzazione per usare Content Migrator."
+
+#: src/Admin/Controller.php:303
+msgid ""
+"This migration is owned by another administrator. Take over the migration "
+"before changing it."
+msgstr ""
+"Questa migrazione appartiene a un altro amministratore. Assumi la migrazione "
+"prima di modificarla."
+
+#: src/Admin/Controller.php:315
+msgid ""
+"The active migration changed. Refresh this page before running another "
+"action."
+msgstr ""
+"La migrazione attiva è cambiata. Aggiorna questa pagina prima di eseguire "
+"un’altra azione."
+
+#. translators: 1: object kind, 2: invalid meta key.
+#: src/Admin/Controller.php:362
+#, php-format
+msgid "Invalid target %1$s meta key: %2$s"
+msgstr "Chiave meta di destinazione non valida per %1$s: %2$s"
+
+#: src/Admin/Page.php:23 src/Integration/Suite.php:34
+msgid "Content Migrator"
+msgstr "Content Migrator"
+
+#: src/Admin/Page.php:39
+msgid ""
+"Copy WordPress content safely, verify it, then roll back or finalize. "
+"Analysis is read-only and source content stays intact until you explicitly "
+"choose otherwise."
+msgstr ""
+"Copia in sicurezza i contenuti WordPress, verificali e poi esegui il "
+"rollback oppure finalizza. L’analisi è in sola lettura e i contenuti "
+"sorgente rimangono intatti finché non scegli esplicitamente altrimenti."
+
+#: src/Admin/Page.php:59
+msgid "New migration"
+msgstr "Nuova migrazione"
+
+#: src/Admin/Page.php:60
+msgid "Posts / post types"
+msgstr "Contenuti / tipi di contenuto"
+
+#: src/Admin/Page.php:61
+msgid ""
+"Use this when content already exists in one post type and should be copied "
+"into another post type, including selected taxonomies and meta."
+msgstr ""
+"Usa questa opzione quando i contenuti esistono già in un tipo di contenuto e "
+"devono essere copiati in un altro, incluse tassonomie e meta selezionati."
+
+#: src/Admin/Page.php:63
+msgid "Taxonomies"
+msgstr "Tassonomie"
+
+#: src/Admin/Page.php:64
+msgid ""
+"Copies terms and hierarchy. Existing target terms with the same slug are "
+"reused without overwriting their data. Relationships can be remapped when "
+"both taxonomies support the same post types."
+msgstr ""
+"Copia termini e gerarchia. I termini di destinazione esistenti con lo stesso "
+"slug vengono riutilizzati senza sovrascriverne i dati. Le relazioni possono "
+"essere rimappate quando entrambe le tassonomie supportano gli stessi tipi di "
+"contenuto."
+
+#: src/Admin/Page.php:80 src/Admin/Page.php:115
+msgid "Source"
+msgstr "Sorgente"
+
+#: src/Admin/Page.php:81 src/Admin/Page.php:115
+msgid "Target"
+msgstr "Destinazione"
+
+#: src/Admin/Page.php:83
+msgid "Analyze taxonomy migration"
+msgstr "Analizza migrazione della tassonomia"
+
+#: src/Admin/Page.php:83
+msgid "Analyze post migration"
+msgstr "Analizza migrazione dei contenuti"
+
+#: src/Admin/Page.php:92
+msgid "Review migration plan"
+msgstr "Controlla il piano di migrazione"
+
+#: src/Admin/Page.php:103
+msgid "Create safe migration job"
+msgstr "Crea processo di migrazione sicuro"
+
+#: src/Admin/Page.php:105
+msgid "Start over"
+msgstr "Ricomincia"
+
+#: src/Admin/Page.php:112
+#, php-format
+msgid ""
+"%d source posts found. Copies are created first; the source is not moved or "
+"deleted during testing."
+msgstr ""
+"Sono stati trovati %d contenuti sorgente. Le copie vengono create per prime; "
+"la sorgente non viene spostata né eliminata durante i test."
+
+#: src/Admin/Page.php:113
+msgid "Taxonomy mapping"
+msgstr "Mappatura tassonomie"
+
+#: src/Admin/Page.php:114
+msgid ""
+"Choose only mappings you understand. Missing target terms may be created and "
+"are included in rollback. Machine-owned target taxonomies are excluded."
+msgstr ""
+"Scegli solo mappature che comprendi. I termini di destinazione mancanti "
+"possono essere creati e sono inclusi nel rollback. Le tassonomie di "
+"destinazione gestite automaticamente sono escluse."
+
+#: src/Admin/Page.php:117
+msgid "Skip"
+msgstr "Ignora"
+
+#: src/Admin/Page.php:119
+msgid "No source taxonomies found."
+msgstr "Nessuna tassonomia sorgente trovata."
+
+#: src/Admin/Page.php:121
+msgid "Post meta mapping"
+msgstr "Mappatura dei meta dei contenuti"
+
+#: src/Admin/Page.php:122
+msgid "Copy options"
+msgstr "Opzioni di copia"
+
+#: src/Admin/Page.php:123
+msgid "Reuse the same featured-image attachment when supported by the target."
+msgstr ""
+"Riutilizza lo stesso allegato dell’immagine in evidenza quando supportato "
+"dalla destinazione."
+
+#: src/Admin/Page.php:130
+#, php-format
+msgid "%d source terms found."
+msgstr "Sono stati trovati %d termini sorgente."
+
+#: src/Admin/Page.php:131
+msgid ""
+"Conflict rule: an existing target term with the same slug is reused and "
+"never overwritten. Only newly created terms receive mapped term meta and "
+"rollback markers."
+msgstr ""
+"Regola di conflitto: un termine di destinazione esistente con lo stesso slug "
+"viene riutilizzato e non viene mai sovrascritto. Solo i termini appena "
+"creati ricevono i meta dei termini mappati e i marcatori di rollback."
+
+#: src/Admin/Page.php:132
+msgid ""
+"The target taxonomy is flat, so source parent/child relationships cannot be "
+"preserved."
+msgstr ""
+"La tassonomia di destinazione è piatta, quindi le relazioni genitore/figlio "
+"della sorgente non possono essere mantenute."
+
+#: src/Admin/Page.php:133
+msgid "Term meta mapping"
+msgstr "Mappatura meta dei termini"
+
+#: src/Admin/Page.php:134
+msgid "Relationships"
+msgstr "Relazioni"
+
+#: src/Admin/Page.php:136
+#, php-format
+msgid "Remap relationships for %d affected posts."
+msgstr "Rimappa le relazioni per %d contenuti interessati."
+
+#: src/Admin/Page.php:139
+msgid ""
+"No safely remappable shared post relationships were found. Terms can still "
+"be migrated."
+msgstr ""
+"Non sono state trovate relazioni condivise tra contenuti che possano essere "
+"rimappate in sicurezza. I termini possono comunque essere migrati."
+
+#: src/Admin/Page.php:146
+msgid ""
+"Leave a target key empty to skip it. Registered target keys are shown as "
+"suggestions, but another valid key may be entered explicitly."
+msgstr ""
+"Lascia vuota una chiave di destinazione per ignorarla. Le chiavi di "
+"destinazione registrate vengono mostrate come suggerimenti, ma puoi inserire "
+"esplicitamente un’altra chiave valida."
+
+#: src/Admin/Page.php:147
+msgid "Source key"
+msgstr "Chiave sorgente"
+
+#: src/Admin/Page.php:147
+msgid "Target key"
+msgstr "Chiave di destinazione"
+
+#: src/Admin/Page.php:149
+msgid "No source meta keys found."
+msgstr "Nessuna chiave meta sorgente trovata."
+
+#: src/Admin/Page.php:154
+msgid "Batch size"
+msgstr "Dimensione batch"
+
+#: src/Admin/Page.php:154
+msgid "Items per request. Use a lower value on slower shared hosting."
+msgstr ""
+"Elementi per richiesta. Usa un valore più basso su hosting condivisi più "
+"lenti."
+
+#: src/Admin/Page.php:164
+msgid "Active migration"
+msgstr "Migrazione attiva"
+
+#: src/Admin/Page.php:166
+#, php-format
+msgid "Status: %1$s · processed %2$d/%3$d"
+msgstr "Stato: %1$s · %2$d/%3$d elaborati"
+
+#: src/Admin/Page.php:168
+msgid ""
+"This migration is owned by another administrator. Take ownership explicitly "
+"before continuing, verifying, finalizing or rolling it back."
+msgstr ""
+"Questa migrazione appartiene a un altro amministratore. Assumi "
+"esplicitamente la responsabilità prima di continuare, verificare, "
+"finalizzare o eseguire il rollback."
+
+#: src/Admin/Page.php:172
+#, php-format
+msgid "%d issues were recorded. Do not finalize before verification passes."
+msgstr ""
+"Sono stati registrati %d problemi. Non finalizzare la migrazione prima che "
+"la verifica sia riuscita."
+
+#: src/Admin/Page.php:174
+msgid "The source is still untouched. Continue until copying is complete."
+msgstr ""
+"La sorgente è ancora intatta. Continua finché la copia non è completata."
+
+#: src/Admin/Page.php:174
+msgid "Run next batch"
+msgstr "Esegui batch successivo"
+
+#: src/Admin/Page.php:176
+msgid "Verify migrated content"
+msgstr "Verifica contenuti migrati"
+
+#: src/Admin/Page.php:180
+msgid ""
+"Finalization did not complete. The migration remains active and its rollback "
+"markers are still preserved."
+msgstr ""
+"La finalizzazione non è stata completata. La migrazione rimane attiva e i "
+"suoi marcatori di rollback restano conservati."
+
+#: src/Admin/Page.php:183
+msgid "Finalize"
+msgstr "Finalizza"
+
+#: src/Admin/Page.php:184
+msgid ""
+"WordPress terms have no Trash. RC1 therefore always keeps the source "
+"taxonomy when finalizing."
+msgstr ""
+"I termini WordPress non hanno un cestino. RC1 mantiene quindi sempre la "
+"tassonomia sorgente durante la finalizzazione."
+
+#: src/Admin/Page.php:184
+msgid "Finalize & keep source taxonomy"
+msgstr "Finalizza e mantieni la tassonomia sorgente"
+
+#: src/Admin/Page.php:185
+msgid ""
+"For a first test, keep the source. Moving source posts to Trash is available "
+"only after verification passes."
+msgstr ""
+"Per un primo test, mantieni la sorgente. Lo spostamento dei contenuti "
+"sorgente nel cestino è disponibile solo dopo una verifica riuscita."
+
+#: src/Admin/Page.php:185
+msgid "Finalize & keep source"
+msgstr "Finalizza e mantieni la sorgente"
+
+#: src/Admin/Page.php:185
+msgid "Finalize & move source to Trash"
+msgstr "Finalizza e sposta la sorgente nel cestino"
+
+#: src/Admin/Page.php:186
+msgid ""
+"Rollback could not safely remove every tracked item. Review the stored "
+"migration state before changing content manually."
+msgstr ""
+"Non è stato possibile ripristinare in sicurezza ogni elemento tracciato. "
+"Controlla lo stato di migrazione salvato prima di modificare manualmente i "
+"contenuti."
+
+#: src/Admin/Page.php:187
+msgid "Roll back"
+msgstr "Rollback"
+
+#: src/Admin/Page.php:187
+msgid ""
+"Rollback permanently removes only job-owned target posts and safe-to-remove "
+"target terms and relationships. Source content remains untouched."
+msgstr ""
+"Il rollback rimuove definitivamente solo i contenuti di destinazione "
+"appartenenti al processo e i termini e le relazioni di destinazione che "
+"possono essere rimossi in sicurezza. I contenuti sorgente rimangono intatti."
+
+#: src/Admin/Page.php:198 src/Admin/Page.php:255
+msgid "Verification passed."
+msgstr "Verifica riuscita."
+
+#: src/Admin/Page.php:198 src/Admin/Page.php:256
+msgid "Verification found differences."
+msgstr "La verifica ha rilevato differenze."
+
+#: src/Admin/Page.php:223
+msgid ""
+"I understand that rollback permanently deletes targets owned by this "
+"migration job."
+msgstr ""
+"Comprendo che il rollback elimina definitivamente le destinazioni "
+"appartenenti a questo processo di migrazione."
+
+#: src/Admin/Page.php:223
+msgid "Roll back migration"
+msgstr "Esegui rollback della migrazione"
+
+#: src/Admin/Page.php:228
+msgid ""
+"I understand that the verified source posts will be moved to WordPress Trash."
+msgstr ""
+"Comprendo che i contenuti sorgente verificati verranno spostati nel cestino "
+"di WordPress."
+
+#: src/Admin/Page.php:233
+msgid "I understand that I am taking responsibility for this active migration."
+msgstr ""
+"Comprendo che sto assumendo la responsabilità di questa migrazione attiva."
+
+#: src/Admin/Page.php:233
+msgid "Take over migration"
+msgstr "Assumi migrazione"
+
+#: src/Admin/Page.php:238
+msgid "Select…"
+msgstr "Seleziona…"
+
+#: src/Admin/Page.php:251
+msgid "Analysis complete. Review the plan below."
+msgstr "Analisi completata. Controlla il piano qui sotto."
+
+#: src/Admin/Page.php:252
+msgid "Migration job created. The source has not been changed."
+msgstr "Processo di migrazione creato. La sorgente non è stata modificata."
+
+#: src/Admin/Page.php:253
+msgid "Migration ownership transferred to your account."
+msgstr "La responsabilità della migrazione è stata trasferita al tuo account."
+
+#: src/Admin/Page.php:254
+msgid "Batch complete."
+msgstr "Batch completato."
+
+#: src/Admin/Page.php:257
+msgid "Migration rolled back."
+msgstr "Migrazione ripristinata."
+
+#: src/Admin/Page.php:258
+msgid "Rollback needs attention."
+msgstr "Il rollback richiede attenzione."
+
+#: src/Admin/Page.php:259
+msgid "Migration finalized."
+msgstr "Migrazione finalizzata."
+
+#: src/Admin/Page.php:260
+msgid "Finalization needs attention. The migration remains active."
+msgstr "La finalizzazione richiede attenzione. La migrazione rimane attiva."
+
+#: src/Admin/Page.php:261
+msgid "Migration plan cleared."
+msgstr "Piano di migrazione cancellato."
+
+#: src/Admin/Page.php:262
+msgid "Migration action failed."
+msgstr "Azione di migrazione non riuscita."
+
+#: src/Admin/Page.php:264
+msgid "Migration state updated."
+msgstr "Stato della migrazione aggiornato."
+
+#: src/Governance/Events.php:28
+msgid "Content migration analysis completed"
+msgstr "Analisi della migrazione dei contenuti completata"
+
+#: src/Governance/Events.php:29
+msgid "Content migration created"
+msgstr "Migrazione dei contenuti creata"
+
+#: src/Governance/Events.php:30
+msgid "Content migration batch copied"
+msgstr "Batch della migrazione dei contenuti copiato"
+
+#: src/Governance/Events.php:31
+msgid "Content migration verified"
+msgstr "Migrazione dei contenuti verificata"
+
+#: src/Governance/Events.php:32
+msgid "Content migration rolled back"
+msgstr "Migrazione dei contenuti ripristinata"
+
+#: src/Governance/Events.php:33
+msgid "Content migration rollback failed"
+msgstr "Rollback della migrazione dei contenuti non riuscito"
+
+#: src/Governance/Events.php:34
+msgid "Content migration finalized"
+msgstr "Migrazione dei contenuti finalizzata"
+
+#: src/Governance/Events.php:35
+msgid "Content migration finalization failed"
+msgstr "Finalizzazione della migrazione dei contenuti non riuscita"
+
+#: src/Governance/Events.php:36
+msgid "Content migration source moved to Trash"
+msgstr "Sorgente della migrazione dei contenuti spostata nel cestino"
+
+#: src/Governance/Events.php:37
+msgid "Content migration ownership taken over"
+msgstr "Responsabilità della migrazione dei contenuti assunta"
+
+#: src/Governance/Events.php:38
+msgid "Content migration action failed"
+msgstr "Azione di migrazione dei contenuti non riuscita"
+
+#: src/Governance/Events.php:39
+msgid "Content migration plan cleared"
+msgstr "Piano della migrazione dei contenuti cancellato"
+
+#: src/Integration/Suite.php:47
+msgid "No active migration"
+msgstr "Nessuna migrazione attiva"
+
+#. translators: 1: migration status, 2: processed items, 3: total items.
+#: src/Integration/Suite.php:63
+#, php-format
+msgid "%1$s · %2$d/%3$d processed"
+msgstr "%1$s · %2$d/%3$d elaborati"
+
+#: src/Migration/JobStore.php:16
+msgid "Another migration is already active."
+msgstr "È già attiva un’altra migrazione."
+
+#: src/Migration/JobStore.php:26
+msgid "The migration job could not be stored."
+msgstr "Il processo di migrazione non ha potuto essere salvato."
+
+#: src/Migration/JobStore.php:30
+msgid "Another migration became active before this job could be started."
+msgstr ""
+"Un’altra migrazione è diventata attiva prima che questo processo potesse "
+"iniziare."
+
+#: src/Migration/JobStore.php:52
+msgid "Migration job ID is missing."
+msgstr "Manca l’ID del processo di migrazione."
+
+#: src/Migration/JobStore.php:56
+msgid "The active migration changed before this job could be saved."
+msgstr ""
+"La migrazione attiva è cambiata prima che questo processo potesse essere "
+"salvato."
+
+#: src/Migration/PostAnalyzer.php:22
+msgid "Source and target post types must be different."
+msgstr "I tipi di contenuto sorgente e destinazione devono essere diversi."
+
+#: src/Migration/PostAnalyzer.php:27
+msgid "Source or target post type is not registered."
+msgstr "Il tipo di contenuto sorgente o destinazione non è registrato."
+
+#: src/Migration/PostAnalyzer.php:30
+msgid "You do not have sufficient capabilities for the selected post types."
+msgstr ""
+"Non disponi di autorizzazioni sufficienti per i tipi di contenuto "
+"selezionati."
+
+#: src/Migration/PostAnalyzer.php:48
+msgid "The selected source post type has no migratable posts."
+msgstr ""
+"Il tipo di contenuto sorgente selezionato non contiene contenuti migrabili."
+
+#: src/Migration/PostRunner.php:49
+msgid "Source post is unavailable or changed type."
+msgstr "Il contenuto sorgente non è disponibile o ha cambiato tipo."
+
+#: src/Migration/PostRunner.php:52
+msgid "You no longer have permission to read and migrate this source post."
+msgstr ""
+"Non hai più l’autorizzazione per leggere e migrare questo contenuto sorgente."
+
+#: src/Migration/PostRunner.php:57
+msgid "You no longer have permission to create the selected target post type."
+msgstr ""
+"Non hai più l’autorizzazione per creare il tipo di contenuto di destinazione "
+"selezionato."
+
+#: src/Migration/PostRunner.php:60
+msgid "You cannot create migrated target content for another author."
+msgstr "Non puoi creare contenuti di destinazione migrati per un altro autore."
+
+#: src/Migration/PostRunner.php:63
+msgid ""
+"You cannot preserve the publication status of this source post in the target "
+"post type."
+msgstr ""
+"Non puoi mantenere lo stato di pubblicazione di questo contenuto sorgente "
+"nel tipo di contenuto di destinazione."
+
+#: src/Migration/PostRunner.php:102
+msgid ""
+"The target post could not be marked for safe rollback. Automatic cleanup was "
+"attempted."
+msgstr ""
+"Il contenuto di destinazione non ha potuto essere contrassegnato per un "
+"rollback sicuro. È stata tentata una pulizia automatica."
+
+#: src/Migration/PostRunner.php:110
+msgid "The featured image could not be assigned to the target post."
+msgstr ""
+"L’immagine in evidenza non ha potuto essere assegnata al contenuto di "
+"destinazione."
+
+#: src/Migration/PostRunner.php:128
+msgid "A mapped target meta key is reserved or not writable."
+msgstr "Una chiave meta di destinazione mappata è riservata o non scrivibile."
+
+#: src/Migration/PostRunner.php:138
+msgid "Mapped post meta could not be written to the target post."
+msgstr ""
+"I meta del contenuto mappati non hanno potuto essere scritti nel contenuto "
+"di destinazione."
+
+#: src/Migration/PostRunner.php:151
+msgid ""
+"A mapped taxonomy is no longer available for the selected target post type."
+msgstr ""
+"Una tassonomia mappata non è più disponibile per il tipo di contenuto di "
+"destinazione selezionato."
+
+#: src/Migration/PostRunner.php:159
+msgid ""
+"You no longer have permission to assign terms in a mapped target taxonomy."
+msgstr ""
+"Non hai più l’autorizzazione per assegnare termini in una tassonomia di "
+"destinazione mappata."
+
+#: src/Migration/PostRunner.php:199
+msgid "Missing target terms cannot be created with the current permissions."
+msgstr ""
+"I termini di destinazione mancanti non possono essere creati con le "
+"autorizzazioni correnti."
+
+#: src/Migration/PostRunner.php:231
+msgid "A target term could not be marked for safe rollback and was removed."
+msgstr ""
+"Un termine di destinazione non ha potuto essere contrassegnato per un "
+"rollback sicuro ed è stato rimosso."
+
+#: src/Migration/PostRunner.php:261
+msgid "You no longer have permission to repair the target parent relationship."
+msgstr ""
+"Non hai più l’autorizzazione per riparare la relazione genitore della "
+"destinazione."
+
+#. translators: %d: number of copy errors.
+#: src/Migration/PostRunner.php:279 src/Migration/TaxonomyRunner.php:238
+#, php-format
+msgid ""
+"The copy phase recorded %d issue. Roll back and retry before finalizing."
+msgid_plural ""
+"The copy phase recorded %d issues. Roll back and retry before finalizing."
+msgstr[0] ""
+"Durante la fase di copia è stato registrato %d problema. Esegui il rollback "
+"e riprova prima di finalizzare."
+msgstr[1] ""
+"Durante la fase di copia sono stati registrati %d problemi. Esegui il "
+"rollback e riprova prima di finalizzare."
+
+#. translators: 1: source post ID, 2: target post ID.
+#: src/Migration/PostRunner.php:296
+#, php-format
+msgid "Source %1$d or target %2$d is missing."
+msgstr "Manca la sorgente %1$d o la destinazione %2$d."
+
+#. translators: 1: target post ID, 2: post field name.
+#: src/Migration/PostRunner.php:306
+#, php-format
+msgid "Target %1$d differs in %2$s."
+msgstr "La destinazione %1$d differisce in %2$s."
+
+#. translators: %d: target post ID.
+#: src/Migration/PostRunner.php:321
+#, php-format
+msgid "Target %d has an invalid type or rollback marker."
+msgstr "La destinazione %d ha un tipo o un marcatore di rollback non valido."
+
+#. translators: 1: target post ID, 2: meta key.
+#: src/Migration/PostRunner.php:353
+#, php-format
+msgid "Target %1$d differs for meta %2$s."
+msgstr "La destinazione %1$d differisce per il meta %2$s."
+
+#. translators: %d: target post ID.
+#: src/Migration/PostRunner.php:369
+#, php-format
+msgid "Target %d taxonomy verification failed."
+msgstr "Verifica della tassonomia non riuscita per la destinazione %d."
+
+#. translators: 1: target post ID, 2: source taxonomy, 3: target taxonomy.
+#: src/Migration/PostRunner.php:379
+#, php-format
+msgid "Target %1$d differs for %2$s → %3$s."
+msgstr "La destinazione %1$d differisce per %2$s → %3$s."
+
+#. translators: %d: target post ID.
+#: src/Migration/PostRunner.php:402
+#, php-format
+msgid "Target %d was not deleted because its rollback marker changed."
+msgstr ""
+"La destinazione %d non è stata eliminata perché il suo marcatore di rollback "
+"è cambiato."
+
+#. translators: %d: target post ID.
+#: src/Migration/PostRunner.php:410
+#, php-format
+msgid "Target %d was not deleted because you no longer have permission."
+msgstr ""
+"La destinazione %d non è stata eliminata perché non disponi più "
+"dell’autorizzazione."
+
+#. translators: %d: target post ID.
+#: src/Migration/PostRunner.php:418
+#, php-format
+msgid "Target %d could not be deleted."
+msgstr "La destinazione %d non ha potuto essere eliminata."
+
+#. translators: %s: taxonomy name.
+#: src/Migration/PostRunner.php:436
+#, php-format
+msgid ""
+"Created terms in taxonomy %s could not be removed because the taxonomy is "
+"unavailable or no longer manageable."
+msgstr ""
+"I termini creati nella tassonomia %s non sono stati rimossi perché la "
+"tassonomia non è disponibile o non è più gestibile."
+
+#. translators: %d: target term ID.
+#: src/Migration/PostRunner.php:451 src/Migration/TaxonomyRunner.php:432
+#, php-format
+msgid "Target term %d was not deleted because its rollback marker changed."
+msgstr ""
+"Il termine di destinazione %d non è stato eliminato perché il suo marcatore "
+"di rollback è cambiato."
+
+#. translators: %d: target term ID.
+#: src/Migration/PostRunner.php:465 src/Migration/TaxonomyRunner.php:446
+#, php-format
+msgid "Target term %d could not be deleted."
+msgstr "Il termine di destinazione %d non ha potuto essere eliminato."
+
+#. translators: %d: source post ID.
+#: src/Migration/PostRunner.php:494
+#, php-format
+msgid "Source %d could not be moved to Trash."
+msgstr "La sorgente %d non ha potuto essere spostata nel cestino."
+
+#. translators: %d: target post ID.
+#: src/Migration/PostRunner.php:531
+#, php-format
+msgid "Target %d is missing. Verify the migration again before finalizing."
+msgstr ""
+"La destinazione %d manca. Verifica nuovamente la migrazione prima di "
+"finalizzarla."
+
+#. translators: %d: target post ID.
+#: src/Migration/PostRunner.php:542
+#, php-format
+msgid "Target %d no longer has the expected migration markers."
+msgstr "La destinazione %d non ha più i marcatori di migrazione previsti."
+
+#. translators: %d: target term ID.
+#: src/Migration/PostRunner.php:554 src/Migration/TaxonomyRunner.php:468
+#, php-format
+msgid ""
+"Target term %d is missing. Verify the migration again before finalizing."
+msgstr ""
+"Il termine di destinazione %d manca. Verifica nuovamente la migrazione prima "
+"di finalizzarla."
+
+#. translators: %d: target term ID.
+#: src/Migration/PostRunner.php:562 src/Migration/TaxonomyRunner.php:476
+#, php-format
+msgid "Target term %d no longer has the expected migration marker."
+msgstr ""
+"Il termine di destinazione %d non ha più il marcatore di migrazione previsto."
+
+#. translators: %d: source post ID.
+#: src/Migration/PostRunner.php:578
+#, php-format
+msgid ""
+"Source %d is missing or changed type and cannot be moved to Trash safely."
+msgstr ""
+"La sorgente %d manca o ha cambiato tipo e non può essere spostata in "
+"sicurezza nel cestino."
+
+#. translators: %d: source post ID.
+#: src/Migration/PostRunner.php:586
+#, php-format
+msgid ""
+"Source %d cannot be moved to Trash because you no longer have permission."
+msgstr ""
+"La sorgente %d non può essere spostata nel cestino perché non disponi più "
+"dell’autorizzazione."
+
+#: src/Migration/TaxonomyAnalyzer.php:31
+msgid "Source and target taxonomies must be different."
+msgstr "Le tassonomie sorgente e destinazione devono essere diverse."
+
+#: src/Migration/TaxonomyAnalyzer.php:36
+msgid "Source or target taxonomy is not registered."
+msgstr "La tassonomia sorgente o destinazione non è registrata."
+
+#: src/Migration/TaxonomyAnalyzer.php:39
+msgid "You cannot manage terms in the selected source taxonomy."
+msgstr "Non puoi gestire termini nella tassonomia sorgente selezionata."
+
+#: src/Migration/TaxonomyAnalyzer.php:42
+msgid "You cannot create or manage terms in the selected target taxonomy."
+msgstr ""
+"Non puoi creare o gestire termini nella tassonomia di destinazione "
+"selezionata."
+
+#: src/Migration/TaxonomyAnalyzer.php:61
+msgid "The selected source taxonomy has no terms to migrate."
+msgstr "La tassonomia sorgente selezionata non contiene termini da migrare."
+
+#: src/Migration/TaxonomyRunner.php:81
+msgid "You no longer have permission to manage the source taxonomy."
+msgstr "Non hai più l’autorizzazione per gestire la tassonomia sorgente."
+
+#: src/Migration/TaxonomyRunner.php:88
+msgid "You no longer have permission to manage the target taxonomy."
+msgstr ""
+"Non hai più l’autorizzazione per gestire la tassonomia di destinazione."
+
+#: src/Migration/TaxonomyRunner.php:93
+msgid "Source term is unavailable."
+msgstr "Il termine sorgente non è disponibile."
+
+#: src/Migration/TaxonomyRunner.php:141
+msgid ""
+"The target term could not be marked for safe rollback. Automatic cleanup was "
+"attempted."
+msgstr ""
+"Il termine di destinazione non ha potuto essere contrassegnato per un "
+"rollback sicuro. È stata tentata una pulizia automatica."
+
+#: src/Migration/TaxonomyRunner.php:160
+msgid "A mapped target term meta key is reserved or not writable."
+msgstr ""
+"Una chiave meta del termine di destinazione mappata è riservata o non "
+"scrivibile."
+
+#: src/Migration/TaxonomyRunner.php:170
+msgid "Mapped term meta could not be written to the target term."
+msgstr ""
+"I meta del termine mappati non hanno potuto essere scritti nel termine di "
+"destinazione."
+
+#: src/Migration/TaxonomyRunner.php:187
+msgid ""
+"You no longer have permission to change one or more target taxonomy "
+"relationships."
+msgstr ""
+"Non hai più l’autorizzazione per modificare una o più relazioni della "
+"tassonomia di destinazione."
+
+#. translators: 1: source term ID, 2: target term ID.
+#: src/Migration/TaxonomyRunner.php:257
+#, php-format
+msgid "Source term %1$d or target term %2$d no longer exists."
+msgstr ""
+"Il termine sorgente %1$d o il termine di destinazione %2$d non esiste più."
+
+#. translators: %d: target term ID.
+#: src/Migration/TaxonomyRunner.php:266
+#, php-format
+msgid "Target term %d has a different slug."
+msgstr "Il termine di destinazione %d ha uno slug diverso."
+
+#. translators: %d: target term ID.
+#: src/Migration/TaxonomyRunner.php:277
+#, php-format
+msgid "Created target term %d no longer has the expected rollback marker."
+msgstr ""
+"Il termine di destinazione creato %d non ha più il marcatore di rollback "
+"previsto."
+
+#. translators: %d: target term ID.
+#: src/Migration/TaxonomyRunner.php:285
+#, php-format
+msgid "Created target term %d has an invalid source marker."
+msgstr ""
+"Il termine di destinazione creato %d ha un marcatore sorgente non valido."
+
+#. translators: %d: target term ID.
+#: src/Migration/TaxonomyRunner.php:292
+#, php-format
+msgid "Created target term %d differs in name or description."
+msgstr ""
+"Il termine di destinazione creato %d differisce nel nome o nella descrizione."
+
+#. translators: %d: target term ID.
+#: src/Migration/TaxonomyRunner.php:301
+#, php-format
+msgid "Created target term %d has an unexpected parent."
+msgstr "Il termine di destinazione creato %d ha un termine genitore inatteso."
+
+#. translators: %d: object ID.
+#: src/Migration/TaxonomyRunner.php:320
+#, php-format
+msgid "Relationship verification failed for object %d."
+msgstr "Verifica delle relazioni non riuscita per l’oggetto %d."
+
+#. translators: %d: object ID.
+#: src/Migration/TaxonomyRunner.php:335
+#, php-format
+msgid "Object %d is missing one or more migrated target relationships."
+msgstr "All’oggetto %d manca una o più relazioni di destinazione migrate."
+
+#. translators: 1: target term ID, 2: meta key.
+#: src/Migration/TaxonomyRunner.php:367
+#, php-format
+msgid "Target term %1$d differs for mapped term meta %2$s."
+msgstr ""
+"Il termine di destinazione %1$d differisce per i meta del termine mappati "
+"%2$s."
+
+#. translators: %d: object ID.
+#: src/Migration/TaxonomyRunner.php:396
+#, php-format
+msgid ""
+"Migrated relationships on object %d were not removed because you no longer "
+"have permission."
+msgstr ""
+"Le relazioni migrate sull’oggetto %d non sono state rimosse perché non "
+"disponi più dell’autorizzazione."
+
+#. translators: %d: object ID.
+#: src/Migration/TaxonomyRunner.php:405
+#, php-format
+msgid "Could not remove migrated relationships from object %d."
+msgstr "Non è stato possibile rimuovere le relazioni migrate dall’oggetto %d."
+
+#. translators: %d: target term ID.
+#: src/Migration/TaxonomyRunner.php:424
+#, php-format
+msgid "Target term %d was not deleted because you no longer have permission."
+msgstr ""
+"Il termine di destinazione %d non è stato eliminato perché non disponi più "
+"dell’autorizzazione."
+
+#. translators: %d: target term ID.
+#: src/Migration/TermRollbackGuard.php:14
+#, php-format
+msgid ""
+"Target term %d was not deleted because its relationships could not be "
+"verified."
+msgstr ""
+"Il termine di destinazione %d non è stato eliminato perché non è stato "
+"possibile verificarne le relazioni."
+
+#. translators: %d: target term ID.
+#: src/Migration/TermRollbackGuard.php:21
+#, php-format
+msgid ""
+"Target term %d was not deleted because it is now used by content outside the "
+"rollback."
+msgstr ""
+"Il termine di destinazione %d non è stato eliminato perché ora è utilizzato "
+"da contenuti esterni al rollback."
+
+#. translators: %d: target term ID.
+#: src/Migration/TermRollbackGuard.php:36
+#, php-format
+msgid ""
+"Target term %d was not deleted because its child terms could not be verified."
+msgstr ""
+"Il termine di destinazione %d non è stato eliminato perché non è stato "
+"possibile verificarne i termini figli."
+
+#. translators: %d: target term ID.
+#: src/Migration/TermRollbackGuard.php:43
+#, php-format
+msgid ""
+"Target term %d was not deleted because it now has child terms outside the "
+"rollback."
+msgstr ""
+"Il termine di destinazione %d non è stato eliminato perché ora ha termini "
+"figli esterni al rollback."
