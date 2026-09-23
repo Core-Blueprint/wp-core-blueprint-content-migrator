@@ -158,21 +158,28 @@ final class Page {
 	private static function job( array $job ): void {
 		$mode   = sanitize_key( (string) ( $job['mode'] ?? 'post' ) );
 		$status = sanitize_key( (string) ( $job['status'] ?? 'unknown' ) );
+		$owner  = (int) ( $job['owner_user_id'] ?? 0 );
+		$is_owner = $owner > 0 && $owner === get_current_user_id();
 		?>
 		<hr><h2><?php esc_html_e( 'Active migration', 'core-blueprint-content-migrator' ); ?></h2>
 		<p><strong><?php echo esc_html( ucfirst( $mode ) ); ?></strong> · <?php echo esc_html( (string) $job['source_label'] ); ?> &rarr; <?php echo esc_html( (string) $job['target_label'] ); ?></p>
 		<p><?php printf( esc_html__( 'Status: %1$s · processed %2$d/%3$d', 'core-blueprint-content-migrator' ), esc_html( $status ), (int) ( $job['cursor'] ?? 0 ), (int) ( $job['total'] ?? 0 ) ); ?></p>
+		<?php if ( ! $is_owner ) : ?>
+			<div class="notice notice-warning inline"><p><?php esc_html_e( 'This migration is owned by another administrator. Take ownership explicitly before continuing, verifying, finalizing or rolling it back.', 'core-blueprint-content-migrator' ); ?></p></div>
+			<?php self::takeover_form( $job ); ?>
+			<?php return; ?>
+		<?php endif; ?>
 		<?php if ( ! empty( $job['errors'] ) ) : ?><div class="notice notice-warning inline"><p><?php printf( esc_html__( '%d issues were recorded. Do not finalize before verification passes.', 'core-blueprint-content-migrator' ), count( (array) $job['errors'] ) ); ?></p></div><?php endif; ?>
 		<?php if ( in_array( $status, [ 'ready', 'copying', 'copying_terms', 'copying_relationships' ], true ) ) : ?>
-			<p><?php esc_html_e( 'The source is still untouched. Continue until copying is complete.', 'core-blueprint-content-migrator' ); ?></p><?php self::action_form( 'run_batch', __( 'Run next batch', 'core-blueprint-content-migrator' ), 'primary' ); ?>
+			<p><?php esc_html_e( 'The source is still untouched. Continue until copying is complete.', 'core-blueprint-content-migrator' ); ?></p><?php self::action_form( 'run_batch', __( 'Run next batch', 'core-blueprint-content-migrator' ), 'primary', $job ); ?>
 		<?php elseif ( in_array( $status, [ 'copied', 'verification_failed' ], true ) ) : ?>
-			<?php self::verification( $job ); self::action_form( 'verify', __( 'Verify migrated content', 'core-blueprint-content-migrator' ), 'primary' ); ?>
+			<?php self::verification( $job ); self::action_form( 'verify', __( 'Verify migrated content', 'core-blueprint-content-migrator' ), 'primary', $job ); ?>
 		<?php elseif ( 'verified' === $status ) : ?>
 			<?php self::verification( $job ); ?><h3><?php esc_html_e( 'Finalize', 'core-blueprint-content-migrator' ); ?></h3>
-			<?php if ( 'taxonomy' === $mode ) : ?><p><?php esc_html_e( 'WordPress terms have no Trash. RC1 therefore always keeps the source taxonomy when finalizing.', 'core-blueprint-content-migrator' ); ?></p><?php self::finalize_form( false, __( 'Finalize & keep source taxonomy', 'core-blueprint-content-migrator' ) ); ?>
-			<?php else : ?><p><?php esc_html_e( 'For a first test, keep the source. Moving source posts to Trash is available only after verification passes.', 'core-blueprint-content-migrator' ); ?></p><?php self::finalize_form( false, __( 'Finalize & keep source', 'core-blueprint-content-migrator' ) ); self::finalize_form( true, __( 'Finalize & move source to Trash', 'core-blueprint-content-migrator' ) ); ?><?php endif; ?>
+			<?php if ( 'taxonomy' === $mode ) : ?><p><?php esc_html_e( 'WordPress terms have no Trash. RC1 therefore always keeps the source taxonomy when finalizing.', 'core-blueprint-content-migrator' ); ?></p><?php self::finalize_form( $job, false, __( 'Finalize & keep source taxonomy', 'core-blueprint-content-migrator' ) ); ?>
+			<?php else : ?><p><?php esc_html_e( 'For a first test, keep the source. Moving source posts to Trash is available only after verification passes.', 'core-blueprint-content-migrator' ); ?></p><?php self::finalize_form( $job, false, __( 'Finalize & keep source', 'core-blueprint-content-migrator' ) ); self::finalize_form( $job, true, __( 'Finalize & move source to Trash', 'core-blueprint-content-migrator' ) ); ?><?php endif; ?>
 		<?php elseif ( 'rollback_failed' === $status ) : ?><div class="notice notice-error inline"><p><?php esc_html_e( 'Rollback could not safely remove every tracked item. Review the stored migration state before changing content manually.', 'core-blueprint-content-migrator' ); ?></p></div><?php endif; ?>
-		<?php if ( self::has_rollback_targets( $job ) ) : ?><hr><h3><?php esc_html_e( 'Roll back', 'core-blueprint-content-migrator' ); ?></h3><p><?php esc_html_e( 'Rollback removes only job-owned target posts, terms and relationships. Existing target content and all source content remain untouched.', 'core-blueprint-content-migrator' ); ?></p><?php self::action_form( 'rollback', __( 'Roll back migration', 'core-blueprint-content-migrator' ), 'delete' ); ?><?php endif; ?>
+		<?php if ( self::has_rollback_targets( $job ) ) : ?><hr><h3><?php esc_html_e( 'Roll back', 'core-blueprint-content-migrator' ); ?></h3><p><?php esc_html_e( 'Rollback permanently removes only job-owned target posts and safe-to-remove target terms and relationships. Source content remains untouched.', 'core-blueprint-content-migrator' ); ?></p><?php self::rollback_form( $job ); ?><?php endif; ?>
 		<?php
 	}
 
@@ -201,12 +208,24 @@ final class Page {
 		return ! empty( $job['target_map'] ) || ! empty( $job['created_taxonomy_terms'] );
 	}
 
-	private static function action_form( string $action, string $label, string $class ): void {
-		?><form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline-block;margin:0 8px 8px 0"><input type="hidden" name="action" value="cb_content_migrator_<?php echo esc_attr( $action ); ?>"><?php wp_nonce_field( 'cb_content_migrator_' . $action, 'cb_content_migrator_nonce' ); ?><?php submit_button( $label, $class, 'submit', false ); ?></form><?php
+	/** @param array<string,mixed>|null $job */
+	private static function action_form( string $action, string $label, string $class, ?array $job = null ): void {
+		?><form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline-block;margin:0 8px 8px 0"><input type="hidden" name="action" value="cb_content_migrator_<?php echo esc_attr( $action ); ?>"><?php if ( is_array( $job ) ) : ?><input type="hidden" name="job_id" value="<?php echo esc_attr( (string) ( $job['id'] ?? '' ) ); ?>"><?php endif; ?><?php wp_nonce_field( 'cb_content_migrator_' . $action, 'cb_content_migrator_nonce' ); ?><?php submit_button( $label, $class, 'submit', false ); ?></form><?php
 	}
 
-	private static function finalize_form( bool $trash, string $label ): void {
-		?><form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline-block;margin:0 8px 8px 0"><input type="hidden" name="action" value="cb_content_migrator_finalize"><input type="hidden" name="trash_source" value="<?php echo $trash ? '1' : '0'; ?>"><?php wp_nonce_field( 'cb_content_migrator_finalize', 'cb_content_migrator_nonce' ); ?><?php submit_button( $label, $trash ? 'secondary' : 'primary', 'submit', false ); ?></form><?php
+	/** @param array<string,mixed> $job */
+	private static function rollback_form( array $job ): void {
+		?><form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="margin:0 0 8px 0"><input type="hidden" name="action" value="cb_content_migrator_rollback"><input type="hidden" name="job_id" value="<?php echo esc_attr( (string) ( $job['id'] ?? '' ) ); ?>"><?php wp_nonce_field( 'cb_content_migrator_rollback', 'cb_content_migrator_nonce' ); ?><p><label><input type="checkbox" name="confirm_rollback" value="1" required> <?php esc_html_e( 'I understand that rollback permanently deletes targets owned by this migration job.', 'core-blueprint-content-migrator' ); ?></label></p><?php submit_button( __( 'Roll back migration', 'core-blueprint-content-migrator' ), 'delete', 'submit', false ); ?></form><?php
+	}
+
+	/** @param array<string,mixed> $job */
+	private static function finalize_form( array $job, bool $trash, string $label ): void {
+		?><form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline-block;margin:0 8px 8px 0"><input type="hidden" name="action" value="cb_content_migrator_finalize"><input type="hidden" name="job_id" value="<?php echo esc_attr( (string) ( $job['id'] ?? '' ) ); ?>"><input type="hidden" name="trash_source" value="<?php echo $trash ? '1' : '0'; ?>"><?php wp_nonce_field( 'cb_content_migrator_finalize', 'cb_content_migrator_nonce' ); ?><?php if ( $trash ) : ?><p><label><input type="checkbox" name="confirm_trash_source" value="1" required> <?php esc_html_e( 'I understand that the verified source posts will be moved to WordPress Trash.', 'core-blueprint-content-migrator' ); ?></label></p><?php endif; ?><?php submit_button( $label, $trash ? 'secondary' : 'primary', 'submit', false ); ?></form><?php
+	}
+
+	/** @param array<string,mixed> $job */
+	private static function takeover_form( array $job ): void {
+		?><form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>"><input type="hidden" name="action" value="cb_content_migrator_takeover"><input type="hidden" name="job_id" value="<?php echo esc_attr( (string) ( $job['id'] ?? '' ) ); ?>"><?php wp_nonce_field( 'cb_content_migrator_takeover', 'cb_content_migrator_nonce' ); ?><p><label><input type="checkbox" name="confirm_takeover" value="1" required> <?php esc_html_e( 'I understand that I am taking responsibility for this active migration.', 'core-blueprint-content-migrator' ); ?></label></p><?php submit_button( __( 'Take over migration', 'core-blueprint-content-migrator' ), 'secondary', 'submit', false ); ?></form><?php
 	}
 
 	/** @param array<string,object> $objects */
@@ -226,6 +245,7 @@ final class Page {
 		$labels = [
 			'plan_ready' => __( 'Analysis complete. Review the plan below.', 'core-blueprint-content-migrator' ),
 			'job_created' => __( 'Migration job created. The source has not been changed.', 'core-blueprint-content-migrator' ),
+			'job_taken_over' => __( 'Migration ownership transferred to your account.', 'core-blueprint-content-migrator' ),
 			'batch_complete' => __( 'Batch complete.', 'core-blueprint-content-migrator' ),
 			'verified' => __( 'Verification passed.', 'core-blueprint-content-migrator' ),
 			'verification_failed' => __( 'Verification found differences.', 'core-blueprint-content-migrator' ),
