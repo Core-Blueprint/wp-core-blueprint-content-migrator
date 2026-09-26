@@ -856,3 +856,59 @@ msgstr ""
 #: src/Admin/Page.php
 msgid "Unavailable"
 msgstr ""
+
+#: src/Migration/Selection.php
+msgid "Select at least one source term to migrate."
+msgstr ""
+
+#: src/Migration/Selection.php
+msgid "One or more selected source terms are not part of the analyzed migration plan."
+msgstr ""
+
+#: src/Migration/Selection.php
+msgid "The analyzed source taxonomy is no longer available."
+msgstr ""
+
+#: src/Migration/Selection.php
+msgid "A source term hierarchy loop was detected."
+msgstr ""
+
+#: src/Migration/Selection.php
+msgid "A required parent term is no longer part of the analyzed migration plan."
+msgstr ""
+
+#: src/Admin/Page.php
+msgid "Select source terms"
+msgstr ""
+
+#: src/Admin/Page.php
+msgid "Choose which analyzed terms to include in this migration. All available terms are selected by default."
+msgstr ""
+
+#: src/Admin/Page.php
+msgid "Hierarchy safety:"
+msgstr ""
+
+#: src/Admin/Page.php
+msgid "If a selected child needs a parent that you did not select, the required parent is added automatically to preserve the hierarchy."
+msgstr ""
+
+#: src/Admin/Page.php
+msgid "Name"
+msgstr ""
+
+#: src/Admin/Page.php
+msgid "Slug"
+msgstr ""
+
+#: src/Admin/Page.php
+msgid "Parent"
+msgstr ""
+
+#: src/Admin/Page.php
+msgid "Count"
+msgstr ""
+
+#: src/Admin/Page.php
+msgid "None"
+msgstr ""
