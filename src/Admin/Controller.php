@@ -54,9 +54,16 @@ final class Controller {
 			$batch_size = isset( $_POST['batch_size'] ) ? absint( $_POST['batch_size'] ) : 50;
 			$batch_size = max( 10, min( 200, $batch_size ) );
 			if ( 'taxonomy' === $mode ) {
-				$source_ids = Selection::terms(
-					array_values( array_map( 'intval', (array) $plan['source_ids'] ) ),
+				$allowed_source_ids = array_values( array_map( 'intval', (array) $plan['source_ids'] ) );
+				$selected_source_ids = Selection::terms(
+					$allowed_source_ids,
 					isset( $_POST['source_ids'] ) ? wp_unslash( $_POST['source_ids'] ) : [],
+					(string) $plan['source_taxonomy'],
+					false
+				);
+				$source_ids = Selection::terms(
+					$allowed_source_ids,
+					$selected_source_ids,
 					(string) $plan['source_taxonomy'],
 					! empty( $plan['source_hierarchical'] ) && ! empty( $plan['target_hierarchical'] )
 				);
@@ -65,7 +72,7 @@ final class Controller {
 				$relationship_ids = $copy_relationships
 					? Selection::relationships(
 						array_values( array_map( 'intval', (array) $plan['relationship_ids'] ) ),
-						$source_ids,
+						$selected_source_ids,
 						(string) $plan['source_taxonomy']
 					)
 					: [];
