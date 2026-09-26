@@ -348,6 +348,10 @@ msgstr ""
 "abgeschlossen ist."
 
 #: src/Admin/Page.php:174
+msgid "Start migration"
+msgstr "Migration starten"
+
+#: src/Admin/Page.php:174
 msgid "Run next batch"
 msgstr "Nächsten Batch ausführen"
 
