@@ -96,7 +96,7 @@ function cb_cm_golden_safety_failures( string $root ): array {
 
 	$term_guard = $read( 'src/Migration/TermRollbackGuard.php' );
 	$require( $term_guard, 'get_objects_in_term( $term_id, $taxonomy )', 'Term rollback does not block externally used terms.' );
-	$require( $term_guard, "'parent'     => $term_id", 'Term rollback does not protect newly attached child terms.' );
+	$require( $term_guard, "'parent'     => \$term_id", 'Term rollback does not protect newly attached child terms.' );
 
 	$page = $read( 'src/Admin/Page.php' );
 	foreach ( [
