@@ -171,7 +171,7 @@ final class Page {
 		<?php endif; ?>
 		<?php if ( ! empty( $job['errors'] ) ) : ?><div class="notice notice-warning inline"><p><?php printf( esc_html__( '%d issues were recorded. Do not finalize before verification passes.', 'core-blueprint-content-migrator' ), count( (array) $job['errors'] ) ); ?></p></div><?php endif; ?>
 		<?php if ( in_array( $status, [ 'ready', 'copying', 'copying_terms', 'copying_relationships' ], true ) ) : ?>
-			<p><?php esc_html_e( 'The source is still untouched. Continue until copying is complete.', 'core-blueprint-content-migrator' ); ?></p><?php self::action_form( 'run_batch', __( 'Run next batch', 'core-blueprint-content-migrator' ), 'primary', $job ); ?>
+			<p><?php esc_html_e( 'The source is still untouched. Continue until copying is complete.', 'core-blueprint-content-migrator' ); ?></p><?php self::action_form( 'run_batch', 'ready' === $status ? __( 'Start migration', 'core-blueprint-content-migrator' ) : __( 'Run next batch', 'core-blueprint-content-migrator' ), 'primary', $job ); ?>
 		<?php elseif ( in_array( $status, [ 'copied', 'verification_failed' ], true ) ) : ?>
 			<?php self::verification( $job ); self::action_form( 'verify', __( 'Verify migrated content', 'core-blueprint-content-migrator' ), 'primary', $job ); ?>
 		<?php elseif ( in_array( $status, [ 'verified', 'finalization_failed' ], true ) ) : ?>
