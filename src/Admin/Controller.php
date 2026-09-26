@@ -8,6 +8,7 @@ use CB\ContentMigrator\Migration\JobStore;
 use CB\ContentMigrator\Migration\PlanStore;
 use CB\ContentMigrator\Migration\PostAnalyzer;
 use CB\ContentMigrator\Migration\PostRunner;
+use CB\ContentMigrator\Migration\Selection;
 use CB\ContentMigrator\Migration\TaxonomyAnalyzer;
 use CB\ContentMigrator\Migration\TaxonomyRunner;
 
@@ -80,6 +81,10 @@ final class Controller {
 					'verification'          => null,
 				] );
 			} else {
+				$source_ids = Selection::posts(
+					array_values( array_map( 'intval', (array) $plan['source_ids'] ) ),
+					isset( $_POST['source_ids'] ) ? wp_unslash( $_POST['source_ids'] ) : []
+				);
 				$tax_map = self::sanitize_tax_map( $plan, isset( $_POST['tax_map'] ) && is_array( $_POST['tax_map'] ) ? wp_unslash( $_POST['tax_map'] ) : [] );
 				$meta_map = self::sanitize_meta_map( $plan, isset( $_POST['meta_map'] ) && is_array( $_POST['meta_map'] ) ? wp_unslash( $_POST['meta_map'] ) : [], 'post' );
 				$job = JobStore::create( [
@@ -88,8 +93,8 @@ final class Controller {
 					'target_type'         => (string) $plan['target_type'],
 					'source_label'        => (string) $plan['source_label'],
 					'target_label'        => (string) $plan['target_label'],
-					'source_ids'          => array_values( array_map( 'intval', (array) $plan['source_ids'] ) ),
-					'total'               => (int) $plan['total'],
+					'source_ids'          => $source_ids,
+					'total'               => count( $source_ids ),
 					'cursor'              => 0,
 					'batch_size'          => $batch_size,
 					'tax_map'             => $tax_map,
