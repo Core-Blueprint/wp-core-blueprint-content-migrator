@@ -47,6 +47,7 @@ final class Selection {
 		);
 
 		if ( $include_ancestors ) {
+			$allowed_set = array_fill_keys( $allowed, true );
 			$taxonomy = get_taxonomy( $source_taxonomy );
 			if ( ! $taxonomy instanceof \WP_Taxonomy ) {
 				throw new \RuntimeException( __( 'The analyzed source taxonomy is no longer available.', 'core-blueprint-content-migrator' ) );
@@ -61,7 +62,7 @@ final class Selection {
 						throw new \RuntimeException( __( 'A source term hierarchy loop was detected.', 'core-blueprint-content-migrator' ) );
 					}
 					$seen[ $parent_id ] = true;
-					if ( ! in_array( $parent_id, $allowed, true ) ) {
+					if ( ! isset( $allowed_set[ $parent_id ] ) ) {
 						throw new \RuntimeException( __( 'A required parent term is no longer part of the analyzed migration plan.', 'core-blueprint-content-migrator' ) );
 					}
 					$selected[ $parent_id ] = true;
@@ -79,7 +80,7 @@ final class Selection {
 	}
 
 	/**
-	 * Limit analyzed relationship objects to those affected by the effective term selection.
+	 * Limit analyzed relationship objects to those affected by the explicit term selection.
 	 *
 	 * @param int[] $allowed_relationship_ids
 	 * @param int[] $source_ids
@@ -108,9 +109,11 @@ final class Selection {
 	/** @param int[] $ids @return int[] */
 	private static function normalize_allowed( array $ids ): array {
 		$out = [];
+		$seen = [];
 		foreach ( $ids as $id ) {
 			$id = (int) $id;
-			if ( $id > 0 && ! in_array( $id, $out, true ) ) {
+			if ( $id > 0 && ! isset( $seen[ $id ] ) ) {
+				$seen[ $id ] = true;
 				$out[] = $id;
 			}
 		}
@@ -126,6 +129,7 @@ final class Selection {
 			throw new \RuntimeException( $empty_message );
 		}
 
+		$allowed_set = array_fill_keys( $allowed, true );
 		$selected = [];
 		foreach ( $raw as $value ) {
 			if ( ! is_scalar( $value ) ) {
@@ -136,7 +140,7 @@ final class Selection {
 				throw new \InvalidArgumentException( $invalid_message );
 			}
 			$id = (int) $value;
-			if ( $id <= 0 || ! in_array( $id, $allowed, true ) ) {
+			if ( $id <= 0 || ! isset( $allowed_set[ $id ] ) ) {
 				throw new \InvalidArgumentException( $invalid_message );
 			}
 			$selected[ $id ] = true;
