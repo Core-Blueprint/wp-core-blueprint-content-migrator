@@ -1010,3 +1010,43 @@ msgid ""
 msgstr ""
 "Le terme cible %d n’a pas été supprimé car il possède désormais des termes "
 "enfants en dehors de la restauration."
+
+#: src/Migration/Selection.php
+msgid "Select at least one source post to migrate."
+msgstr "Sélectionnez au moins une publication source à migrer."
+
+#: src/Migration/Selection.php
+msgid "One or more selected source posts are not part of the analyzed migration plan."
+msgstr "Une ou plusieurs publications sources sélectionnées ne font pas partie du plan de migration analysé."
+
+#: src/Admin/Page.php
+msgid "Select source posts"
+msgstr "Sélectionner les publications sources"
+
+#: src/Admin/Page.php
+msgid "Choose which analyzed posts to include in this migration. All available posts are selected by default."
+msgstr "Choisissez les publications analysées à inclure dans cette migration. Toutes les publications disponibles sont sélectionnées par défaut."
+
+#: src/Admin/Page.php
+msgid "Select all"
+msgstr "Tout sélectionner"
+
+#: src/Admin/Page.php
+msgid "Title"
+msgstr "Titre"
+
+#: src/Admin/Page.php
+msgid "Status"
+msgstr "Statut"
+
+#: src/Admin/Page.php
+msgid "Author"
+msgstr "Auteur"
+
+#: src/Admin/Page.php
+msgid "(no title)"
+msgstr "(sans titre)"
+
+#: src/Admin/Page.php
+msgid "Unavailable"
+msgstr "Indisponible"
