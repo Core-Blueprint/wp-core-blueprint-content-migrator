@@ -1028,3 +1028,59 @@ msgstr "(geen titel)"
 #: src/Admin/Page.php
 msgid "Unavailable"
 msgstr "Niet beschikbaar"
+
+#: src/Migration/Selection.php
+msgid "Select at least one source term to migrate."
+msgstr "Selecteer minstens één bronterm om te migreren."
+
+#: src/Migration/Selection.php
+msgid "One or more selected source terms are not part of the analyzed migration plan."
+msgstr "Een of meer geselecteerde brontermen maken geen deel uit van het geanalyseerde migratieplan."
+
+#: src/Migration/Selection.php
+msgid "The analyzed source taxonomy is no longer available."
+msgstr "De geanalyseerde brontaxonomie is niet meer beschikbaar."
+
+#: src/Migration/Selection.php
+msgid "A source term hierarchy loop was detected."
+msgstr "Er is een lus in de hiërarchie van brontermen gedetecteerd."
+
+#: src/Migration/Selection.php
+msgid "A required parent term is no longer part of the analyzed migration plan."
+msgstr "Een vereiste bovenliggende term maakt geen deel meer uit van het geanalyseerde migratieplan."
+
+#: src/Admin/Page.php
+msgid "Select source terms"
+msgstr "Brontermen selecteren"
+
+#: src/Admin/Page.php
+msgid "Choose which analyzed terms to include in this migration. All available terms are selected by default."
+msgstr "Kies welke geanalyseerde termen je in deze migratie wilt opnemen. Alle beschikbare termen zijn standaard geselecteerd."
+
+#: src/Admin/Page.php
+msgid "Hierarchy safety:"
+msgstr "Hiërarchieveiligheid:"
+
+#: src/Admin/Page.php
+msgid "If a selected child needs a parent that you did not select, the required parent is added automatically to preserve the hierarchy."
+msgstr "Als een geselecteerde onderliggende term een bovenliggende term nodig heeft die je niet hebt geselecteerd, wordt de vereiste bovenliggende term automatisch toegevoegd om de hiërarchie te behouden."
+
+#: src/Admin/Page.php
+msgid "Name"
+msgstr "Naam"
+
+#: src/Admin/Page.php
+msgid "Slug"
+msgstr "Slug"
+
+#: src/Admin/Page.php
+msgid "Parent"
+msgstr "Bovenliggend"
+
+#: src/Admin/Page.php
+msgid "Count"
+msgstr "Aantal"
+
+#: src/Admin/Page.php
+msgid "None"
+msgstr "Geen"
