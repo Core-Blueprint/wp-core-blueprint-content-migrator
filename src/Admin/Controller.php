@@ -54,16 +54,28 @@ final class Controller {
 			$batch_size = isset( $_POST['batch_size'] ) ? absint( $_POST['batch_size'] ) : 50;
 			$batch_size = max( 10, min( 200, $batch_size ) );
 			if ( 'taxonomy' === $mode ) {
+				$source_ids = Selection::terms(
+					array_values( array_map( 'intval', (array) $plan['source_ids'] ) ),
+					isset( $_POST['source_ids'] ) ? wp_unslash( $_POST['source_ids'] ) : [],
+					(string) $plan['source_taxonomy'],
+					! empty( $plan['source_hierarchical'] ) && ! empty( $plan['target_hierarchical'] )
+				);
 				$term_meta_map = self::sanitize_meta_map( $plan, isset( $_POST['term_meta_map'] ) && is_array( $_POST['term_meta_map'] ) ? wp_unslash( $_POST['term_meta_map'] ) : [], 'term' );
 				$copy_relationships = ! empty( $_POST['copy_relationships'] ) && ! empty( $plan['relationships_supported'] );
-				$relationship_ids = $copy_relationships ? array_values( array_map( 'intval', (array) $plan['relationship_ids'] ) ) : [];
+				$relationship_ids = $copy_relationships
+					? Selection::relationships(
+						array_values( array_map( 'intval', (array) $plan['relationship_ids'] ) ),
+						$source_ids,
+						(string) $plan['source_taxonomy']
+					)
+					: [];
 				$job = JobStore::create( [
 					'mode'                  => 'taxonomy',
 					'source_taxonomy'       => (string) $plan['source_taxonomy'],
 					'target_taxonomy'       => (string) $plan['target_taxonomy'],
 					'source_label'          => (string) $plan['source_label'],
 					'target_label'          => (string) $plan['target_label'],
-					'source_ids'            => array_values( array_map( 'intval', (array) $plan['source_ids'] ) ),
+					'source_ids'            => $source_ids,
 					'target_hierarchical'   => ! empty( $plan['target_hierarchical'] ),
 					'term_meta_map'         => $term_meta_map,
 					'copy_relationships'    => $copy_relationships,
@@ -71,7 +83,7 @@ final class Controller {
 					'term_cursor'           => 0,
 					'relationship_cursor'   => 0,
 					'cursor'                => 0,
-					'total'                 => count( (array) $plan['source_ids'] ) + count( $relationship_ids ),
+					'total'                 => count( $source_ids ) + count( $relationship_ids ),
 					'batch_size'            => $batch_size,
 					'term_map'              => [],
 					'created_target_ids'    => [],
