@@ -994,3 +994,43 @@ msgid ""
 msgstr ""
 "El término de destino %d no se eliminó porque ahora tiene términos hijos "
 "fuera de la reversión."
+
+#: src/Migration/Selection.php
+msgid "Select at least one source post to migrate."
+msgstr "Selecciona al menos una entrada de origen para migrar."
+
+#: src/Migration/Selection.php
+msgid "One or more selected source posts are not part of the analyzed migration plan."
+msgstr "Una o varias entradas de origen seleccionadas no forman parte del plan de migración analizado."
+
+#: src/Admin/Page.php
+msgid "Select source posts"
+msgstr "Seleccionar entradas de origen"
+
+#: src/Admin/Page.php
+msgid "Choose which analyzed posts to include in this migration. All available posts are selected by default."
+msgstr "Elige qué entradas analizadas incluir en esta migración. Todas las entradas disponibles están seleccionadas de forma predeterminada."
+
+#: src/Admin/Page.php
+msgid "Select all"
+msgstr "Seleccionar todo"
+
+#: src/Admin/Page.php
+msgid "Title"
+msgstr "Título"
+
+#: src/Admin/Page.php
+msgid "Status"
+msgstr "Estado"
+
+#: src/Admin/Page.php
+msgid "Author"
+msgstr "Autor"
+
+#: src/Admin/Page.php
+msgid "(no title)"
+msgstr "(sin título)"
+
+#: src/Admin/Page.php
+msgid "Unavailable"
+msgstr "No disponible"
