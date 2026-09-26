@@ -523,7 +523,7 @@ final class PostRunner {
 		$issues = [];
 		$job_id = sanitize_key( (string) ( $job['id'] ?? '' ) );
 
-		foreach ( (array) ( $job['target_map'] ?? [] ) as $target_id ) {
+		foreach ( (array) ( $job['target_map'] ?? [] ) as $source_id => $target_id ) {
 			$target_id = (int) $target_id;
 			if ( ! get_post( $target_id ) ) {
 				$issues[] = sprintf(
