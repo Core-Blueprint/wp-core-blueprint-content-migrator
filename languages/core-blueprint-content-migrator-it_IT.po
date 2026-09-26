@@ -1019,3 +1019,43 @@ msgid ""
 msgstr ""
 "Il termine di destinazione %d non è stato eliminato perché ora ha termini "
 "figli esterni al rollback."
+
+#: src/Migration/Selection.php
+msgid "Select at least one source post to migrate."
+msgstr "Seleziona almeno un articolo sorgente da migrare."
+
+#: src/Migration/Selection.php
+msgid "One or more selected source posts are not part of the analyzed migration plan."
+msgstr "Uno o più articoli sorgente selezionati non fanno parte del piano di migrazione analizzato."
+
+#: src/Admin/Page.php
+msgid "Select source posts"
+msgstr "Seleziona articoli sorgente"
+
+#: src/Admin/Page.php
+msgid "Choose which analyzed posts to include in this migration. All available posts are selected by default."
+msgstr "Scegli quali articoli analizzati includere in questa migrazione. Tutti gli articoli disponibili sono selezionati per impostazione predefinita."
+
+#: src/Admin/Page.php
+msgid "Select all"
+msgstr "Seleziona tutto"
+
+#: src/Admin/Page.php
+msgid "Title"
+msgstr "Titolo"
+
+#: src/Admin/Page.php
+msgid "Status"
+msgstr "Stato"
+
+#: src/Admin/Page.php
+msgid "Author"
+msgstr "Autore"
+
+#: src/Admin/Page.php
+msgid "(no title)"
+msgstr "(senza titolo)"
+
+#: src/Admin/Page.php
+msgid "Unavailable"
+msgstr "Non disponibile"
