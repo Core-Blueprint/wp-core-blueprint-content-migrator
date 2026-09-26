@@ -983,3 +983,43 @@ msgid ""
 msgstr ""
 "O termo de destino %d não foi eliminado porque agora tem termos inferiores "
 "fora da reversão."
+
+#: src/Migration/Selection.php
+msgid "Select at least one source post to migrate."
+msgstr "Selecione pelo menos uma publicação de origem para migrar."
+
+#: src/Migration/Selection.php
+msgid "One or more selected source posts are not part of the analyzed migration plan."
+msgstr "Uma ou mais publicações de origem selecionadas não fazem parte do plano de migração analisado."
+
+#: src/Admin/Page.php
+msgid "Select source posts"
+msgstr "Selecionar publicações de origem"
+
+#: src/Admin/Page.php
+msgid "Choose which analyzed posts to include in this migration. All available posts are selected by default."
+msgstr "Escolha quais publicações analisadas incluir nesta migração. Todas as publicações disponíveis estão selecionadas por predefinição."
+
+#: src/Admin/Page.php
+msgid "Select all"
+msgstr "Selecionar tudo"
+
+#: src/Admin/Page.php
+msgid "Title"
+msgstr "Título"
+
+#: src/Admin/Page.php
+msgid "Status"
+msgstr "Estado"
+
+#: src/Admin/Page.php
+msgid "Author"
+msgstr "Autor"
+
+#: src/Admin/Page.php
+msgid "(no title)"
+msgstr "(sem título)"
+
+#: src/Admin/Page.php
+msgid "Unavailable"
+msgstr "Indisponível"
