@@ -10,6 +10,7 @@ $expected = [
 	'src/Admin/Controller.php',
 	'src/Migration/PostAnalyzer.php',
 	'src/Migration/PostRunner.php',
+	'src/Migration/Selection.php',
 	'src/Migration/TaxonomyAnalyzer.php',
 	'src/Migration/TaxonomyRunner.php',
 	'src/Migration/TermRollbackGuard.php',
