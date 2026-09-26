@@ -1034,3 +1034,59 @@ msgstr "(sin título)"
 #: src/Admin/Page.php
 msgid "Unavailable"
 msgstr "No disponible"
+
+#: src/Migration/Selection.php
+msgid "Select at least one source term to migrate."
+msgstr "Selecciona al menos un término de origen para migrar."
+
+#: src/Migration/Selection.php
+msgid "One or more selected source terms are not part of the analyzed migration plan."
+msgstr "Uno o varios términos de origen seleccionados no forman parte del plan de migración analizado."
+
+#: src/Migration/Selection.php
+msgid "The analyzed source taxonomy is no longer available."
+msgstr "La taxonomía de origen analizada ya no está disponible."
+
+#: src/Migration/Selection.php
+msgid "A source term hierarchy loop was detected."
+msgstr "Se ha detectado un bucle en la jerarquía de términos de origen."
+
+#: src/Migration/Selection.php
+msgid "A required parent term is no longer part of the analyzed migration plan."
+msgstr "Un término padre necesario ya no forma parte del plan de migración analizado."
+
+#: src/Admin/Page.php
+msgid "Select source terms"
+msgstr "Seleccionar términos de origen"
+
+#: src/Admin/Page.php
+msgid "Choose which analyzed terms to include in this migration. All available terms are selected by default."
+msgstr "Elige qué términos analizados incluir en esta migración. Todos los términos disponibles están seleccionados de forma predeterminada."
+
+#: src/Admin/Page.php
+msgid "Hierarchy safety:"
+msgstr "Seguridad de la jerarquía:"
+
+#: src/Admin/Page.php
+msgid "If a selected child needs a parent that you did not select, the required parent is added automatically to preserve the hierarchy."
+msgstr "Si un término hijo seleccionado necesita un término padre que no has seleccionado, el término padre necesario se añade automáticamente para conservar la jerarquía."
+
+#: src/Admin/Page.php
+msgid "Name"
+msgstr "Nombre"
+
+#: src/Admin/Page.php
+msgid "Slug"
+msgstr "Slug"
+
+#: src/Admin/Page.php
+msgid "Parent"
+msgstr "Padre"
+
+#: src/Admin/Page.php
+msgid "Count"
+msgstr "Cantidad"
+
+#: src/Admin/Page.php
+msgid "None"
+msgstr "Ninguno"
