@@ -8,6 +8,7 @@ Core Blueprint Content Migrator is a **first-party Core Blueprint extension**. C
 - `Admin/Controller.php` — capability/nonce gates, active-job pinning, ownership, confirmations and state transitions.
 - `Migration/PostAnalyzer.php` — read-only post migration discovery.
 - `Migration/PostRunner.php` — post copy, verification, rollback and finalize.
+- `Migration/Selection.php` — validates operator-selected source subsets, required taxonomy ancestors and filtered relationship scope.
 - `Migration/TaxonomyAnalyzer.php` — read-only taxonomy discovery.
 - `Migration/TaxonomyRunner.php` — term copy, hierarchy, term meta, relationships, verification and rollback.
 - `Migration/TermRollbackGuard.php` — shared protection against deleting migrated terms that gained external relationships or child terms.
