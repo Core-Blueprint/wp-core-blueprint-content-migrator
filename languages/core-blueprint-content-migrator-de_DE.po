@@ -1066,3 +1066,59 @@ msgstr "(kein Titel)"
 #: src/Admin/Page.php
 msgid "Unavailable"
 msgstr "Nicht verfügbar"
+
+#: src/Migration/Selection.php
+msgid "Select at least one source term to migrate."
+msgstr "Wählen Sie mindestens einen Quellbegriff für die Migration aus."
+
+#: src/Migration/Selection.php
+msgid "One or more selected source terms are not part of the analyzed migration plan."
+msgstr "Einer oder mehrere ausgewählte Quellbegriffe sind nicht Teil des analysierten Migrationsplans."
+
+#: src/Migration/Selection.php
+msgid "The analyzed source taxonomy is no longer available."
+msgstr "Die analysierte Quelltaxonomie ist nicht mehr verfügbar."
+
+#: src/Migration/Selection.php
+msgid "A source term hierarchy loop was detected."
+msgstr "In der Hierarchie der Quellbegriffe wurde eine Schleife erkannt."
+
+#: src/Migration/Selection.php
+msgid "A required parent term is no longer part of the analyzed migration plan."
+msgstr "Ein erforderlicher übergeordneter Begriff ist nicht mehr Teil des analysierten Migrationsplans."
+
+#: src/Admin/Page.php
+msgid "Select source terms"
+msgstr "Quellbegriffe auswählen"
+
+#: src/Admin/Page.php
+msgid "Choose which analyzed terms to include in this migration. All available terms are selected by default."
+msgstr "Wählen Sie aus, welche analysierten Begriffe in diese Migration aufgenommen werden sollen. Standardmäßig sind alle verfügbaren Begriffe ausgewählt."
+
+#: src/Admin/Page.php
+msgid "Hierarchy safety:"
+msgstr "Hierarchiesicherheit:"
+
+#: src/Admin/Page.php
+msgid "If a selected child needs a parent that you did not select, the required parent is added automatically to preserve the hierarchy."
+msgstr "Wenn ein ausgewählter untergeordneter Begriff einen nicht ausgewählten übergeordneten Begriff benötigt, wird dieser automatisch hinzugefügt, um die Hierarchie zu erhalten."
+
+#: src/Admin/Page.php
+msgid "Name"
+msgstr "Name"
+
+#: src/Admin/Page.php
+msgid "Slug"
+msgstr "Titelform"
+
+#: src/Admin/Page.php
+msgid "Parent"
+msgstr "Übergeordnet"
+
+#: src/Admin/Page.php
+msgid "Count"
+msgstr "Anzahl"
+
+#: src/Admin/Page.php
+msgid "None"
+msgstr "Keine"
