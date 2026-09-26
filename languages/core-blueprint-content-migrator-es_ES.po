@@ -339,6 +339,10 @@ msgid "The source is still untouched. Continue until copying is complete."
 msgstr "El origen sigue intacto. Continúa hasta que termine la copia."
 
 #: src/Admin/Page.php:174
+msgid "Start migration"
+msgstr "Iniciar migración"
+
+#: src/Admin/Page.php:174
 msgid "Run next batch"
 msgstr "Ejecutar siguiente lote"
 
