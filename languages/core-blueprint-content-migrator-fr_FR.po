@@ -1050,3 +1050,59 @@ msgstr "(sans titre)"
 #: src/Admin/Page.php
 msgid "Unavailable"
 msgstr "Indisponible"
+
+#: src/Migration/Selection.php
+msgid "Select at least one source term to migrate."
+msgstr "Sélectionnez au moins un terme source à migrer."
+
+#: src/Migration/Selection.php
+msgid "One or more selected source terms are not part of the analyzed migration plan."
+msgstr "Un ou plusieurs termes sources sélectionnés ne font pas partie du plan de migration analysé."
+
+#: src/Migration/Selection.php
+msgid "The analyzed source taxonomy is no longer available."
+msgstr "La taxonomie source analysée n’est plus disponible."
+
+#: src/Migration/Selection.php
+msgid "A source term hierarchy loop was detected."
+msgstr "Une boucle a été détectée dans la hiérarchie des termes sources."
+
+#: src/Migration/Selection.php
+msgid "A required parent term is no longer part of the analyzed migration plan."
+msgstr "Un terme parent requis ne fait plus partie du plan de migration analysé."
+
+#: src/Admin/Page.php
+msgid "Select source terms"
+msgstr "Sélectionner les termes sources"
+
+#: src/Admin/Page.php
+msgid "Choose which analyzed terms to include in this migration. All available terms are selected by default."
+msgstr "Choisissez les termes analysés à inclure dans cette migration. Tous les termes disponibles sont sélectionnés par défaut."
+
+#: src/Admin/Page.php
+msgid "Hierarchy safety:"
+msgstr "Sécurité de la hiérarchie :"
+
+#: src/Admin/Page.php
+msgid "If a selected child needs a parent that you did not select, the required parent is added automatically to preserve the hierarchy."
+msgstr "Si un terme enfant sélectionné nécessite un terme parent que vous n’avez pas sélectionné, le parent requis est ajouté automatiquement afin de préserver la hiérarchie."
+
+#: src/Admin/Page.php
+msgid "Name"
+msgstr "Nom"
+
+#: src/Admin/Page.php
+msgid "Slug"
+msgstr "Slug"
+
+#: src/Admin/Page.php
+msgid "Parent"
+msgstr "Parent"
+
+#: src/Admin/Page.php
+msgid "Count"
+msgstr "Nombre"
+
+#: src/Admin/Page.php
+msgid "None"
+msgstr "Aucun"
