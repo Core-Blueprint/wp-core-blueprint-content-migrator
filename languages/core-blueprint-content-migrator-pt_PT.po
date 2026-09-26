@@ -1023,3 +1023,59 @@ msgstr "(sem título)"
 #: src/Admin/Page.php
 msgid "Unavailable"
 msgstr "Indisponível"
+
+#: src/Migration/Selection.php
+msgid "Select at least one source term to migrate."
+msgstr "Selecione pelo menos um termo de origem para migrar."
+
+#: src/Migration/Selection.php
+msgid "One or more selected source terms are not part of the analyzed migration plan."
+msgstr "Um ou mais termos de origem selecionados não fazem parte do plano de migração analisado."
+
+#: src/Migration/Selection.php
+msgid "The analyzed source taxonomy is no longer available."
+msgstr "A taxonomia de origem analisada já não está disponível."
+
+#: src/Migration/Selection.php
+msgid "A source term hierarchy loop was detected."
+msgstr "Foi detetado um ciclo na hierarquia dos termos de origem."
+
+#: src/Migration/Selection.php
+msgid "A required parent term is no longer part of the analyzed migration plan."
+msgstr "Um termo ascendente necessário já não faz parte do plano de migração analisado."
+
+#: src/Admin/Page.php
+msgid "Select source terms"
+msgstr "Selecionar termos de origem"
+
+#: src/Admin/Page.php
+msgid "Choose which analyzed terms to include in this migration. All available terms are selected by default."
+msgstr "Escolha quais termos analisados incluir nesta migração. Todos os termos disponíveis estão selecionados por predefinição."
+
+#: src/Admin/Page.php
+msgid "Hierarchy safety:"
+msgstr "Segurança da hierarquia:"
+
+#: src/Admin/Page.php
+msgid "If a selected child needs a parent that you did not select, the required parent is added automatically to preserve the hierarchy."
+msgstr "Se um termo descendente selecionado precisar de um termo ascendente que não selecionou, o termo ascendente necessário é adicionado automaticamente para preservar a hierarquia."
+
+#: src/Admin/Page.php
+msgid "Name"
+msgstr "Nome"
+
+#: src/Admin/Page.php
+msgid "Slug"
+msgstr "Slug"
+
+#: src/Admin/Page.php
+msgid "Parent"
+msgstr "Ascendente"
+
+#: src/Admin/Page.php
+msgid "Count"
+msgstr "Contagem"
+
+#: src/Admin/Page.php
+msgid "None"
+msgstr "Nenhum"
