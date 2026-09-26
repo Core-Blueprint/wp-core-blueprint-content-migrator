@@ -3,6 +3,7 @@
 use CB\ContentMigrator\Governance\Events;
 use CB\ContentMigrator\Integration\Suite;
 use CB\ContentMigrator\Migration\PostRunner;
+use CB\ContentMigrator\Migration\Selection;
 use CB\ContentMigrator\Migration\TaxonomyRunner;
 
 defined( 'ABSPATH' ) || exit;
@@ -24,6 +25,30 @@ $assert_same = static function ( mixed $expected, mixed $actual, string $message
 };
 
 wp_set_current_user( 1 );
+
+// Selective post migration must preserve analyzed order and reject empty or tampered submissions.
+$assert_same(
+	[ 11, 33 ],
+	Selection::posts( [ 11, 22, 33 ], [ '33', '11', '33' ] ),
+	'Post source selection did not preserve analyzed order and selected subset.'
+);
+
+$empty_selection_blocked = false;
+try {
+	Selection::posts( [ 11, 22 ], [] );
+} catch ( \RuntimeException ) {
+	$empty_selection_blocked = true;
+}
+$assert( $empty_selection_blocked, 'Empty post source selection was not blocked.' );
+
+$tampered_selection_blocked = false;
+try {
+	Selection::posts( [ 11, 22 ], [ '11', '999' ] );
+} catch ( \InvalidArgumentException ) {
+	$tampered_selection_blocked = true;
+}
+$assert( $tampered_selection_blocked, 'Post source selection accepted an ID outside the analyzed plan.' );
+
 $suffix = strtolower( substr( str_replace( '-', '', wp_generate_uuid4() ), 0, 8 ) );
 
 $source_type = 'cbcm_src_' . $suffix;
