@@ -988,3 +988,43 @@ msgid ""
 msgstr ""
 "Doelterm %d is niet verwijderd omdat deze nu onderliggende termen buiten de "
 "rollback heeft."
+
+#: src/Migration/Selection.php
+msgid "Select at least one source post to migrate."
+msgstr "Selecteer minstens één bronbericht om te migreren."
+
+#: src/Migration/Selection.php
+msgid "One or more selected source posts are not part of the analyzed migration plan."
+msgstr "Een of meer geselecteerde bronberichten maken geen deel uit van het geanalyseerde migratieplan."
+
+#: src/Admin/Page.php
+msgid "Select source posts"
+msgstr "Bronberichten selecteren"
+
+#: src/Admin/Page.php
+msgid "Choose which analyzed posts to include in this migration. All available posts are selected by default."
+msgstr "Kies welke geanalyseerde berichten je in deze migratie wilt opnemen. Alle beschikbare berichten zijn standaard geselecteerd."
+
+#: src/Admin/Page.php
+msgid "Select all"
+msgstr "Alles selecteren"
+
+#: src/Admin/Page.php
+msgid "Title"
+msgstr "Titel"
+
+#: src/Admin/Page.php
+msgid "Status"
+msgstr "Status"
+
+#: src/Admin/Page.php
+msgid "Author"
+msgstr "Auteur"
+
+#: src/Admin/Page.php
+msgid "(no title)"
+msgstr "(geen titel)"
+
+#: src/Admin/Page.php
+msgid "Unavailable"
+msgstr "Niet beschikbaar"
