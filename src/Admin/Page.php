@@ -110,6 +110,7 @@ final class Page {
 	private static function post_plan( array $plan ): void {
 		?>
 		<p><?php printf( esc_html__( '%d source posts found. Copies are created first; the source is not moved or deleted during testing.', 'core-blueprint-content-migrator' ), (int) $plan['total'] ); ?></p>
+		<?php self::post_source_selection( $plan ); ?>
 		<h3><?php esc_html_e( 'Taxonomy mapping', 'core-blueprint-content-migrator' ); ?></h3>
 		<p class="description"><?php esc_html_e( 'Choose only mappings you understand. Missing target terms may be created and are included in rollback. Machine-owned target taxonomies are excluded.', 'core-blueprint-content-migrator' ); ?></p>
 		<table class="widefat striped"><thead><tr><th><?php esc_html_e( 'Source', 'core-blueprint-content-migrator' ); ?></th><th><?php esc_html_e( 'Target', 'core-blueprint-content-migrator' ); ?></th></tr></thead><tbody>
@@ -121,6 +122,48 @@ final class Page {
 		<?php self::meta_map( (array) $plan['source_meta_keys'], (array) $plan['target_meta_keys'], 'meta_map', __( 'Post meta mapping', 'core-blueprint-content-migrator' ) ); ?>
 		<h3><?php esc_html_e( 'Copy options', 'core-blueprint-content-migrator' ); ?></h3>
 		<p><label><input type="checkbox" name="copy_featured_image" value="1" checked> <?php esc_html_e( 'Reuse the same featured-image attachment when supported by the target.', 'core-blueprint-content-migrator' ); ?></label></p>
+		<?php
+	}
+
+
+	/** @param array<string,mixed> $plan */
+	private static function post_source_selection( array $plan ): void {
+		$source_type = sanitize_key( (string) ( $plan['source_type'] ?? '' ) );
+		$source_ids = array_values( array_unique( array_map( 'intval', (array) ( $plan['source_ids'] ?? [] ) ) ) );
+		?>
+		<h3><?php esc_html_e( 'Select source posts', 'core-blueprint-content-migrator' ); ?></h3>
+		<p class="description"><?php esc_html_e( 'Choose which analyzed posts to include in this migration. All available posts are selected by default.', 'core-blueprint-content-migrator' ); ?></p>
+		<table class="wp-list-table widefat fixed striped table-view-list posts">
+			<thead><tr>
+				<td id="cb" class="manage-column column-cb check-column"><input id="cb-select-all-1" type="checkbox" checked><label for="cb-select-all-1"><span class="screen-reader-text"><?php esc_html_e( 'Select all', 'core-blueprint-content-migrator' ); ?></span></label></td>
+				<th scope="col"><?php esc_html_e( 'Title', 'core-blueprint-content-migrator' ); ?></th>
+				<th scope="col"><?php esc_html_e( 'Status', 'core-blueprint-content-migrator' ); ?></th>
+				<th scope="col"><?php esc_html_e( 'Author', 'core-blueprint-content-migrator' ); ?></th>
+				<th scope="col">ID</th>
+			</tr></thead>
+			<tbody>
+			<?php foreach ( $source_ids as $source_id ) : ?>
+				<?php
+				$post = get_post( $source_id );
+				$available = $post instanceof \WP_Post && $source_type === $post->post_type;
+				$title = $available ? trim( wp_strip_all_tags( (string) $post->post_title ) ) : '';
+				$title = '' !== $title ? $title : __( '(no title)', 'core-blueprint-content-migrator' );
+				$status_object = $available ? get_post_status_object( (string) $post->post_status ) : null;
+				$status = $available
+					? ( $status_object instanceof \stdClass ? (string) $status_object->label : (string) $post->post_status )
+					: __( 'Unavailable', 'core-blueprint-content-migrator' );
+				$author = $available ? (string) get_the_author_meta( 'display_name', (int) $post->post_author ) : '—';
+				?>
+				<tr>
+					<th scope="row" class="check-column"><input id="cb-select-<?php echo esc_attr( (string) $source_id ); ?>" type="checkbox" name="source_ids[]" value="<?php echo esc_attr( (string) $source_id ); ?>" checked <?php disabled( ! $available ); ?>></th>
+					<td><label for="cb-select-<?php echo esc_attr( (string) $source_id ); ?>"><strong><?php echo esc_html( $title ); ?></strong></label></td>
+					<td><?php echo esc_html( $status ); ?></td>
+					<td><?php echo esc_html( $author ); ?></td>
+					<td><?php echo esc_html( (string) $source_id ); ?></td>
+				</tr>
+			<?php endforeach; ?>
+			</tbody>
+		</table>
 		<?php
 	}
 
