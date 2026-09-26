@@ -1059,3 +1059,59 @@ msgstr "(senza titolo)"
 #: src/Admin/Page.php
 msgid "Unavailable"
 msgstr "Non disponibile"
+
+#: src/Migration/Selection.php
+msgid "Select at least one source term to migrate."
+msgstr "Seleziona almeno un termine sorgente da migrare."
+
+#: src/Migration/Selection.php
+msgid "One or more selected source terms are not part of the analyzed migration plan."
+msgstr "Uno o più termini sorgente selezionati non fanno parte del piano di migrazione analizzato."
+
+#: src/Migration/Selection.php
+msgid "The analyzed source taxonomy is no longer available."
+msgstr "La tassonomia sorgente analizzata non è più disponibile."
+
+#: src/Migration/Selection.php
+msgid "A source term hierarchy loop was detected."
+msgstr "È stato rilevato un ciclo nella gerarchia dei termini sorgente."
+
+#: src/Migration/Selection.php
+msgid "A required parent term is no longer part of the analyzed migration plan."
+msgstr "Un termine genitore necessario non fa più parte del piano di migrazione analizzato."
+
+#: src/Admin/Page.php
+msgid "Select source terms"
+msgstr "Seleziona termini sorgente"
+
+#: src/Admin/Page.php
+msgid "Choose which analyzed terms to include in this migration. All available terms are selected by default."
+msgstr "Scegli quali termini analizzati includere in questa migrazione. Tutti i termini disponibili sono selezionati per impostazione predefinita."
+
+#: src/Admin/Page.php
+msgid "Hierarchy safety:"
+msgstr "Sicurezza della gerarchia:"
+
+#: src/Admin/Page.php
+msgid "If a selected child needs a parent that you did not select, the required parent is added automatically to preserve the hierarchy."
+msgstr "Se un termine figlio selezionato richiede un termine genitore che non hai selezionato, il termine genitore necessario viene aggiunto automaticamente per preservare la gerarchia."
+
+#: src/Admin/Page.php
+msgid "Name"
+msgstr "Nome"
+
+#: src/Admin/Page.php
+msgid "Slug"
+msgstr "Slug"
+
+#: src/Admin/Page.php
+msgid "Parent"
+msgstr "Genitore"
+
+#: src/Admin/Page.php
+msgid "Count"
+msgstr "Conteggio"
+
+#: src/Admin/Page.php
+msgid "None"
+msgstr "Nessuno"
