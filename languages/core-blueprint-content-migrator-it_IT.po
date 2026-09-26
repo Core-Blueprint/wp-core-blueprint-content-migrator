@@ -342,6 +342,10 @@ msgstr ""
 "La sorgente è ancora intatta. Continua finché la copia non è completata."
 
 #: src/Admin/Page.php:174
+msgid "Start migration"
+msgstr "Avvia migrazione"
+
+#: src/Admin/Page.php:174
 msgid "Run next batch"
 msgstr "Esegui batch successivo"
 
