@@ -171,6 +171,7 @@ final class Page {
 	private static function taxonomy_plan( array $plan ): void {
 		?>
 		<p><?php printf( esc_html__( '%d source terms found.', 'core-blueprint-content-migrator' ), count( (array) $plan['source_ids'] ) ); ?></p>
+		<?php self::taxonomy_source_selection( $plan ); ?>
 		<div class="notice notice-info inline"><p><?php esc_html_e( 'Conflict rule: an existing target term with the same slug is reused and never overwritten. Only newly created terms receive mapped term meta and rollback markers.', 'core-blueprint-content-migrator' ); ?></p></div>
 		<?php if ( ! empty( $plan['source_hierarchical'] ) && empty( $plan['target_hierarchical'] ) ) : ?><div class="notice notice-warning inline"><p><?php esc_html_e( 'The target taxonomy is flat, so source parent/child relationships cannot be preserved.', 'core-blueprint-content-migrator' ); ?></p></div><?php endif; ?>
 		<?php self::meta_map( (array) $plan['source_meta_keys'], (array) $plan['target_meta_keys'], 'term_meta_map', __( 'Term meta mapping', 'core-blueprint-content-migrator' ) ); ?>
@@ -181,6 +182,55 @@ final class Page {
 		<?php else : ?>
 			<p><?php esc_html_e( 'No safely remappable shared post relationships were found. Terms can still be migrated.', 'core-blueprint-content-migrator' ); ?></p>
 		<?php endif; ?>
+		<?php
+	}
+
+
+	/** @param array<string,mixed> $plan */
+	private static function taxonomy_source_selection( array $plan ): void {
+		$taxonomy = sanitize_key( (string) ( $plan['source_taxonomy'] ?? '' ) );
+		$source_ids = array_values( array_unique( array_map( 'intval', (array) ( $plan['source_ids'] ?? [] ) ) ) );
+		$preserve_hierarchy = ! empty( $plan['source_hierarchical'] ) && ! empty( $plan['target_hierarchical'] );
+		?>
+		<h3><?php esc_html_e( 'Select source terms', 'core-blueprint-content-migrator' ); ?></h3>
+		<p class="description"><?php esc_html_e( 'Choose which analyzed terms to include in this migration. All available terms are selected by default.', 'core-blueprint-content-migrator' ); ?></p>
+		<?php if ( $preserve_hierarchy ) : ?>
+			<p class="description"><strong><?php esc_html_e( 'Hierarchy safety:', 'core-blueprint-content-migrator' ); ?></strong> <?php esc_html_e( 'If a selected child needs a parent that you did not select, the required parent is added automatically to preserve the hierarchy.', 'core-blueprint-content-migrator' ); ?></p>
+		<?php endif; ?>
+		<table class="wp-list-table widefat fixed striped table-view-list tags">
+			<thead><tr>
+				<td id="cb" class="manage-column column-cb check-column"><input id="cb-select-all-1" type="checkbox" checked><label for="cb-select-all-1"><span class="screen-reader-text"><?php esc_html_e( 'Select all', 'core-blueprint-content-migrator' ); ?></span></label></td>
+				<th scope="col"><?php esc_html_e( 'Name', 'core-blueprint-content-migrator' ); ?></th>
+				<th scope="col"><?php esc_html_e( 'Slug', 'core-blueprint-content-migrator' ); ?></th>
+				<th scope="col"><?php esc_html_e( 'Parent', 'core-blueprint-content-migrator' ); ?></th>
+				<th scope="col"><?php esc_html_e( 'Count', 'core-blueprint-content-migrator' ); ?></th>
+				<th scope="col">ID</th>
+			</tr></thead>
+			<tbody>
+			<?php foreach ( $source_ids as $source_id ) : ?>
+				<?php
+				$term = get_term( $source_id, $taxonomy );
+				$available = $term instanceof \WP_Term && $taxonomy === $term->taxonomy;
+				$name = $available ? (string) $term->name : __( 'Unavailable', 'core-blueprint-content-migrator' );
+				$slug = $available ? (string) $term->slug : '';
+				$count = $available ? (int) $term->count : 0;
+				$parent_name = '';
+				if ( $available && $term->parent > 0 ) {
+					$parent = get_term( (int) $term->parent, $taxonomy );
+					$parent_name = $parent instanceof \WP_Term ? (string) $parent->name : __( 'Unavailable', 'core-blueprint-content-migrator' );
+				}
+				?>
+				<tr>
+					<th scope="row" class="check-column"><input id="cb-term-select-<?php echo esc_attr( (string) $source_id ); ?>" type="checkbox" name="source_ids[]" value="<?php echo esc_attr( (string) $source_id ); ?>" checked <?php disabled( ! $available ); ?>></th>
+					<td><label for="cb-term-select-<?php echo esc_attr( (string) $source_id ); ?>"><strong><?php echo esc_html( $name ); ?></strong></label></td>
+					<td><?php echo esc_html( $slug ); ?></td>
+					<td><?php echo '' !== $parent_name ? esc_html( $parent_name ) : '<span aria-hidden="true">-</span><span class="screen-reader-text">' . esc_html__( 'None', 'core-blueprint-content-migrator' ) . '</span>'; ?></td>
+					<td><?php echo esc_html( (string) $count ); ?></td>
+					<td><?php echo esc_html( (string) $source_id ); ?></td>
+				</tr>
+			<?php endforeach; ?>
+			</tbody>
+		</table>
 		<?php
 	}
 
