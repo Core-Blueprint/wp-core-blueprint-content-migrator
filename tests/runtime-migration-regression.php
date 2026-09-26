@@ -180,6 +180,56 @@ foreach ( (array) ( $post_job['created_taxonomy_terms'][ $target_tax ] ?? [] ) a
 	$assert( ! get_term( (int) $created_term_id, $target_tax ) instanceof WP_Term, 'Post rollback left a job-created target term behind.' );
 }
 
+// Multi-batch post migration must resume from the stored cursor and finish without duplicating targets.
+$batch_source_ids = [];
+for ( $i = 1; $i <= 11; $i++ ) {
+	$batch_source_id = wp_insert_post(
+		[
+			'post_type'   => $source_type,
+			'post_status' => 'draft',
+			'post_title'  => 'Runtime batch ' . $i . ' ' . $suffix,
+		],
+		true
+	);
+	if ( ! is_wp_error( $batch_source_id ) ) {
+		$batch_source_ids[] = (int) $batch_source_id;
+	}
+}
+$assert_same( 11, count( $batch_source_ids ), 'Could not create all multi-batch source fixtures.' );
+
+$batch_job = [
+	'id'                     => 'batch' . $suffix,
+	'mode'                   => 'post',
+	'source_type'            => $source_type,
+	'target_type'            => $target_type,
+	'source_ids'             => $batch_source_ids,
+	'total'                  => count( $batch_source_ids ),
+	'cursor'                 => 0,
+	'batch_size'             => 10,
+	'tax_map'                => [],
+	'meta_map'               => [],
+	'copy_featured_image'    => false,
+	'target_map'             => [],
+	'created_taxonomy_terms' => [],
+	'errors'                 => [],
+	'status'                 => 'ready',
+];
+
+$batch_job = PostRunner::run_batch( $batch_job );
+$assert_same( 'copying', $batch_job['status'] ?? null, 'First multi-batch request did not remain in copying state.' );
+$assert_same( 10, (int) ( $batch_job['cursor'] ?? 0 ), 'First multi-batch request did not stop at the configured batch boundary.' );
+$assert_same( 10, count( (array) ( $batch_job['target_map'] ?? [] ) ), 'First multi-batch request created an unexpected number of targets.' );
+
+$batch_job = PostRunner::run_batch( $batch_job );
+$assert_same( 'copied', $batch_job['status'] ?? null, 'Second multi-batch request did not complete the migration.' );
+$assert_same( 11, (int) ( $batch_job['cursor'] ?? 0 ), 'Multi-batch migration did not resume from the stored cursor.' );
+$assert_same( 11, count( (array) ( $batch_job['target_map'] ?? [] ) ), 'Multi-batch migration duplicated or missed target posts.' );
+$batch_verify = PostRunner::verify( $batch_job );
+$assert( ! empty( $batch_verify['passed'] ), 'Multi-batch migration verification failed: ' . implode( '; ', (array) ( $batch_verify['issues'] ?? [] ) ) );
+$batch_rollback = PostRunner::rollback( $batch_job );
+$assert_same( [], $batch_rollback['issues'] ?? null, 'Multi-batch rollback returned issues.' );
+$assert_same( 11, (int) ( $batch_rollback['deleted'] ?? 0 ), 'Multi-batch rollback did not delete every job-owned target.' );
+
 // Partial post-copy failure must remain tracked and rollbackable.
 $partial_source_id = wp_insert_post(
 	[
@@ -482,6 +532,11 @@ $assert_same( [], $clean_rollback['issues'] ?? null, 'Taxonomy rollback did not 
 $assert( $guard_target_id <= 0 || ! get_term( $guard_target_id, $guard_target_tax ) instanceof WP_Term, 'Taxonomy rollback left an unreferenced job-created term behind.' );
 
 // Cleanup source fixtures. Rollback assertions above intentionally happen first.
+foreach ( $batch_source_ids as $batch_source_id ) {
+	if ( $batch_source_id > 0 ) {
+		wp_delete_post( $batch_source_id, true );
+	}
+}
 foreach ( [ $source_id, $partial_source_id, $finalize_source_id, $finalize_target_id, $selection_post_id, $selection_parent_post_id, $selection_other_post_id, $external_post_id ] as $post_id ) {
 	if ( $post_id > 0 ) {
 		wp_delete_post( $post_id, true );
