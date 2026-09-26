@@ -59,7 +59,7 @@ function cb_cm_golden_safety_failures( string $root ): array {
 	$require( $controller, "'total'               => count( \$source_ids )", 'Post migration total does not follow the selected subset.' );
 
 	$selection = $read( 'src/Migration/Selection.php' );
-	$require( $selection, 'in_array( $id, $allowed, true )', 'Submitted post IDs are not pinned to the analyzed source allowlist.' );
+	$require( $selection, 'isset( $allowed_set[ $id ] )', 'Submitted source IDs are not pinned to the analyzed source allowlist.' );
 	$require( $selection, 'Select at least one source post to migrate.', 'Empty post source selection is not explicitly rejected.' );
 	$require( $selection, 'not part of the analyzed migration plan.', 'Tampered post source IDs are not explicitly rejected.' );
 	$require( $selection, 'public static function terms(', 'Taxonomy jobs do not validate an explicit source-term subset.' );
@@ -69,6 +69,7 @@ function cb_cm_golden_safety_failures( string $root ): array {
 
 	$require( $controller, 'Selection::terms(', 'Taxonomy jobs are not built from a validated source-term selection.' );
 	$require( $controller, 'Selection::relationships(', 'Taxonomy relationship jobs are not filtered to the selected term subset.' );
+	$require( $controller, '$selected_source_ids,', 'Taxonomy relationship scope is not limited to explicitly selected terms.' );
 	$require( $controller, "'total'                 => count( \$source_ids ) + count( \$relationship_ids )", 'Taxonomy migration total does not follow the selected term and relationship subset.' );
 
 	$store = $read( 'src/Migration/JobStore.php' );
