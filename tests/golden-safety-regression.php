@@ -62,6 +62,14 @@ function cb_cm_golden_safety_failures( string $root ): array {
 	$require( $selection, 'in_array( $id, $allowed, true )', 'Submitted post IDs are not pinned to the analyzed source allowlist.' );
 	$require( $selection, 'Select at least one source post to migrate.', 'Empty post source selection is not explicitly rejected.' );
 	$require( $selection, 'not part of the analyzed migration plan.', 'Tampered post source IDs are not explicitly rejected.' );
+	$require( $selection, 'public static function terms(', 'Taxonomy jobs do not validate an explicit source-term subset.' );
+	$require( $selection, 'A required parent term is no longer part of the analyzed migration plan.', 'Taxonomy parent dependencies are not pinned to the analyzed source allowlist.' );
+	$require( $selection, 'public static function relationships(', 'Taxonomy relationship filtering is missing.' );
+	$require( $selection, 'get_objects_in_term(', 'Taxonomy relationship filtering is not derived from the effective source-term selection.' );
+
+	$require( $controller, 'Selection::terms(', 'Taxonomy jobs are not built from a validated source-term selection.' );
+	$require( $controller, 'Selection::relationships(', 'Taxonomy relationship jobs are not filtered to the selected term subset.' );
+	$require( $controller, "'total'                 => count( \$source_ids ) + count( \$relationship_ids )", 'Taxonomy migration total does not follow the selected term and relationship subset.' );
 
 	$store = $read( 'src/Migration/JobStore.php' );
 	$require( $store, 'add_option( self::ACTIVE_OPTION', 'Active migration lock is not acquired atomically.' );
@@ -110,6 +118,8 @@ function cb_cm_golden_safety_failures( string $root ): array {
 	$page = $read( 'src/Admin/Page.php' );
 	$require( $page, 'name="source_ids[]"', 'Post review UI does not submit an explicit source subset.' );
 	$require( $page, 'cb-select-all-1', 'Post review UI is missing a select-all control.' );
+	$require( $page, 'taxonomy_source_selection( $plan )', 'Taxonomy review UI does not expose explicit source-term selection.' );
+	$require( $page, 'Hierarchy safety:', 'Taxonomy review UI does not explain automatic parent dependencies.' );
 	foreach ( [
 		'name="job_id"' => 'Migration forms do not pin actions to a job ID.',
 		'name="confirm_rollback"' => 'Rollback UI confirmation is missing.',
