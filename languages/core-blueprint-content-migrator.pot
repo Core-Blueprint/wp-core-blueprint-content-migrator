@@ -816,3 +816,43 @@ msgstr ""
 #, php-format
 msgid "Target term %d was not deleted because it now has child terms outside the rollback."
 msgstr ""
+
+#: src/Migration/Selection.php
+msgid "Select at least one source post to migrate."
+msgstr ""
+
+#: src/Migration/Selection.php
+msgid "One or more selected source posts are not part of the analyzed migration plan."
+msgstr ""
+
+#: src/Admin/Page.php
+msgid "Select source posts"
+msgstr ""
+
+#: src/Admin/Page.php
+msgid "Choose which analyzed posts to include in this migration. All available posts are selected by default."
+msgstr ""
+
+#: src/Admin/Page.php
+msgid "Select all"
+msgstr ""
+
+#: src/Admin/Page.php
+msgid "Title"
+msgstr ""
+
+#: src/Admin/Page.php
+msgid "Status"
+msgstr ""
+
+#: src/Admin/Page.php
+msgid "Author"
+msgstr ""
+
+#: src/Admin/Page.php
+msgid "(no title)"
+msgstr ""
+
+#: src/Admin/Page.php
+msgid "Unavailable"
+msgstr ""
