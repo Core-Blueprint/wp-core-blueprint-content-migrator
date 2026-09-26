@@ -1026,3 +1026,43 @@ msgid ""
 msgstr ""
 "Zielbegriff %d wurde nicht gelöscht, weil er jetzt untergeordnete Begriffe "
 "außerhalb des Rollbacks hat."
+
+#: src/Migration/Selection.php
+msgid "Select at least one source post to migrate."
+msgstr "Wählen Sie mindestens einen Quellbeitrag für die Migration aus."
+
+#: src/Migration/Selection.php
+msgid "One or more selected source posts are not part of the analyzed migration plan."
+msgstr "Einer oder mehrere ausgewählte Quellbeiträge sind nicht Teil des analysierten Migrationsplans."
+
+#: src/Admin/Page.php
+msgid "Select source posts"
+msgstr "Quellbeiträge auswählen"
+
+#: src/Admin/Page.php
+msgid "Choose which analyzed posts to include in this migration. All available posts are selected by default."
+msgstr "Wählen Sie aus, welche analysierten Beiträge in diese Migration aufgenommen werden sollen. Standardmäßig sind alle verfügbaren Beiträge ausgewählt."
+
+#: src/Admin/Page.php
+msgid "Select all"
+msgstr "Alle auswählen"
+
+#: src/Admin/Page.php
+msgid "Title"
+msgstr "Titel"
+
+#: src/Admin/Page.php
+msgid "Status"
+msgstr "Status"
+
+#: src/Admin/Page.php
+msgid "Author"
+msgstr "Autor"
+
+#: src/Admin/Page.php
+msgid "(no title)"
+msgstr "(kein Titel)"
+
+#: src/Admin/Page.php
+msgid "Unavailable"
+msgstr "Nicht verfügbar"
