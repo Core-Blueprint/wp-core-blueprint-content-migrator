@@ -201,6 +201,51 @@ $assert_same( [], $partial_rollback['issues'] ?? null, 'Partial post rollback re
 $assert( $partial_target_id <= 0 || null === get_post( $partial_target_id ), 'Partial target was not removed by rollback.' );
 $assert( $partial_source_id > 0 && get_post( $partial_source_id ) instanceof WP_Post, 'Partial rollback modified or removed the source post.' );
 
+// Finalization with source trash must validate the stored source-to-target marker pair before mutating anything.
+$finalize_source_id = wp_insert_post(
+	[
+		'post_type'   => $source_type,
+		'post_status' => 'publish',
+		'post_title'  => 'Runtime finalize ' . $suffix,
+	],
+	true
+);
+$finalize_source_id = is_wp_error( $finalize_source_id ) ? 0 : (int) $finalize_source_id;
+$assert( $finalize_source_id > 0, 'Could not create finalization source post.' );
+
+$finalize_job = [
+	'id'                     => 'finalize' . $suffix,
+	'mode'                   => 'post',
+	'source_type'            => $source_type,
+	'target_type'            => $target_type,
+	'source_ids'             => [ $finalize_source_id ],
+	'total'                  => 1,
+	'cursor'                 => 0,
+	'batch_size'             => 10,
+	'tax_map'                => [],
+	'meta_map'               => [],
+	'copy_featured_image'    => false,
+	'target_map'             => [],
+	'created_taxonomy_terms' => [],
+	'errors'                 => [],
+	'status'                 => 'ready',
+];
+
+$finalize_job = PostRunner::run_batch( $finalize_job );
+$assert_same( 'copied', $finalize_job['status'] ?? null, 'Finalization fixture did not reach copied state.' );
+$finalize_target_id = (int) ( $finalize_job['target_map'][ (string) $finalize_source_id ] ?? 0 );
+$assert( $finalize_target_id > 0 && get_post( $finalize_target_id ) instanceof WP_Post, 'Finalization fixture did not create a target post.' );
+$finalize_verify = PostRunner::verify( $finalize_job );
+$assert( ! empty( $finalize_verify['passed'] ), 'Finalization fixture verification failed: ' . implode( '; ', (array) ( $finalize_verify['issues'] ?? [] ) ) );
+
+$finalize_result = PostRunner::finalize( $finalize_job, true );
+$assert_same( [], $finalize_result['issues'] ?? null, 'Verified post finalization returned issues.' );
+$assert_same( 1, (int) ( $finalize_result['trashed'] ?? 0 ), 'Verified source post was not moved to Trash during finalization.' );
+$finalized_source = get_post( $finalize_source_id );
+$assert( $finalized_source instanceof WP_Post && 'trash' === $finalized_source->post_status, 'Finalized source post is not in WordPress Trash.' );
+$assert_same( '', (string) get_post_meta( $finalize_target_id, '_cb_content_migrator_job', true ), 'Finalized target retained the migration job marker.' );
+$assert_same( '', (string) get_post_meta( $finalize_target_id, '_cb_content_migrator_source_id', true ), 'Finalized target retained the migration source marker.' );
+
 // Taxonomy rollback must refuse deletion after external content starts using a job-created term.
 $guard_source_result = wp_insert_term( 'Runtime Guard Source ' . $suffix, $guard_source_tax, [ 'slug' => 'runtime-guard-' . $suffix ] );
 $guard_source_id = is_wp_error( $guard_source_result ) ? 0 : (int) $guard_source_result['term_id'];
@@ -259,7 +304,7 @@ $assert_same( [], $clean_rollback['issues'] ?? null, 'Taxonomy rollback did not 
 $assert( $guard_target_id <= 0 || ! get_term( $guard_target_id, $guard_target_tax ) instanceof WP_Term, 'Taxonomy rollback left an unreferenced job-created term behind.' );
 
 // Cleanup source fixtures. Rollback assertions above intentionally happen first.
-foreach ( [ $source_id, $partial_source_id, $external_post_id ] as $post_id ) {
+foreach ( [ $source_id, $partial_source_id, $finalize_source_id, $finalize_target_id, $external_post_id ] as $post_id ) {
 	if ( $post_id > 0 ) {
 		wp_delete_post( $post_id, true );
 	}
