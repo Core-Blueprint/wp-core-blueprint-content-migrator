@@ -41,6 +41,8 @@ function cb_cm_golden_safety_failures( string $root ): array {
 	}
 
 	$controller = $read( 'src/Admin/Controller.php' );
+	$require( $controller, "current_user_can( 'manage_options' )", 'Controller actions are not protected by the administrator capability boundary.' );
+	$require( $controller, "check_admin_referer( 'cb_content_migrator_' . $action, 'cb_content_migrator_nonce' )", 'Controller actions are not protected by action-specific nonces.' );
 	foreach ( [
 		'assert_posted_job( $job )' => 'Stale-job request protection is missing.',
 		'confirm_rollback' => 'Explicit rollback confirmation is missing.',
