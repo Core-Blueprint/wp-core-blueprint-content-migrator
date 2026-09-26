@@ -7,6 +7,7 @@ Core Blueprint Content Migrator is a safety-first Core Blueprint extension for m
 ### Post migrations
 
 - Analyze a source and target post type before any writes happen.
+- Select individual analyzed source posts before creating the migration job.
 - Copy normal WordPress post data while keeping the source untouched.
 - Explicit source-taxonomy → target-taxonomy mapping.
 - Explicit source-meta → target-meta mapping with registered target meta suggestions.
@@ -21,6 +22,8 @@ Core Blueprint Content Migrator is a safety-first Core Blueprint extension for m
 ### Taxonomy migrations
 
 - Analyze a source and target taxonomy before any writes happen.
+- Select individual analyzed source terms before creating the migration job.
+- Automatically include required parent terms when both source and target taxonomies are hierarchical.
 - Copy terms and preserve hierarchy when the target taxonomy is hierarchical.
 - Reuse existing target terms with matching slugs without overwriting their name, description, hierarchy or meta.
 - Explicit source term-meta → target term-meta mapping for newly created target terms.
