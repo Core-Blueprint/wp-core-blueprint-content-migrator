@@ -305,11 +305,23 @@ $selection_other_post_id = wp_insert_post(
 	true
 );
 $selection_other_post_id = is_wp_error( $selection_other_post_id ) ? 0 : (int) $selection_other_post_id;
+$selection_parent_post_id = wp_insert_post(
+	[
+		'post_type'   => $object_type,
+		'post_status' => 'publish',
+		'post_title'  => 'Runtime parent-only relationship ' . $suffix,
+	],
+	true
+);
+$selection_parent_post_id = is_wp_error( $selection_parent_post_id ) ? 0 : (int) $selection_parent_post_id;
 if ( $selection_post_id > 0 && $selection_child_id > 0 ) {
 	wp_set_object_terms( $selection_post_id, [ $selection_child_id ], $guard_source_tax, false );
 }
 if ( $selection_other_post_id > 0 && $selection_other_id > 0 ) {
 	wp_set_object_terms( $selection_other_post_id, [ $selection_other_id ], $guard_source_tax, false );
+}
+if ( $selection_parent_post_id > 0 && $selection_parent_id > 0 ) {
+	wp_set_object_terms( $selection_parent_post_id, [ $selection_parent_id ], $guard_source_tax, false );
 }
 
 $effective_term_ids = Selection::terms(
@@ -348,11 +360,15 @@ try {
 $assert( $tampered_term_selection_blocked, 'Taxonomy source selection accepted a term ID outside the analyzed plan.' );
 
 $selected_relationship_ids = Selection::relationships(
-	[ $selection_post_id, $selection_other_post_id ],
-	$effective_term_ids,
+	[ $selection_post_id, $selection_parent_post_id, $selection_other_post_id ],
+	$flat_term_ids,
 	$guard_source_tax
 );
-$assert_same( [ $selection_post_id ], $selected_relationship_ids, 'Taxonomy relationship filtering retained an object outside the selected term subset.' );
+$assert_same(
+	[ $selection_post_id ],
+	$selected_relationship_ids,
+	'Taxonomy relationship filtering retained an object tied only to an automatic parent dependency or excluded term.'
+);
 
 $selection_taxonomy_job = [
 	'id'                  => 'taxselect' . $suffix,
@@ -387,10 +403,15 @@ $assert(
 	'Selective taxonomy migration did not preserve the required parent relationship.'
 );
 $selected_target_terms = wp_get_object_terms( $selection_post_id, $guard_target_tax, [ 'fields' => 'ids' ] );
+$parent_only_target_terms = wp_get_object_terms( $selection_parent_post_id, $guard_target_tax, [ 'fields' => 'ids' ] );
 $excluded_target_terms = wp_get_object_terms( $selection_other_post_id, $guard_target_tax, [ 'fields' => 'ids' ] );
 $assert(
 	! is_wp_error( $selected_target_terms ) && in_array( $selection_child_target_id, array_map( 'intval', (array) $selected_target_terms ), true ),
 	'Selected taxonomy relationship was not migrated.'
+);
+$assert(
+	! is_wp_error( $parent_only_target_terms ) && empty( $parent_only_target_terms ),
+	'Automatic parent dependency incorrectly broadened taxonomy relationship migration.'
 );
 $assert(
 	! is_wp_error( $excluded_target_terms ) && empty( $excluded_target_terms ),
@@ -461,7 +482,7 @@ $assert_same( [], $clean_rollback['issues'] ?? null, 'Taxonomy rollback did not 
 $assert( $guard_target_id <= 0 || ! get_term( $guard_target_id, $guard_target_tax ) instanceof WP_Term, 'Taxonomy rollback left an unreferenced job-created term behind.' );
 
 // Cleanup source fixtures. Rollback assertions above intentionally happen first.
-foreach ( [ $source_id, $partial_source_id, $finalize_source_id, $finalize_target_id, $selection_post_id, $selection_other_post_id, $external_post_id ] as $post_id ) {
+foreach ( [ $source_id, $partial_source_id, $finalize_source_id, $finalize_target_id, $selection_post_id, $selection_parent_post_id, $selection_other_post_id, $external_post_id ] as $post_id ) {
 	if ( $post_id > 0 ) {
 		wp_delete_post( $post_id, true );
 	}
