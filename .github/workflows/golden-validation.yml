@@ -153,10 +153,11 @@ jobs:
             --admin_email=runtime@example.test \
             --skip-email
           wp plugin install plugin-check --activate --path=/tmp/wordpress
+          wp plugin install "$GITHUB_WORKSPACE/build/core-blueprint-content-migrator-1.0.0.zip" --force --path=/tmp/wordpress
 
       - name: Run WordPress.org Plugin Check
         run: |
-          wp plugin check "$GITHUB_WORKSPACE/build/core-blueprint-content-migrator-1.0.0.zip" \
+          wp plugin check core-blueprint-content-migrator \
             --path=/tmp/wordpress \
             --categories=plugin_repo \
             --format=table \
