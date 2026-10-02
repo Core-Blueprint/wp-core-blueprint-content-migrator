@@ -64,7 +64,7 @@ TESTED_WP="$(header_value "$README" 'Tested up to')"
 [[ "$REQUIRES_WP" == '7.0' && "$README_WP" == '7.0' ]] || fail "Requires at least must be 7.0 in plugin and readme"
 [[ "$REQUIRES_PHP" == '8.4' && "$README_PHP" == '8.4' ]] || fail "Requires PHP must be 8.4 in plugin and readme"
 [[ "$TESTED_WP" == '7.0' ]] || fail "readme Tested up to must be 7.0"
-[[ "$VERSION" =~ ^[0-9]+(\\.[0-9]+){2}$ ]] || fail "stable release version must contain numbers and periods only"
+[[ "$VERSION" =~ ^[0-9]+(\.[0-9]+){2}$ ]] || fail "stable release version must contain numbers and periods only"
 for section in '== Description ==' '== Installation ==' '== Frequently Asked Questions ==' '== Changelog =='; do
   grep -Fqx "$section" "$README" || fail "readme is missing required section: $section"
 done
