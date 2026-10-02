@@ -14,6 +14,8 @@ use CB\ContentMigrator\Migration\TaxonomyRunner;
 
 defined( 'ABSPATH' ) || exit;
 
+// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Domain exceptions are not rendered here; admin presentation escapes messages at the output boundary.
+
 final class Controller {
 	public static function init(): void {
 		foreach ( [ 'analyze', 'create_job', 'run_batch', 'verify', 'rollback', 'finalize', 'clear_plan', 'takeover' ] as $action ) {

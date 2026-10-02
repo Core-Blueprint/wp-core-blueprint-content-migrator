@@ -109,6 +109,7 @@ final class Page {
 	/** @param array<string,mixed> $plan */
 	private static function post_plan( array $plan ): void {
 		?>
+		<?php /* translators: %d: number of source posts found. */ ?>
 		<p><?php printf( esc_html__( '%d source posts found. Copies are created first; the source is not moved or deleted during testing.', 'core-blueprint-content-migrator' ), (int) $plan['total'] ); ?></p>
 		<?php self::post_source_selection( $plan ); ?>
 		<h3><?php esc_html_e( 'Taxonomy mapping', 'core-blueprint-content-migrator' ); ?></h3>
@@ -170,6 +171,7 @@ final class Page {
 	/** @param array<string,mixed> $plan */
 	private static function taxonomy_plan( array $plan ): void {
 		?>
+		<?php /* translators: %d: number of source taxonomy terms found. */ ?>
 		<p><?php printf( esc_html__( '%d source terms found.', 'core-blueprint-content-migrator' ), count( (array) $plan['source_ids'] ) ); ?></p>
 		<?php self::taxonomy_source_selection( $plan ); ?>
 		<div class="notice notice-info inline"><p><?php esc_html_e( 'Conflict rule: an existing target term with the same slug is reused and never overwritten. Only newly created terms receive mapped term meta and rollback markers.', 'core-blueprint-content-migrator' ); ?></p></div>
@@ -177,6 +179,7 @@ final class Page {
 		<?php self::meta_map( (array) $plan['source_meta_keys'], (array) $plan['target_meta_keys'], 'term_meta_map', __( 'Term meta mapping', 'core-blueprint-content-migrator' ) ); ?>
 		<h3><?php esc_html_e( 'Relationships', 'core-blueprint-content-migrator' ); ?></h3>
 		<?php if ( ! empty( $plan['relationships_supported'] ) && (int) $plan['relationship_total'] > 0 ) : ?>
+			<?php /* translators: %d: number of posts whose taxonomy relationships can be remapped. */ ?>
 			<p><label><input type="checkbox" name="copy_relationships" value="1" checked> <?php printf( esc_html__( 'Remap relationships for %d affected posts.', 'core-blueprint-content-migrator' ), (int) $plan['relationship_total'] ); ?></label></p>
 			<p class="description"><?php echo esc_html( implode( ', ', (array) $plan['shared_object_types'] ) ); ?></p>
 		<?php else : ?>
@@ -256,13 +259,17 @@ final class Page {
 		?>
 		<hr><h2><?php esc_html_e( 'Active migration', 'core-blueprint-content-migrator' ); ?></h2>
 		<p><strong><?php echo esc_html( ucfirst( $mode ) ); ?></strong> · <?php echo esc_html( (string) $job['source_label'] ); ?> &rarr; <?php echo esc_html( (string) $job['target_label'] ); ?></p>
+		<?php /* translators: 1: migration status, 2: processed item count, 3: total item count. */ ?>
 		<p><?php printf( esc_html__( 'Status: %1$s · processed %2$d/%3$d', 'core-blueprint-content-migrator' ), esc_html( $status ), (int) ( $job['cursor'] ?? 0 ), (int) ( $job['total'] ?? 0 ) ); ?></p>
 		<?php if ( ! $is_owner ) : ?>
 			<div class="notice notice-warning inline"><p><?php esc_html_e( 'This migration is owned by another administrator. Take ownership explicitly before continuing, verifying, finalizing or rolling it back.', 'core-blueprint-content-migrator' ); ?></p></div>
 			<?php self::takeover_form( $job ); ?>
 			<?php return; ?>
 		<?php endif; ?>
-		<?php if ( ! empty( $job['errors'] ) ) : ?><div class="notice notice-warning inline"><p><?php printf( esc_html__( '%d issues were recorded. Do not finalize before verification passes.', 'core-blueprint-content-migrator' ), count( (array) $job['errors'] ) ); ?></p></div><?php endif; ?>
+		<?php if ( ! empty( $job['errors'] ) ) : ?>
+			<?php /* translators: %d: number of migration issues recorded. */ ?>
+			<div class="notice notice-warning inline"><p><?php printf( esc_html__( '%d issues were recorded. Do not finalize before verification passes.', 'core-blueprint-content-migrator' ), count( (array) $job['errors'] ) ); ?></p></div>
+		<?php endif; ?>
 		<?php if ( in_array( $status, [ 'ready', 'copying', 'copying_terms', 'copying_relationships' ], true ) ) : ?>
 			<p><?php esc_html_e( 'The source is still untouched. Continue until copying is complete.', 'core-blueprint-content-migrator' ); ?></p><?php self::action_form( 'run_batch', 'ready' === $status ? __( 'Start migration', 'core-blueprint-content-migrator' ) : __( 'Run next batch', 'core-blueprint-content-migrator' ), 'primary', $job ); ?>
 		<?php elseif ( in_array( $status, [ 'copied', 'verification_failed' ], true ) ) : ?>
