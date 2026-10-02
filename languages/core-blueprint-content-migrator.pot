@@ -2,7 +2,7 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Core Blueprint Content Migrator 1.0.0-rc1\n"
+"Project-Id-Version: Core Blueprint Content Migrator 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-core-blueprint-content-migrator\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -287,7 +287,7 @@ msgid "Finalize"
 msgstr ""
 
 #: src/Admin/Page.php:184
-msgid "WordPress terms have no Trash. RC1 therefore always keeps the source taxonomy when finalizing."
+msgid "WordPress terms have no Trash. Content Migrator therefore always keeps the source taxonomy when finalizing."
 msgstr ""
 
 #: src/Admin/Page.php:184
