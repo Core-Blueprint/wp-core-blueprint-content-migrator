@@ -55,7 +55,7 @@ $bootstrap = (string) file_get_contents( $root . '/core-blueprint-content-migrat
 foreach ( [
 	'Requires Plugins: core-blueprint' => 'Native Core Blueprint Base dependency is missing.',
 	"CB_CONTENT_MIGRATOR_REQUIRED_API', '1.1'" => 'Core API 1.1 requirement is missing.',
-	"CB_CONTENT_MIGRATOR_REQUIRED_BASE', '1.0.0-rc1'" => 'Minimum Base version requirement is missing.',
+	"CB_CONTENT_MIGRATOR_REQUIRED_BASE', '1.0.0'" => 'Minimum Base version requirement is missing.',
 	'cb_content_migrator_base_ready()' => 'Runtime Base compatibility gate is missing.',
 	'\\CB\\ContentMigrator\\Plugin::boot()' => 'Plugin bootstrap is missing.',
 ] as $needle => $message ) {
@@ -74,7 +74,7 @@ foreach ( [ 'wp_insert_post', 'wp_trash_post', 'wp_delete_post', 'wp_insert_term
 	}
 }
 if ( str_contains( $post_runner, 'wp_delete_post( $source' ) || str_contains( $post_runner, 'wp_delete_post( $source_id' ) ) {
-	$failures[] = 'Source posts must never be permanently deleted in RC1.';
+	$failures[] = 'Source posts must never be permanently deleted in v1.';
 }
 
 $taxonomy_runner = (string) file_get_contents( $root . '/src/Migration/TaxonomyRunner.php' );
@@ -84,7 +84,7 @@ foreach ( [ 'wp_insert_term', 'wp_delete_term', 'wp_set_object_terms', 'wp_remov
 	}
 }
 if ( str_contains( $taxonomy_runner, 'wp_delete_term( $source' ) ) {
-	$failures[] = 'Source taxonomy terms must never be deleted in RC1.';
+	$failures[] = 'Source taxonomy terms must never be deleted in v1.';
 }
 
 $events = (string) file_get_contents( $root . '/src/Governance/Events.php' );
