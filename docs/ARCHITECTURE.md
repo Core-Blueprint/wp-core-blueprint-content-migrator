@@ -1,6 +1,6 @@
 # Architecture
 
-Core Blueprint Content Migrator is a **first-party Core Blueprint extension**. Core Blueprint Base 1.0.0-rc1 or newer and a compatible Core API 1.1 runtime are required. The migration engine uses public WordPress APIs for content changes and Base public contracts for extension registration, status and Governance auditing.
+Core Blueprint Content Migrator is a **first-party Core Blueprint extension**. Core Blueprint Base 1.0.0 or newer and a compatible Core API 1.1 runtime are required. The migration engine uses public WordPress APIs for content changes and Base public contracts for extension registration, status and Governance auditing.
 
 ## Runtime layers
 
@@ -23,7 +23,7 @@ The plugin declares the native WordPress dependency `Requires Plugins: core-blue
 
 The runtime requires:
 
-- Core Blueprint Base `1.0.0-rc1` or newer.
+- Core Blueprint Base `1.0.0` or newer.
 - Core API `1.1` with the same API major and an equal or newer API minor.
 - Public `ExtensionRegistry`, `Governance\EventRegistry` and `Governance\Audit` contracts.
 
@@ -36,8 +36,8 @@ An installed but incompatible Base keeps the Content Migrator runtime inert and 
 3. Every mutating job action is nonce-protected, capability-gated and pinned to the expected active job ID.
 4. One site-level migration job is claimed atomically; stale job writes are refused.
 5. A job has one explicit administrator owner. Another administrator must explicitly take ownership before mutating it.
-6. Source posts are never permanently deleted by RC1.
-7. Source taxonomy terms are never deleted by RC1.
+6. Source posts are never permanently deleted by v1.
+7. Source taxonomy terms are never deleted by v1.
 8. A newly created target post is marked and added to the job map before later meta, image or taxonomy operations can fail.
 9. A newly created target term is marked and tracked before mapped term meta can fail.
 10. Verification fails closed when the copy phase recorded errors.

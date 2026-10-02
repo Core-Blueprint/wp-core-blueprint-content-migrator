@@ -1,8 +1,9 @@
 # Changelog
 
-## Unreleased — Golden safety hardening
+## 1.0.0
 
-- Require Core Blueprint Base 1.0.0-rc1+ and compatible Core API 1.1.
+- Promote Core Blueprint Content Migrator from release candidate to the first stable public release.
+- Require Core Blueprint Base 1.0.0+ and compatible Core API 1.1.
 - Make Extension Registry, status and Governance audit integration part of the normal runtime contract.
 - Track newly created posts and terms before later copy operations can fail so partial copies remain rollbackable.
 - Add object-level capability rechecks for copy, relationship mutation, source Trash and rollback operations.
