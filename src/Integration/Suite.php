@@ -12,8 +12,8 @@ final class Suite {
 	public const ID = 'core-blueprint-content-migrator';
 
 	public static function init(): void {
-		add_action( 'cb_core_register_extensions', [ __CLASS__, 'register_extension' ] );
-		add_filter( 'cb_core_module_status_definitions', [ __CLASS__, 'register_status_definition' ] );
+		add_action( 'core_blueprint_register_extensions', [ __CLASS__, 'register_extension' ] );
+		add_filter( 'core_blueprint_module_status_definitions', [ __CLASS__, 'register_status_definition' ] );
 	}
 
 	public static function register_extension(): void {
