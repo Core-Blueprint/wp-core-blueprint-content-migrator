@@ -5,6 +5,8 @@ namespace CB\ContentMigrator\Migration;
 
 defined( 'ABSPATH' ) || exit;
 
+// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Domain exceptions are not rendered here; admin presentation escapes messages at the output boundary.
+
 final class TaxonomyAnalyzer {
 	/** @return array<string,\WP_Taxonomy> */
 	public static function taxonomies( bool $target = false ): array {

@@ -38,7 +38,7 @@ bash tools/build-release
 
 The builder validates:
 
-- plugin/readme release identity for `1.0.0-rc1`, WordPress 7.0+ and PHP 8.4+;
+- plugin/readme release identity for `1.0.0`, WordPress 7.0+ and PHP 8.4+;
 - the required native `Requires Plugins: core-blueprint` dependency;
 - matching text-domain and runtime version identity;
 - a clean release-source tree outside `build/`;
@@ -56,8 +56,8 @@ Only after all acceptance gates pass does the builder write the SHA-256 checksum
 Output:
 
 ```text
-build/core-blueprint-content-migrator-1.0.0-rc1.zip
-build/core-blueprint-content-migrator-1.0.0-rc1.zip.sha256
+build/core-blueprint-content-migrator-1.0.0.zip
+build/core-blueprint-content-migrator-1.0.0.zip.sha256
 ```
 
 ## Customer runtime boundary

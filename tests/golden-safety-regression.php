@@ -27,16 +27,16 @@ function cb_cm_golden_safety_failures( string $root ): array {
 	$bootstrap = $read( 'core-blueprint-content-migrator.php' );
 	$require( $bootstrap, 'Requires Plugins: core-blueprint', 'Native Core Blueprint Base dependency is missing.' );
 	$require( $bootstrap, "CB_CONTENT_MIGRATOR_REQUIRED_API', '1.1'", 'Required Core API 1.1 contract is missing.' );
-	$require( $bootstrap, "CB_CONTENT_MIGRATOR_REQUIRED_BASE', '1.0.0-rc1'", 'Required Base version contract is missing.' );
+	$require( $bootstrap, "CB_CONTENT_MIGRATOR_REQUIRED_BASE', '1.0.0'", 'Required Base version contract is missing.' );
 	$require( $bootstrap, 'cb_content_migrator_base_ready()', 'Runtime Base compatibility gate is missing.' );
 
 	$suite = $read( 'src/Integration/Suite.php' );
 	$require( $suite, "'requires_base' => CB_CONTENT_MIGRATOR_REQUIRED_BASE", 'Extension Registry does not declare its Base version requirement.' );
 
 	$events = $read( 'src/Governance/Events.php' );
-	$require( $events, '\\CB\\Core\\Governance\\EventRegistry::register', 'Governance event registration is not mandatory.' );
-	$require( $events, '\\CB\\Core\\Governance\\Audit::record', 'Governance audit writes are not mandatory.' );
-	if ( str_contains( $events, "class_exists( '\\\\CB\\Core\\Governance" ) ) {
+	$require( $events, '\\CoreBlueprint\\Core\\Governance\\EventRegistry::register', 'Governance event registration is not mandatory.' );
+	$require( $events, '\\CoreBlueprint\\Core\\Governance\\Audit::record', 'Governance audit writes are not mandatory.' );
+	if ( str_contains( $events, "class_exists( '\\\\CoreBlueprint\\Core\\Governance" ) ) {
 		$failures[] = 'Governance still contains an optional Base fallback.';
 	}
 

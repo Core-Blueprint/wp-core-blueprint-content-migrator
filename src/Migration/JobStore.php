@@ -5,6 +5,8 @@ namespace CB\ContentMigrator\Migration;
 
 defined( 'ABSPATH' ) || exit;
 
+// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Domain exceptions are not rendered here; admin presentation escapes messages at the output boundary.
+
 final class JobStore {
 	private const ACTIVE_OPTION = 'cb_content_migrator_active_job';
 	private const PREFIX = 'cb_content_migrator_job_';

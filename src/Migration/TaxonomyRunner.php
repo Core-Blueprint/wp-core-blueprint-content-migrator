@@ -5,6 +5,8 @@ namespace CB\ContentMigrator\Migration;
 
 defined( 'ABSPATH' ) || exit;
 
+// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Domain exceptions are not rendered here; admin presentation escapes messages at the output boundary.
+
 final class TaxonomyRunner {
 	private const JOB_META    = '_cb_content_migrator_job';
 	private const SOURCE_META = '_cb_content_migrator_source_term_id';

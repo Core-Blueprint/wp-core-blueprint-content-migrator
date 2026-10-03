@@ -104,7 +104,7 @@ register_taxonomy( $guard_target_tax, [ $object_type ], [
 
 // Required Base/runtime integration.
 $assert( function_exists( 'cb_content_migrator_base_ready' ) && cb_content_migrator_base_ready(), 'Required Core Blueprint Base runtime is not ready.' );
-$definition = \CB\Core\ExtensionRegistry::definition( Suite::ID );
+$definition = \CoreBlueprint\Core\ExtensionRegistry::definition( Suite::ID );
 $assert( is_array( $definition ), 'Content Migrator did not register with the Base Extension Registry.' );
 if ( is_array( $definition ) ) {
 	$assert_same( CB_CONTENT_MIGRATOR_REQUIRED_API, $definition['requires_api'] ?? null, 'Extension Registry Core API requirement differs.' );
@@ -112,7 +112,7 @@ if ( is_array( $definition ) ) {
 }
 $assert_same(
 	'maintenance',
-	\CB\Core\Governance\EventRegistry::retention_category( Events::CREATED ),
+	\CoreBlueprint\Core\Governance\EventRegistry::retention_category( Events::CREATED ),
 	'Migration Governance event does not use maintenance retention.'
 );
 

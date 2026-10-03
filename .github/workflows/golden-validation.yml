@@ -28,7 +28,9 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           coverage: none
-          tools: wp-cli
+          tools: wp-cli:2.12.0
+        env:
+          fail-fast: true
 
       - name: Install gettext
         run: sudo apt-get update && sudo apt-get install -y gettext
@@ -79,7 +81,9 @@ jobs:
           php-version: ${{ matrix.php }}
           coverage: none
           extensions: mysqli, sodium
-          tools: wp-cli
+          tools: wp-cli:2.12.0
+        env:
+          fail-fast: true
 
       - name: Install disposable WordPress
         run: |
@@ -99,3 +103,71 @@ jobs:
       - name: Run migration runtime regression
         run: wp eval-file "$GITHUB_WORKSPACE/tests/runtime-migration-regression.php" --path=/tmp/wordpress --user=1
 
+  wordpress_org:
+    name: WordPress.org Plugin Check
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: wordpress
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+          extensions: mysqli
+          tools: wp-cli:2.12.0
+        env:
+          fail-fast: true
+
+      - name: Install gettext
+        run: sudo apt-get update && sudo apt-get install -y gettext
+
+      - name: Build stable package
+        run: bash tools/build-release
+
+      - name: Install disposable WordPress
+        run: |
+          wp core download --path=/tmp/wordpress --force
+          wp config create \
+            --path=/tmp/wordpress \
+            --dbname=wordpress \
+            --dbuser=root \
+            --dbpass=root \
+            --dbhost=127.0.0.1:3306
+          wp core install \
+            --path=/tmp/wordpress \
+            --url=http://content-migrator-wporg.test \
+            --title="Content Migrator WordPress.org Check" \
+            --admin_user=admin \
+            --admin_password='wporg-check-password' \
+            --admin_email=runtime@example.test \
+            --skip-email
+          wp plugin install plugin-check --activate --path=/tmp/wordpress
+          wp plugin install "$GITHUB_WORKSPACE/build/core-blueprint-content-migrator-1.0.0.zip" --force --path=/tmp/wordpress
+
+      - name: Run WordPress.org Plugin Check
+        run: |
+          wp plugin check core-blueprint-content-migrator \
+            --path=/tmp/wordpress \
+            --categories=plugin_repo \
+            --format=table \
+            --error-severity=7 \
+            --warning-severity=6 \
+            --include-low-severity-errors \
+            --exclude-checks=prefixing

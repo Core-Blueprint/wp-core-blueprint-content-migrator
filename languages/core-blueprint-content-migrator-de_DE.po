@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Core Blueprint Content Migrator 1.0.0-rc1\n"
+"Project-Id-Version: Core Blueprint Content Migrator 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-core-blueprint-"
 "content-migrator\n"
 "POT-Creation-Date: 2026-09-23 17:58+0000\n"
@@ -373,10 +373,10 @@ msgstr "Abschließen"
 
 #: src/Admin/Page.php:184
 msgid ""
-"WordPress terms have no Trash. RC1 therefore always keeps the source "
+"WordPress terms have no Trash. Content Migrator therefore always keeps the source "
 "taxonomy when finalizing."
 msgstr ""
-"WordPress-Begriffe haben keinen Papierkorb. RC1 behält daher beim Abschluss "
+"WordPress-Begriffe haben keinen Papierkorb. Content Migrator behält daher beim Abschluss "
 "immer die Quell-Taxonomie."
 
 #: src/Admin/Page.php:184

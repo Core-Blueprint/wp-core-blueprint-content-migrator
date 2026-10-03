@@ -3,7 +3,7 @@
  * Plugin Name:       Core Blueprint Content Migrator
  * Plugin URI:        https://github.com/Core-Blueprint/wp-core-blueprint-content-migrator
  * Description:       Safely migrate WordPress posts and taxonomies with explicit mapping, verification and rollback.
- * Version:           1.0.0-rc1
+ * Version:           1.0.0
  * Author:            Core Blueprint
  * Author URI:        https://coreblueprint.io
  * License:           GPL-2.0+
@@ -21,9 +21,9 @@ declare(strict_types=1);
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'CB_CONTENT_MIGRATOR_VERSION', '1.0.0-rc1' );
+define( 'CB_CONTENT_MIGRATOR_VERSION', '1.0.0' );
 define( 'CB_CONTENT_MIGRATOR_REQUIRED_API', '1.1' );
-define( 'CB_CONTENT_MIGRATOR_REQUIRED_BASE', '1.0.0-rc1' );
+define( 'CB_CONTENT_MIGRATOR_REQUIRED_BASE', '1.0.0' );
 define( 'CB_CONTENT_MIGRATOR_FILE', __FILE__ );
 define( 'CB_CONTENT_MIGRATOR_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CB_CONTENT_MIGRATOR_BASENAME', plugin_basename( __FILE__ ) );
@@ -61,9 +61,9 @@ function cb_content_migrator_base_ready(): bool {
 	}
 	return (int) $available[1] === (int) $required[1]
 		&& (int) $available[2] >= (int) $required[2]
-		&& class_exists( '\\CB\\Core\\ExtensionRegistry' )
-		&& class_exists( '\\CB\\Core\\Governance\\EventRegistry' )
-		&& class_exists( '\\CB\\Core\\Governance\\Audit' );
+		&& class_exists( '\\CoreBlueprint\\Core\\ExtensionRegistry' )
+		&& class_exists( '\\CoreBlueprint\\Core\\Governance\\EventRegistry' )
+		&& class_exists( '\\CoreBlueprint\\Core\\Governance\\Audit' );
 }
 
 add_action( 'plugins_loaded', static function (): void {

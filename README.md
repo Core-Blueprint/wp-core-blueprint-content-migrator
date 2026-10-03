@@ -2,7 +2,7 @@
 
 Core Blueprint Content Migrator is a safety-first Core Blueprint extension for migrating registered post types and taxonomies on the same WordPress site. Core Blueprint Base is required and provides the extension registry, compatibility contract and Governance audit log used by the migration workflow.
 
-## v1.0.0-rc1 scope
+## v1.0.0 scope
 
 ### Post migrations
 
@@ -36,7 +36,7 @@ Core Blueprint Content Migrator is a safety-first Core Blueprint extension for m
 
 Content Migrator does not guess data mappings. A taxonomy or custom field is skipped unless the operator maps it.
 
-The copy phase never deletes or changes source posts. RC1 never permanently deletes source content. The most destructive source action available is moving source posts to normal WordPress Trash after a successful verification.
+The copy phase never deletes or changes source posts. Version 1.0 never permanently deletes source content. The most destructive source action available is moving source posts to normal WordPress Trash after a successful verification.
 
 Rollback uses internal per-job markers and refuses to delete a target whose marker no longer matches the active job. Newly created terms are also preserved when they have gained external content relationships or child terms after the migration started.
 
@@ -55,7 +55,7 @@ To move an existing custom Content Models dictionary into Core Blueprint Diction
 9. Verify.
 10. Finalize and keep the source until the new Dictionary frontend has been tested.
 
-## Not included in RC1
+## Not included in 1.0
 
 - Cross-site migration.
 - Attachment-file duplication (the same Media Library attachment can be reused as featured image).
@@ -67,7 +67,7 @@ To move an existing custom Content Models dictionary into Core Blueprint Diction
 
 - WordPress 7.0+
 - PHP 8.4+
-- Core Blueprint Base 1.0.0-rc1 or newer
+- Core Blueprint Base 1.0.0 or newer
 - Compatible Core Blueprint public API 1.1
 
 Content Migrator is a first-party Core Blueprint extension. It will not boot its migration runtime unless the required Base version and compatible public API are available.
