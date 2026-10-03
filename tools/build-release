@@ -97,6 +97,7 @@ done < <(find "$ROOT" \
 
 echo "==> Running Golden safety and product conformance"
 php "$ROOT/tools/conformance.php"
+php "$ROOT/tests/base-v1-contract-regression.php"
 
 mkdir -p "$BUILD" "$PACKAGE_ROOT/languages"
 ZIP="$BUILD/$SLUG-$VERSION.zip"
