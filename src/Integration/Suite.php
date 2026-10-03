@@ -17,7 +17,7 @@ final class Suite {
 	}
 
 	public static function register_extension(): void {
-		\CB\Core\ExtensionRegistry::register( [
+		\CoreBlueprint\Core\ExtensionRegistry::register( [
 			'id'            => self::ID,
 			'plugin_file'   => CB_CONTENT_MIGRATOR_BASENAME,
 			'requires_api'  => CB_CONTENT_MIGRATOR_REQUIRED_API,

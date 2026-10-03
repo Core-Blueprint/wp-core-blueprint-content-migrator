@@ -39,7 +39,7 @@ final class Events {
 			self::PLAN_CLEARED    => __( 'Content migration plan cleared', 'core-blueprint-content-migrator' ),
 		];
 		foreach ( $labels as $id => $label ) {
-			\CB\Core\Governance\EventRegistry::register( [
+			\CoreBlueprint\Core\Governance\EventRegistry::register( [
 				'id'                 => $id,
 				'label'              => $label,
 				'retention_category' => 'maintenance',
@@ -49,6 +49,6 @@ final class Events {
 
 	/** @param array<string,mixed> $context */
 	public static function record( string $event, string $severity, array $context ): bool {
-		return \CB\Core\Governance\Audit::record( $event, $severity, $context );
+		return \CoreBlueprint\Core\Governance\Audit::record( $event, $severity, $context );
 	}
 }

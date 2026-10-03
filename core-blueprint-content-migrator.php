@@ -61,9 +61,9 @@ function cb_content_migrator_base_ready(): bool {
 	}
 	return (int) $available[1] === (int) $required[1]
 		&& (int) $available[2] >= (int) $required[2]
-		&& class_exists( '\\CB\\Core\\ExtensionRegistry' )
-		&& class_exists( '\\CB\\Core\\Governance\\EventRegistry' )
-		&& class_exists( '\\CB\\Core\\Governance\\Audit' );
+		&& class_exists( '\\CoreBlueprint\\Core\\ExtensionRegistry' )
+		&& class_exists( '\\CoreBlueprint\\Core\\Governance\\EventRegistry' )
+		&& class_exists( '\\CoreBlueprint\\Core\\Governance\\Audit' );
 }
 
 add_action( 'plugins_loaded', static function (): void {

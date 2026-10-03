@@ -39,7 +39,7 @@ foreach ( $iterator as $file ) {
 	$content = (string) file_get_contents( $file->getPathname() );
 	$forbidden = [
 		'cb-core-css-'                  => 'private Base asset handles are forbidden',
-		'CB\\Core\\Admin\\PageRegistry' => 'extensions must not require the private Base Admin PageRegistry',
+		'CoreBlueprint\\Core\\Admin\\PageRegistry' => 'extensions must not require the private Base Admin PageRegistry',
 		'jquery'                        => 'Content Migrator has no jQuery runtime',
 		'cb_post_migrator'              => 'old Post Migrator identifiers must not remain',
 		'CB\\PostMigrator'              => 'old Post Migrator namespace must not remain',

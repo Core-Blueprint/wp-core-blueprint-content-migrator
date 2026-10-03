@@ -34,9 +34,9 @@ function cb_cm_golden_safety_failures( string $root ): array {
 	$require( $suite, "'requires_base' => CB_CONTENT_MIGRATOR_REQUIRED_BASE", 'Extension Registry does not declare its Base version requirement.' );
 
 	$events = $read( 'src/Governance/Events.php' );
-	$require( $events, '\\CB\\Core\\Governance\\EventRegistry::register', 'Governance event registration is not mandatory.' );
-	$require( $events, '\\CB\\Core\\Governance\\Audit::record', 'Governance audit writes are not mandatory.' );
-	if ( str_contains( $events, "class_exists( '\\\\CB\\Core\\Governance" ) ) {
+	$require( $events, '\\CoreBlueprint\\Core\\Governance\\EventRegistry::register', 'Governance event registration is not mandatory.' );
+	$require( $events, '\\CoreBlueprint\\Core\\Governance\\Audit::record', 'Governance audit writes are not mandatory.' );
+	if ( str_contains( $events, "class_exists( '\\\\CoreBlueprint\\Core\\Governance" ) ) {
 		$failures[] = 'Governance still contains an optional Base fallback.';
 	}
 
