@@ -93,7 +93,7 @@ jobs:
 
       - name: Install Core Blueprint Base and Content Migrator
         run: |
-          git clone --depth 1 https://github.com/Core-Blueprint/wp-core-blueprint.git /tmp/wordpress/wp-content/plugins/core-blueprint
+          git clone --depth 1 --branch fix/base-plugin-check-i18n-v1 https://github.com/Core-Blueprint/wp-core-blueprint.git /tmp/wordpress/wp-content/plugins/core-blueprint
           mkdir -p /tmp/wordpress/wp-content/plugins/core-blueprint-content-migrator
           rsync -a             --exclude='.git/'             --exclude='build/'             "$GITHUB_WORKSPACE/"             /tmp/wordpress/wp-content/plugins/core-blueprint-content-migrator/
           wp plugin activate core-blueprint --path=/tmp/wordpress
